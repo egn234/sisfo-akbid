@@ -21,6 +21,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'admin_auth' => \App\Filters\Admin_filter::class,
+        'dosen_auth' => \App\Filters\Dosen_filter::class,
+        'mahasiswa_auth' => \App\Filters\Mahasiswa_filter::class,
+        'login_auth' => \App\Filters\Login_filter::class
     ];
 
     /**
@@ -60,5 +64,21 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'login_auth' => [
+            'before' => [
+                '/',
+                'login-auth'
+            ]
+        ],
+        'admin_auth' => [
+            'before' => ['admin/*']
+        ],
+        'dosen_auth' => [
+            'before' => ['dosen/*']
+        ],
+        'mahasiswa_auth' => [
+            'before' => ['mahasiswa/*']
+        ]
+    ];
 }
