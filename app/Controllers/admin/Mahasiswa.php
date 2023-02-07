@@ -35,6 +35,14 @@ class Mahasiswa extends BaseController
     {
         $m_user = new M_user();
         $account = $m_user->getAccount(session()->get('user_id'));
+
+		$data = [
+			'title' => 'Tambah Mahasiswa',
+			'usertype' => 'Admin',
+			'duser' => $account
+		];
+
+		return view('admin/mhs/add-mhs', $data);
     }
 
 	public function flag_switch($user_id = false)
