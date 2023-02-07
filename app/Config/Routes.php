@@ -11,7 +11,7 @@ $routes = Services::routes();
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Login');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -29,9 +29,10 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Login::index');
 $routes->get('login', 'Login::index');
 $routes->get('logout', 'Login::logout');
+$routes->get('test-page', 'Login::testing');
 
 $routes->post('auth-login', 'Login::login_proc');
 
@@ -39,6 +40,17 @@ $routes->post('auth-login', 'Login::login_proc');
 $routes->group('admin', static function ($routes)
 {
     $routes->get('dashboard', 'Admin\Dashboard::index');
+
+    //KELOLA MAHASISWA
+    $routes->group('mahasiswa', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Mahasiswa::index');
+        $routes->get('list', 'Admin\Mahasiswa::index');
+        $routes->get('add', 'Admin\Mahasiswa::index');
+
+        $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
+        $routes->add('switch-mhs', 'Admin\Mahasiswa::konfirSwitch');
+    });
 });
 
 //GROUP MAHASISWA

@@ -11,7 +11,7 @@ class Dashboard extends BaseController
     public function index()
     {
         $m_user = new M_user();
-        $account = $m_user->where('id', session()->get('user_id'))->first();
+        $account = $m_user->getAccount(session()->get('user_id'));
         
         $data = [
 			'title' => 'Dashboard',

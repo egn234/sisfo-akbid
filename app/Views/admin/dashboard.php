@@ -56,40 +56,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-table me-1"></i>
-                                    Daftar Dosen dan Jumlah Proposal
-                                </div>
-                                <div class="card-body">
-                                    <?= session()->getFlashdata('notif')?>
-                                    <table id="dataTable" class="table table-bordered table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No.</th>
-                                                <th>Nama</th>
-                                                <th>NIP</th>
-                                                <th>Jumlah Proposal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $c = 1 ?>
-                                            <?php foreach ($l_dosen as $a) {?>
-                                                <tr>
-                                                    <td><?=$c?></td>
-                                                    <td><?=$a->nama_lengkap?></td>
-                                                    <td><?=$a->nip?></td>
-                                                    <td><?=$a->jumlah_proposal?></td>
-                                                </tr>
-                                            <?php $c++; ?>
-                                            <?php }?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

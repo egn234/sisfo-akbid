@@ -49,12 +49,46 @@ class Login extends BaseController
                 echo 'password salah';
             }
         }else{
-            echo 'there is no username valid';
+            echo 'tidak ada user terdaftar';
         }
     }
 
     public function logout(){
         session_destroy();
         redirect()->to('/');
+    }
+
+    function testing()
+    {
+        $m_user = new M_user();
+        $options =[
+            'cost' => 12
+        ];
+        
+        $data = [
+            [
+                'username' => 'admin001',
+                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
+                'flag' => '1',
+                'userType' => 'admin'
+            ],
+            [
+                'username' => 'mhs001',
+                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
+                'flag' => '1',
+                'userType' => 'mahasiswa'
+            ],
+            [
+                'username' => 'dosen001',
+                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
+                'flag' => '1',
+                'userType' => 'dosen'
+            ],
+        ];
+
+        for ($i=0; $i < count($data); $i++) { 
+            $m_user->insert($data[$i]);
+        }
+        echo 'success';
     }
 }
