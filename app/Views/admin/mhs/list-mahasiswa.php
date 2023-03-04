@@ -23,10 +23,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Daftar Kategori
+                                Daftar Mahasiswa
                                 <div class="btn-group float-end">
                                     <a href="<?= url_to('admin/mahasiswa/add') ?>" class="btn btn-sm btn-primary">
-                                        Tambah Kategori
+                                        Tambah Mahasiswa
                                     </a>
                                 </div>
                             </div>

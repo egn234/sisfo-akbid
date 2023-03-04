@@ -57,6 +57,7 @@ $routes->group('admin', static function ($routes)
 $routes->group('mahasiswa', static function ($routes)
 {
     $routes->get('dashboard', 'Mahasiswa\Dashboard::index');
+
 });
 
 //GROUP DOSEN
