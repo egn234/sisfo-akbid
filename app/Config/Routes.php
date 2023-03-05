@@ -54,6 +54,15 @@ $routes->group('admin', static function ($routes)
 
         $routes->get('data_mhs','Admin\Mahasiswa::data_mhs');
     });
+
+    // Kelola Dosen
+    $routes->group('dosen', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Dosen::index');
+
+        $routes->get('data_dosen','Admin\Dosen::data_dosen');
+    });
+
 });
 
 //GROUP MAHASISWA
