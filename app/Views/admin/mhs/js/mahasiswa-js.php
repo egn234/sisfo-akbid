@@ -1,4 +1,11 @@
 <script>
+    $(document).ready(function() {
+        document.getElementsByClassName("flatpickr-basic").flatpickr({
+            dateFormat: "Y-m-d"
+        })
+
+    })
+
     let dataTable
     // Data Table
     dataTable = $("#dataTable").DataTable({
@@ -55,7 +62,6 @@
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
-            // console.log(data['list_mhs']);
             dataTable.clear().draw();
             dataTable.rows.add(data['list_mhs']).draw();
         } catch (error) {
