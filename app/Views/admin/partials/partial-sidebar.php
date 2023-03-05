@@ -16,7 +16,7 @@
                             <div class="collapse <?=($title == 'Daftar Mahasiswa' || $title == 'Daftar Dosen' )?'show':''?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link <?= ($title == 'Daftar Mahasiswa')?'active':''?>" href="<?= url_to('admin/mahasiswa') ?>">Mahasiswa</a>
-                                    <a class="nav-link <?= ($title == 'Daftar Dosen')?'active':''?>"" href="<?= url_to('') ?>">Dosen</a>
+                                    <a class="nav-link <?= ($title == 'Daftar Dosen')?'active':''?>"" href="<?= url_to('admin/dosen') ?>">Dosen</a>
                                 </nav>
                             </div>
                         </div>
