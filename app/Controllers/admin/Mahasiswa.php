@@ -9,6 +9,7 @@ use App\Models\M_mahasiswa;
 
 class Mahasiswa extends BaseController
 {
+	
     public function index()
     {
         $m_user = new M_user();
@@ -30,6 +31,29 @@ class Mahasiswa extends BaseController
 
         return view('admin/mhs/list-mahasiswa', $data);
     }
+
+	public function data_mhs()
+	{
+		$m_user = new M_user();
+        $m_mahasiswa = new M_mahasiswa();
+        // $account = $m_user->where('id', session()->get('user_id'))->first();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        
+        $list_mhs = $m_mahasiswa->select('tb_mahasiswa.*, tb_user.username AS username, tb_user.id AS user_id, flag')
+                                ->join('tb_user', 'tb_user.id = tb_mahasiswa.userID')
+                                ->orderBy('tb_mahasiswa.created_at', 'DESC')
+                                ->get()
+                                ->getResult();
+        $data = [
+			'title' => 'Daftar Mahasiswa',
+			'usertype' => 'Admin',
+			'duser' => $account,
+            'list_mhs' => $list_mhs
+        ];
+
+		return json_encode($data);
+	}
+
 
     public function add_mhs()
     {
