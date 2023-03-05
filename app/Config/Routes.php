@@ -50,6 +50,7 @@ $routes->group('admin', static function ($routes)
 
         $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
         $routes->add('switch-mhs', 'Admin\Mahasiswa::konfirSwitch');
+        $routes->add('input-process', 'Admin\Mahasiswa::process_input');
 
         $routes->get('data_mhs','Admin\Mahasiswa::data_mhs');
     });
