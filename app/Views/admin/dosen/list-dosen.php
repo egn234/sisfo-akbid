@@ -63,11 +63,15 @@
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/mahasiswa/input-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/dosen/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">NIM</label>
-                            <input type="text" class="form-control" name="nim" placeholder="NIM">
+                            <label class="form-label">KODE DOSEN</label>
+                            <input type="text" class="form-control" name="kodeDosen" placeholder="KODE DOSEN">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NIP</label>
+                            <input type="text" class="form-control" name="nip" placeholder="NIP">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA</label>
@@ -86,14 +90,6 @@
                             <input type="text" class="form-control" name="nik" placeholder="NIK">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">TEMPAT LAHIR</label>
-                            <input type="text" class="form-control" name="tempatLahir" placeholder="TEMPAT LAHIR">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">TANGGAL LAHIR</label>
-                            <input type="text" class="form-control flatpickr-basic" name="tanggalLahir" placeholder="TANGGAL LAHIR">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">ALAMAT</label>
                             <input type="text" class="form-control" name="alamat" placeholder="ALAMAT">
                         </div>
@@ -106,31 +102,7 @@
                             <input type="text" class="form-control" name="kontak" placeholder="KONTAK">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA IBU</label>
-                            <input type="text" class="form-control" name="namaIbu" placeholder="NAMA IBU">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KONTAK IBU</label>
-                            <input type="text" class="form-control" name="kontakIbu" placeholder="KONTAK IBU">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">NAMA AYAH</label>
-                            <input type="text" class="form-control" name="namaAyah" placeholder="NAMA AYAH">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KONTAK AYAH</label>
-                            <input type="text" class="form-control" name="kontakAyah" placeholder="KONTAK AYAH">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">NAMA WALI</label>
-                            <input type="text" class="form-control" name="namaWali" placeholder="NAMA WALI">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KONTAK WALI</label>
-                            <input type="text" class="form-control" name="kontakWali" placeholder="KONTAK WALI">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">FOTO MAHASISWA</label>
+                            <label for="formFile" class="form-label">FOTO DOSEN</label>
                             <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
                         </div>
                     </div>
