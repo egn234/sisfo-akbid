@@ -17,6 +17,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link <?= ($title == 'Daftar Mahasiswa')?'active':''?>" href="<?= url_to('admin/mahasiswa') ?>">Mahasiswa</a>
                                     <a class="nav-link <?= ($title == 'Daftar Dosen')?'active':''?>"" href="<?= url_to('admin/dosen') ?>">Dosen</a>
+                                    <a class="nav-link <?= ($title == 'Daftar Mata Kuliah')?'active':''?>"" href="<?= url_to('admin/matkul') ?>">Mata Kuliah</a>
                                 </nav>
                             </div>
                         </div>

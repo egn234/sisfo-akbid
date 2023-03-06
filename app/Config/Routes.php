@@ -59,8 +59,17 @@ $routes->group('admin', static function ($routes)
     $routes->group('dosen', static function ($routes)
     {
         $routes->get('/', 'Admin\Dosen::index');
-
         $routes->get('data_dosen','Admin\Dosen::data_dosen');
+    });
+
+    // Kelola Mata Kuliah
+    $routes->group('matkul', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Matakuliah::index');
+        $routes->get('data_matkul','Admin\Matakuliah::data_matkul');
+        $routes->add('input-process', 'Admin\Matakuliah::process_input');
+        $routes->add('delete-process', 'Admin\Matakuliah::process_delete');
+
     });
 
 });
