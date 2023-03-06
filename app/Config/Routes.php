@@ -60,6 +60,9 @@ $routes->group('admin', static function ($routes)
     {
         $routes->get('/', 'Admin\Dosen::index');
         $routes->get('data_dosen','Admin\Dosen::data_dosen');
+        $routes->add('input-process', 'Admin\Dosen::process_input');
+
+        
     });
 
     // Kelola Mata Kuliah

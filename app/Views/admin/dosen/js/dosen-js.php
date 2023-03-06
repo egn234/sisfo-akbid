@@ -57,7 +57,6 @@
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
-            console.log(data);
             dataTable.clear().draw();
             dataTable.rows.add(data['list_dosen']).draw();
         } catch (error) {
