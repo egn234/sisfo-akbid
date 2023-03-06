@@ -1,9 +1,12 @@
 <script>
+    function deleteData(x) {
+        $('#idDel').val($(x).attr('data-idDel'))
+        $('#nameDel').text($(x).attr('data-nameDel'))
+    }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
         })
-
     })
 
     let dataTable
@@ -20,28 +23,24 @@
                 title: 'NO'
             },
             {
-                title: 'NIM',
-                data: "nim"
+                title: 'Kode Mata Kuliah',
+                data: "kodeMatkul"
             },
             {
-                title: 'Nama',
-                data: "nama"
+                title: 'Nama Mata Kuliah',
+                data: "namaMatkul"
             },
             {
-                title: 'JK',
-                data: 'jenisKelamin',
+                title: 'Deskripsi',
+                data: 'deskripsi'
             },
             {
                 title: "Aksi",
-                data: "flag",
+                data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        if (data == 1) {
-                            html = '<a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + data + '">Nonaktifkan</a>'
-                        } else {
-                            html = '<a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + data + '">Aktifkan</a>'
-                        }
+                        html = '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="'+row['namaMatkul']+'" >Hapus</a>'
                         return html
                     }
                     return data
@@ -54,13 +53,13 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>admin/mahasiswa/data_mhs",
+        url: "<?= base_url() ?>admin/matkul/data_matkul",
         type: "get"
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
             dataTable.clear().draw();
-            dataTable.rows.add(data['list_mhs']).draw();
+            dataTable.rows.add(data['list_matkul']).draw();
         } catch (error) {
             console.log(error.message);
         }

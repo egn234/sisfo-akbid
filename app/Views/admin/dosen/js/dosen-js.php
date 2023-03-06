@@ -15,9 +15,6 @@
             targets: "_all",
             defaultContent: "-",
         }, ],
-        order: [
-            [1, 'asc']
-        ],
         data: [],
         columns: [{
                 title: 'NO'
