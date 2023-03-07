@@ -21,7 +21,6 @@ class Login extends BaseController
         $username = $this->request->getPost('username');
         $password = (string) $this->request->getPost('password');
         $data = $m_user->where('username', $username)->first();
-
         if($data){
             $pass = $data['password'];
             $check = password_verify($password, $pass);
@@ -37,7 +36,6 @@ class Login extends BaseController
 					
                 if($data['userType'] == 'admin'){
                     return redirect()->to('admin/dashboard');
-                    echo session()->get('username');
                 }
                 elseif($data['userType'] == 'mahasiswa'){
                     return redirect()->to('mahasiswa/dashboard');
@@ -54,8 +52,12 @@ class Login extends BaseController
     }
 
     public function logout(){
-        session_destroy();
-        redirect()->to('/');
+        $session = session();
+        $session->destroy();
+        $data = [
+            'title' => 'LOGIN'
+        ];
+        return view('login-page', $data);
     }
 
     function testing()
