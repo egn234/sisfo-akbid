@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\Mahasiswa;
 
 use App\Controllers\BaseController;
 
@@ -18,6 +18,6 @@ class Dashboard extends BaseController
 			'usertype' => session()->get('user_type'),
 			'duser' => $account
         ];
-        return view('admin/dashboard', $data);
+        return view('mahasiswa/dashboard', $data);
     }
 }
