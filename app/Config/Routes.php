@@ -75,6 +75,16 @@ $routes->group('admin', static function ($routes)
 
     });
 
+    // Kelola Ruangan
+    $routes->group('ruangan', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Ruangan::index');
+        $routes->get('data_ruangan','Admin\Ruangan::data_ruangan');
+        $routes->add('input-process', 'Admin\Ruangan::process_input');
+        $routes->add('delete-process', 'Admin\Ruangan::process_delete');
+
+    });
+
 });
 
 //GROUP MAHASISWA
