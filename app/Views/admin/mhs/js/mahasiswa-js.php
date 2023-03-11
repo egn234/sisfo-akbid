@@ -54,7 +54,7 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>admin/mahasiswa/data_mhs",
+        url: "<?= base_url() ?>/admin/mahasiswa/data_mhs",
         type: "get"
     }).done(function(result) {
         try {

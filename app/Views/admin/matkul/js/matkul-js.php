@@ -53,7 +53,7 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>admin/matkul/data_matkul",
+        url: "<?= base_url() ?>/admin/matkul/data_matkul",
         type: "get"
     }).done(function(result) {
         try {
