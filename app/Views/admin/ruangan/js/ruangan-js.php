@@ -53,7 +53,7 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>admin/ruangan/data_ruangan",
+        url: "<?= base_url() ?>/admin/ruangan/data_ruangan",
         type: "get"
     }).done(function(result) {
         try {

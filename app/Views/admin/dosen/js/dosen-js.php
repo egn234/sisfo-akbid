@@ -52,7 +52,7 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>admin/dosen/data_dosen",
+        url: "<?= base_url() ?>/admin/dosen/data_dosen",
         type: "get"
     }).done(function(result) {
         try {
