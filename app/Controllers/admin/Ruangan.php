@@ -49,12 +49,11 @@ class Ruangan extends BaseController
 		$m_ruangan = new M_ruangan();
 		
 		$data = array(
-			'kodeRuangan'        => $this->request->getPost('kodeRuangan'),
+			'kodeRuangan'       => $this->request->getPost('kodeRuangan'),
 			'namaRuangan'       => $this->request->getPost('namaRuangan'),
-			'deskripsi' => $this->request->getPost('deskripsi'),
+			'deskripsi' 		=> $this->request->getPost('deskripsi'),
 			
 		);
-        print_r($data);
 		
 		$check = $m_ruangan->insert($data);
 		$alert = view(
@@ -86,5 +85,27 @@ class Ruangan extends BaseController
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/ruangan');
     }
+
+	public function process_update()
+	{
+		$m_ruangan = new M_ruangan();
+		$id = $this->request->getPost('idPut');
+		$data = array(
+			'kodeRuangan'       => $this->request->getPost('kodeRuangan'),
+			'namaRuangan'       => $this->request->getPost('namaRuangan'),
+			'deskripsi' 		=> $this->request->getPost('deskripsi'),
+		);
+		$m_ruangan->update(['id' => $id],$data);
+		$alert = view(
+			'partials/notification-alert',
+			[
+				'notif_text' => 'Data Mata Kuliah Berhasil DiUbah',
+				'status' => 'success'
+			]
+		);
+
+		session()->setFlashdata('notif', $alert);
+		return redirect()->to('admin/ruangan');
+	}
 
 }

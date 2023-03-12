@@ -66,16 +66,20 @@
                 <form action="<?= base_url('admin/dosen/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">KODE DOSEN</label>
-                            <input type="text" class="form-control" name="kodeDosen" placeholder="KODE DOSEN">
+                            <label class="form-label">NAMA</label>
+                            <input type="text" class="form-control" name="nama">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NIP</label>
-                            <input type="text" class="form-control" name="nip" placeholder="NIP">
+                            <input type="text" class="form-control" name="nip">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA</label>
-                            <input type="text" class="form-control" name="nama" placeholder="NAMA">
+                            <label class="form-label">NIK</label>
+                            <input type="text" class="form-control" name="nik">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">KODE DOSEN</label>
+                            <input type="text" class="form-control" name="kodeDosen">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">JENIS KELAMIN</label>
@@ -86,24 +90,28 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIK</label>
-                            <input type="text" class="form-control" name="nik" placeholder="NIK">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">ALAMAT</label>
-                            <input type="text" class="form-control" name="alamat" placeholder="ALAMAT">
+                            <input type="text" class="form-control" name="alamat">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">EMAIL</label>
-                            <input type="text" class="form-control" name="email" placeholder="EMAIL">
+                            <input type="text" class="form-control" name="email">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK</label>
-                            <input type="text" class="form-control" name="kontak" placeholder="KONTAK">
+                            <input type="text" class="form-control" name="kontak">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">FOTO DOSEN</label>
                             <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">USERNAME</label>
+                            <input type="text" class="form-control" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">PASSWORD</label>
+                            <input type="text" class="form-control" name="password">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -115,10 +123,23 @@
         </div>
     </div>
 
-    <div id="switchMahasiswa" class="modal fade" tabindex="-1">
+    <div id="switchDosen" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <span class="fetched-data"></span>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/dosen/switch-dosen') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="user_id" name="user_id" style="display: none;">
+                        <p>Ubah Status User ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

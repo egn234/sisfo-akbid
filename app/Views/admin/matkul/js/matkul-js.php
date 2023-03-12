@@ -3,6 +3,14 @@
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))
     }
+
+    function updateData(x) {
+        $('#idPut').val($(x).attr('data-idPut'))
+        $('#kodePut').val($(x).attr('data-kodePut'))
+        $('#namaMatkulPut').val($(x).attr('data-namePut'))
+        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+    }
+    
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
@@ -40,7 +48,8 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        html = '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="'+row['namaMatkul']+'" >Hapus</a>'
+                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaMatkul'] + '" data-kodePut="' + row['kodeMatkul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
+                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['namaMatkul'] + '" >Hapus</a>'
                         return html
                     }
                     return data

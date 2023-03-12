@@ -44,18 +44,17 @@ class Matakuliah extends BaseController
 		return json_encode($data);
 	}
 
-    public function process_input()
+	public function process_input()
 	{
 		$m_matkul = new M_matkul();
-		
+
 		$data = array(
 			'kodeMatkul'        => $this->request->getPost('kodeMatkul'),
 			'namaMatkul'       => $this->request->getPost('namaMatkul'),
 			'deskripsi' => $this->request->getPost('deskripsi'),
-			
+
 		);
-        print_r($data);
-		
+
 		$check = $m_matkul->insert($data);
 		$alert = view(
 			'partials/notification-alert',
@@ -67,15 +66,14 @@ class Matakuliah extends BaseController
 
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/matkul');
-
 	}
 
-    public function process_delete()
-    {
+	public function process_delete()
+	{
 		$m_matkul = new M_matkul();
-        $id = $this->request->getPost('idDel');
-        $check = $m_matkul->delete(array('id ' => $id));
-        $alert = view(
+		$id = $this->request->getPost('idDel');
+		$check = $m_matkul->delete(array('id ' => $id));
+		$alert = view(
 			'partials/notification-alert',
 			[
 				'notif_text' => 'Data Berhasil Dihapus',
@@ -85,6 +83,27 @@ class Matakuliah extends BaseController
 
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/matkul');
-    }
+	}
 
+	public function process_update()
+	{
+		$m_matkul = new M_matkul();
+		$id = $this->request->getPost('idPut');
+		$data = array(
+			'kodeMatkul'        => $this->request->getPost('kodeMatkul'),
+			'namaMatkul'       	=> $this->request->getPost('namaMatkul'),
+			'deskripsi' 		=> $this->request->getPost('deskripsi')
+		);
+		$m_matkul->update(['id' => $id],$data);
+		$alert = view(
+			'partials/notification-alert',
+			[
+				'notif_text' => 'Data Mata Kuliah Berhasil DiUbah',
+				'status' => 'success'
+			]
+		);
+
+		session()->setFlashdata('notif', $alert);
+		return redirect()->to('admin/matkul');
+	}
 }

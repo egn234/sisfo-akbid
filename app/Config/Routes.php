@@ -48,8 +48,8 @@ $routes->group('admin', static function ($routes)
         $routes->get('list', 'Admin\Mahasiswa::index');
         $routes->get('add', 'Admin\Mahasiswa::index');
 
-        $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
-        $routes->add('switch-mhs', 'Admin\Mahasiswa::konfirSwitch');
+        // $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
+        $routes->add('switch-mhs', 'Admin\Mahasiswa::flag_switch');
         $routes->add('input-process', 'Admin\Mahasiswa::process_input');
 
         $routes->get('data_mhs','Admin\Mahasiswa::data_mhs');
@@ -59,6 +59,7 @@ $routes->group('admin', static function ($routes)
     $routes->group('dosen', static function ($routes)
     {
         $routes->get('/', 'Admin\Dosen::index');
+        $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->get('data_dosen','Admin\Dosen::data_dosen');
         $routes->add('input-process', 'Admin\Dosen::process_input');
 
@@ -71,6 +72,7 @@ $routes->group('admin', static function ($routes)
         $routes->get('/', 'Admin\Matakuliah::index');
         $routes->get('data_matkul','Admin\Matakuliah::data_matkul');
         $routes->add('input-process', 'Admin\Matakuliah::process_input');
+        $routes->add('update-process', 'Admin\Matakuliah::process_update');
         $routes->add('delete-process', 'Admin\Matakuliah::process_delete');
 
     });
@@ -81,6 +83,7 @@ $routes->group('admin', static function ($routes)
         $routes->get('/', 'Admin\Ruangan::index');
         $routes->get('data_ruangan','Admin\Ruangan::data_ruangan');
         $routes->add('input-process', 'Admin\Ruangan::process_input');
+        $routes->add('update-process', 'Admin\Ruangan::process_update');
         $routes->add('delete-process', 'Admin\Ruangan::process_delete');
 
     });

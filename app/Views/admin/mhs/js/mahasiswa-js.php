@@ -1,4 +1,8 @@
 <script>
+    function switchFlag(x) {
+        $('#user_id').val($(x).attr('data-id'))
+        $('#nameUser').text($(x).attr('data-name'))
+    }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
@@ -33,14 +37,14 @@
             },
             {
                 title: "Aksi",
-                data: "flag",
+                data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        if (data == 1) {
-                            html = '<a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + data + '">Nonaktifkan</a>'
+                        if (row['flag'] == 1) {
+                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + data + '">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
                         }
                         return html
                     }
@@ -80,15 +84,15 @@
             this.data(i++);
         });
     }).draw();
-    $('#switchMahasiswa').on('show.bs.modal', function(e) {
-        var rowid = $(e.relatedTarget).data('id');
-        $.ajax({
-            type: 'POST',
-            url: '<?= base_url() ?>/admin/mahasiswa/switch-mhs',
-            data: 'rowid=' + rowid,
-            success: function(data) {
-                $('.fetched-data').html(data);
-            }
-        });
-    });
+    // $('#switchMahasiswa').on('show.bs.modal', function(e) {
+    //     var rowid = $(e.relatedTarget).data('id');
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '<?= base_url() ?>/admin/mahasiswa/switch-mhs',
+    //         data: 'rowid=' + rowid,
+    //         success: function(data) {
+    //             $('.fetched-data').html(data);
+    //         }
+    //     });
+    // });
 </script>

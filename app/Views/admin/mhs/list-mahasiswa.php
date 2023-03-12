@@ -66,12 +66,16 @@
                 <form action="<?= base_url('admin/mahasiswa/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">NIM</label>
-                            <input type="text" class="form-control" name="nim" placeholder="NIM">
+                            <label class="form-label">NAMA</label>
+                            <input type="text" class="form-control" name="nama">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA</label>
-                            <input type="text" class="form-control" name="nama" placeholder="NAMA">
+                            <label class="form-label">NIM</label>
+                            <input type="text" class="form-control" name="nim">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NIK</label>
+                            <input type="text" class="form-control" name="nik">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">JENIS KELAMIN</label>
@@ -82,56 +86,64 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIK</label>
-                            <input type="text" class="form-control" name="nik" placeholder="NIK">
+                            <label class="form-label">TEMPAT/TANGGAL LAHIR</label>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="text" class="form-control" name="tempatLahir">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control flatpickr-basic" name="tanggalLahir">
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">TEMPAT LAHIR</label>
-                            <input type="text" class="form-control" name="tempatLahir" placeholder="TEMPAT LAHIR">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">TANGGAL LAHIR</label>
-                            <input type="text" class="form-control flatpickr-basic" name="tanggalLahir" placeholder="TANGGAL LAHIR">
-                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">ALAMAT</label>
-                            <input type="text" class="form-control" name="alamat" placeholder="ALAMAT">
+                            <input type="text" class="form-control" name="alamat">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">EMAIL</label>
-                            <input type="text" class="form-control" name="email" placeholder="EMAIL">
+                            <input type="text" class="form-control" name="email">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK</label>
-                            <input type="text" class="form-control" name="kontak" placeholder="KONTAK">
+                            <input type="text" class="form-control" name="kontak">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA IBU</label>
-                            <input type="text" class="form-control" name="namaIbu" placeholder="NAMA IBU">
+                            <input type="text" class="form-control" name="namaIbu">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK IBU</label>
-                            <input type="text" class="form-control" name="kontakIbu" placeholder="KONTAK IBU">
+                            <input type="text" class="form-control" name="kontakIbu">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA AYAH</label>
-                            <input type="text" class="form-control" name="namaAyah" placeholder="NAMA AYAH">
+                            <input type="text" class="form-control" name="namaAyah">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK AYAH</label>
-                            <input type="text" class="form-control" name="kontakAyah" placeholder="KONTAK AYAH">
+                            <input type="text" class="form-control" name="kontakAyah">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA WALI</label>
-                            <input type="text" class="form-control" name="namaWali" placeholder="NAMA WALI">
+                            <input type="text" class="form-control" name="namaWali">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK WALI</label>
-                            <input type="text" class="form-control" name="kontakWali" placeholder="KONTAK WALI">
+                            <input type="text" class="form-control" name="kontakWali">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">FOTO MAHASISWA</label>
                             <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">USERNAME</label>
+                            <input type="text" class="form-control" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">PASSWORD</label>
+                            <input type="text" class="form-control" name="password">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -146,10 +158,24 @@
     <div id="switchMahasiswa" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <span class="fetched-data"></span>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/mahasiswa/switch-mhs') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="user_id" name="user_id" style="display: none;">
+                        <p>Ubah Status User ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
 
     <?= $this->include('admin/partials/partial-footer') ?>
 
