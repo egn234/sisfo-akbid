@@ -70,11 +70,43 @@ class Mahasiswa extends BaseController
 		return view('admin/mhs/add-mhs', $data);
 	}
 
-	public function flag_switch($user_id = false)
+	// public function flag_switch($user_id = false)
+	// {
+	// 	$m_user = new M_user();
+	// 	$user = $m_user->where('id', $user_id)->first();
+
+	// 	if ($user['flag'] == 0) {
+	// 		$m_user->where('id', $user_id)->set('flag', '1')->update();
+	// 		$alert = view(
+	// 			'partials/notification-alert',
+	// 			[
+	// 				'notif_text' => 'User Diaktifkan',
+	// 				'status' => 'success'
+	// 			]
+	// 		);
+
+	// 		session()->setFlashdata('notif', $alert);
+	// 	} elseif ($user['flag'] == 1) {
+	// 		$m_user->where('id', $user_id)->set('flag', '0')->update();
+	// 		$alert = view(
+	// 			'partials/notification-alert',
+	// 			[
+	// 				'notif_text' => 'User Dinonaktifkan',
+	// 				'status' => 'success'
+	// 			]
+	// 		);
+
+	// 		session()->setFlashdata('notif', $alert);
+	// 	}
+
+	// 	return redirect()->back();
+	// }
+
+	public function flag_switch()
 	{
 		$m_user = new M_user();
+		$user_id = $this->request->getPost('user_id');
 		$user = $m_user->where('id', $user_id)->first();
-
 		if ($user['flag'] == 0) {
 			$m_user->where('id', $user_id)->set('flag', '1')->update();
 			$alert = view(
@@ -98,28 +130,44 @@ class Mahasiswa extends BaseController
 
 			session()->setFlashdata('notif', $alert);
 		}
-
 		return redirect()->back();
 	}
 
-	public function konfirSwitch()
-	{
-		$m_user = new M_user();
+	// public function konfirSwitch()
+	// {
+	// 	$m_user = new M_user();
 
-		if ($_POST['rowid']) {
-			$id = $_POST['rowid'];
-			$user = $m_user->where('id', $id)->first();
-			$data = ['a' => $user];
-			echo view('admin/mhs/part-mhs-mod-switch', $data);
-		}
-	}
+	// 	if ($_POST['rowid']) {
+	// 		$id = $_POST['rowid'];
+	// 		$user = $m_user->where('id', $id)->first();
+	// 		$data = ['a' => $user];
+	// 		echo view('admin/mhs/part-mhs-mod-switch', $data);
+	// 	}
+	// }
 
 	public function process_input()
 	{
 		$m_mahasiswa = new M_mahasiswa();
+		$m_user = new M_user();
+
+		$options = [
+			'cost' => 12
+		];
+
 		$fileUploadName = $_FILES["fileUpload"]["name"];
 		$fileUploadType = $_FILES['fileUpload']['type'];
 		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
+
+		$username = $this->request->getPost('username');
+		$password = $this->request->getPost('password');
+
+		$dataUser = array(
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_BCRYPT, $options),
+			'userType' => 'mahasiswa'
+		);
+		$idUser = $m_user->insert($dataUser);
+
 		$data = array(
 			'nim'        => $this->request->getPost('nim'),
 			'nama'       => $this->request->getPost('nama'),
@@ -137,11 +185,9 @@ class Mahasiswa extends BaseController
 			'namaWali' => $this->request->getPost('namaWali'),
 			'kontakWali' => $this->request->getPost('kontakWali'),
 			'foto' => $fileUploadName,
-			'userID' => 2
+			'userID' => $idUser
 		);
-		
 		$check = $m_mahasiswa->insert($data);
-		// print_r($check);
 		$alert = view(
 			'partials/notification-alert',
 			[
@@ -152,6 +198,5 @@ class Mahasiswa extends BaseController
 
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/mahasiswa/list');
-
 	}
 }

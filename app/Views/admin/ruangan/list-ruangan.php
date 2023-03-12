@@ -87,6 +87,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="updateData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/ruangan/update-process') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">KODE RUANGAN</label>
+                            <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
+                            <input type="text" class="form-control" name="kodeRuangan" id="kodePut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NAMA RUANGAN</label>
+                            <input type="text" class="form-control" name="namaRuangan" id="namaRuanganPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DESKRIPSI</label>
+                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="delData" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

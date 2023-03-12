@@ -30,6 +30,37 @@ class Dosen extends BaseController
 		return view('admin/dosen/list-dosen', $data);
 	}
 
+	public function flag_switch()
+	{
+		$m_user = new M_user();
+		$user_id = $this->request->getPost('user_id');
+		$user = $m_user->where('id', $user_id)->first();
+		if ($user['flag'] == 0) {
+			$m_user->where('id', $user_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'User Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($user['flag'] == 1) {
+			$m_user->where('id', $user_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'User Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
+
 	// ? Load data into json
 	public function data_dosen()
 	{
@@ -38,7 +69,9 @@ class Dosen extends BaseController
 		// $account = $m_user->where('id', session()->get('user_id'))->first();
 		$account = $m_user->getAccount(session()->get('user_id'));
 
-		$list_dosen = $m_dosen->select('*')
+		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.username AS username, tb_user.id AS user_id, flag')
+			->join('tb_user', 'tb_user.id = tb_dosen.userID')
+			->orderBy('tb_dosen.created_at', 'DESC')
 			->get()
 			->getResult();
 		$data = [
@@ -54,9 +87,26 @@ class Dosen extends BaseController
 	public function process_input()
 	{
 		$m_dosen = new M_dosen();
+		$m_user = new M_user();
+
+		$options = [
+			'cost' => 12
+		];
+
 		$fileUploadName = $_FILES["fileUpload"]["name"];
 		$fileUploadType = $_FILES['fileUpload']['type'];
 		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
+
+		$username = $this->request->getPost('username');
+		$password = $this->request->getPost('password');
+
+		$dataUser = array(
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_BCRYPT, $options),
+			'userType' => 'dosen'
+		);
+		$idUser = $m_user->insert($dataUser);
+
 		$data = array(
 			'kodeDosen'        => $this->request->getPost('kodeDosen'),
 			'nip'       => $this->request->getPost('nip'),
@@ -71,7 +121,6 @@ class Dosen extends BaseController
 		);
 
 		$check = $m_dosen->insert($data);
-		// print_r($check);
 		$alert = view(
 			'partials/notification-alert',
 			[
@@ -82,6 +131,5 @@ class Dosen extends BaseController
 
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/dosen');
-
 	}
 }
