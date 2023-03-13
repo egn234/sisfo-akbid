@@ -98,7 +98,7 @@ class Matakuliah extends BaseController
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil DiUbah',
+				'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
 				'status' => 'success'
 			]
 		);
