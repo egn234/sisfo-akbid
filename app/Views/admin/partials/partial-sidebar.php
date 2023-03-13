@@ -13,12 +13,13 @@
                                 Kelola Pengguna
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?=($title == 'Daftar Mahasiswa' || $title == 'Daftar Dosen' || $title == 'Daftar Mata Kuliah' || $title == 'Daftar Ruangan' )?'show':''?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?=($title == 'Daftar Mahasiswa' || $title == 'Daftar Dosen' || $title == 'Daftar Mata Kuliah' || $title == 'Daftar Ruangan' || $title == 'Daftar Tahun Ajaran' )?'show':''?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link <?= ($title == 'Daftar Mahasiswa')?'active':''?>" href="<?= url_to('admin/mahasiswa') ?>">Mahasiswa</a>
                                     <a class="nav-link <?= ($title == 'Daftar Dosen')?'active':''?>" href="<?= url_to('admin/dosen') ?>">Dosen</a>
                                     <a class="nav-link <?= ($title == 'Daftar Mata Kuliah')?'active':''?>" href="<?= url_to('admin/matkul') ?>">Mata Kuliah</a>
                                     <a class="nav-link <?= ($title == 'Daftar Ruangan')?'active':''?>" href="<?= url_to('admin/ruangan') ?>">Ruangan</a>
+                                    <a class="nav-link <?= ($title == 'Daftar Tahun Ajaran')?'active':''?>" href="<?= url_to('admin/tahunAjaran') ?>">Tahun Ajaran</a>
 
                                 </nav>
                             </div>

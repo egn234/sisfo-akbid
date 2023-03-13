@@ -88,6 +88,17 @@ $routes->group('admin', static function ($routes)
 
     });
 
+    // Kelola Tahun Ajaran
+    $routes->group('tahunAjaran', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Tahunajaran::index');
+        $routes->get('data_tahunajaran','Admin\Tahunajaran::data_tahunajaran');
+        $routes->add('input-process', 'Admin\Tahunajaran::process_input');
+        $routes->add('update-process', 'Admin\Tahunajaran::process_update');
+        $routes->add('delete-process', 'Admin\Tahunajaran::process_delete');
+
+    });
+
 });
 
 //GROUP MAHASISWA

@@ -24,10 +24,10 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Daftar Ruangan
+                            Daftar Tahun Ajaran
                             <div class="btn-group float-end">
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
-                                    Tambah Ruangan
+                                    Tambah Tahun Ajaran
                                 </button>
                             </div>
                         </div>
@@ -63,19 +63,31 @@
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/ruangan/input-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahunAjaran/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">KODE RUANGAN</label>
-                            <input type="text" class="form-control" name="kodeRuangan">
+                            <label class="form-label">TAHUN PERIODE</label>
+                            <input type="text" class="form-control" name="tahunPeriode">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA RUANGAN</label>
-                            <input type="text" class="form-control" name="namaRuangan">
-                        </div>
+                            <label class="form-label">SEMESTER</label>
+                            <select class="form-select" name="semester" required>
+                                <option value="" selected>--Pilih Semester--</option>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                                <option value="pendek">Pendek</option>
+                            </select>                        </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <input type="text" class="form-control" name="deskripsi">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">STATUS</label>
+                            <select class="form-select" name="flag" required>
+                                <option value="" selected>--Pilih Status--</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Non-Aktif</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -94,20 +106,33 @@
                     <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/ruangan/update-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahunAjaran/update-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">KODE RUANGAN</label>
+                            <label class="form-label">TAHUN AJARAN</label>
                             <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="kodeRuangan" id="kodePut">
+                            <input type="text" class="form-control" name="tahunPeriode" id="tahunPut">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA RUANGAN</label>
-                            <input type="text" class="form-control" name="namaRuangan" id="namaRuanganPut">
+                            <label class="form-label">SEMESTER</label>
+                            <select class="form-select" name="semester" id="semesterPut" required>
+                                <option value="" selected>--Pilih Semester--</option>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                                <option value="pendek">Pendek</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">STATUS</label>
+                            <select class="form-select" name="flag" id="flagPut" required>
+                                <option value="" selected>--Pilih Status--</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Non-Aktif</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -125,7 +150,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/matkul/delete-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahunAjaran/delete-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="text" class="form-control" id="idDel" name="idDel" placeholder="KODE MATA KULIAH" style="display: none;">
                         <p>Anda yakin ingin menghapus data? (<b id="nameDel"></b>)</p>
@@ -143,7 +168,7 @@
 
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
     <!-- Datatable with ajax load -->
-    <?= $this->include('admin/ruangan/js/ruangan-js') ?>
+    <?= $this->include('admin/tahunajaran/js/tahunajaran-js') ?>
 </body>
 
 </html>
