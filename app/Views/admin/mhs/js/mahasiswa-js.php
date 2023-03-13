@@ -3,6 +3,12 @@
         $('#user_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+    function updateData(x) {
+        $('#idPut').val($(x).attr('data-idPut'))
+        $('#kodePut').val($(x).attr('data-kodePut'))
+        $('#namaMatkulPut').val($(x).attr('data-namePut'))
+        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+    }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
@@ -34,6 +40,19 @@
             {
                 title: 'JK',
                 data: 'jenisKelamin',
+                render : function(data, type, row, full) {
+                    if (type === 'display') {
+                        let html
+
+                        if (data == 'L') {
+                            html = "Laki-Laki"
+                        } else {
+                            html = "Perempuan" 
+                        }
+                        return html
+                    }
+                    return data
+                }
             },
             {
                 title: "Aksi",
@@ -41,12 +60,14 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
+                        let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaMatkul'] + '" data-kodePut="' + row['kodeMatkul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' 
+
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {
                             html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
                         }
-                        return html
+                        return htmlPut + html
                     }
                     return data
                 }
