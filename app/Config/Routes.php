@@ -99,6 +99,16 @@ $routes->group('admin', static function ($routes)
 
     });
 
+    // Kelola Kelas
+    $routes->group('kelas', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Kelas::index');
+        $routes->get('data_kelas','Admin\Kelas::data_kelas');
+        $routes->add('input-process', 'Admin\Kelas::process_input');
+        $routes->add('update-process', 'Admin\Kelas::process_update');
+        $routes->add('delete-process', 'Admin\Kelas::process_delete');
+
+    });
 });
 
 //GROUP MAHASISWA
