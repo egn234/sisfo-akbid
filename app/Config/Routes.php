@@ -109,6 +109,32 @@ $routes->group('admin', static function ($routes)
         $routes->add('delete-process', 'Admin\Kelas::process_delete');
 
     });
+
+    // Kelola pertanyaan
+    $routes->group('pertanyaan', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Pertanyaan::index');
+        $routes->get('data_pertanyaan','Admin\Pertanyaan::data_pertanyaan');
+        $routes->add('input-process', 'Admin\Pertanyaan::process_input');
+        $routes->add('update-process', 'Admin\Pertanyaan::process_update');
+        $routes->add('delete-process', 'Admin\Pertanyaan::process_delete');
+
+    });
+
+    // Kelola kuesioner
+    $routes->group('kuesioner', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Kuesioner::index');
+        $routes->get('data_kuesioner','Admin\Kuesioner::data_kuesioner');
+        $routes->post('data_pertanyaan','Admin\Kuesioner::data_pertanyaan');
+
+        $routes->add('input-process', 'Admin\Kuesioner::process_input');
+        $routes->add('input-process-pertanyaan', 'Admin\Kuesioner::process_input_pertanyaan');
+
+        $routes->add('update-process', 'Admin\Kuesioner::process_update');
+        $routes->add('delete-process', 'Admin\Kuesioner::process_delete');
+
+    });
 });
 
 //GROUP MAHASISWA
