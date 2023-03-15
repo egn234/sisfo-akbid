@@ -4,16 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_pertanyaan extends Model
+class M_kuesioner extends Model
 {
-    protected $table      = 'tb_pertanyaan';
+    protected $table      = 'tb_kuesioner';
     protected $primaryKey = 'id';
     
     protected $allowedFields = [
-      'pertanyaan',
-      'jenis_pertanyaan',
-      'flag',
-      'kuesionerID'
+      'judul_kuesioner',
+      'flag'
     ];
 
     protected $returnType = 'array';
