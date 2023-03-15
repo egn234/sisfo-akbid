@@ -6,10 +6,8 @@
 
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
-        $('#kodePut').val($(x).attr('data-kodePut'))
-        $('#angkatanPut').val($(x).attr('data-angkatanPut'))
-        $('#tahunPut').val($(x).attr('data-tahunPut'))
-        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+        $('#pertanyaanPut').val($(x).attr('data-pertanyaanPut'))
+        $('#jenisPut').val($(x).attr('data-jenisPut'))
         $('#flagPut').val($(x).attr('data-flagPut'))
 
     }
@@ -33,20 +31,12 @@
                 title: 'NO'
             },
             {
-                title: 'Kode Kelas',
-                data: "kodeKelas"
+                title: 'Pertanyaan',
+                data: "pertanyaan"
             },
             {
-                title: 'Angkatan',
-                data: "angkatan"
-            },
-            {
-                title: 'Tahun Angkatan',
-                data: 'tahunAngkatan'
-            },
-            {
-                title: 'Deskripsi',
-                data: 'deskripsi'
+                title: 'Jenis Pertanyaan',
+                data: "jenis_pertanyaan"
             },
             {
                 title: 'Status',
@@ -70,8 +60,8 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-kodePut="' + row['kodeKelas'] + '" data-angkatanPut="' + row['angkatan'] + '" data-tahunPut="' + row['tahunAngkatan'] + '" data-flagPut="' + row['flag'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
-                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['kodeKelas'] + '" >Hapus</a>'
+                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['pertanyaan'] + '" >Hapus</a>'
                         return html
                     }
                     return data
@@ -84,13 +74,13 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>/admin/kelas/data_kelas",
+        url: "<?= base_url() ?>/admin/pertanyaan/data_pertanyaan",
         type: "get"
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
             dataTable.clear().draw();
-            dataTable.rows.add(data['list_kelas']).draw();
+            dataTable.rows.add(data['list_pertanyaan']).draw();
         } catch (error) {
             console.log(error.message);
         }
