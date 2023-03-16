@@ -132,7 +132,11 @@ $routes->group('admin', static function ($routes)
         $routes->add('input-process-pertanyaan', 'Admin\Kuesioner::process_input_pertanyaan');
 
         $routes->add('update-process', 'Admin\Kuesioner::process_update');
+        $routes->add('update-process-pertanyaan', 'Admin\Kuesioner::process_update_pertanyaan');
+
         $routes->add('delete-process', 'Admin\Kuesioner::process_delete');
+        $routes->add('delete-process-pertanyaan', 'Admin\Kuesioner::process_delete_pertanyaan');
+
 
     });
 });

@@ -128,25 +128,64 @@ class Kuesioner extends BaseController
         return redirect()->to('admin/kuesioner');
     }
 
+    public function process_delete_pertanyaan()
+    {
+        $m_pertanyaan = new M_pertanyaan();
+        $id = $this->request->getPost('idDel');
+        $check = $m_pertanyaan->delete(array('id ' => $id));
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'Data Berhasil Dihapus',
+                'status' => 'success'
+            ]
+        );
+
+        session()->setFlashdata('notif', $alert);
+        return redirect()->to('admin/kuesioner');
+    }
+
     public function process_update()
     {
-    	$m_kuesioner = new M_kuesioner();
-    	$id = $this->request->getPost('idPut');
-    	$data = array(
+        $m_kuesioner = new M_kuesioner();
+        $id = $this->request->getPost('idPut');
+        $data = array(
             'judul_kuesioner'       => $this->request->getPost('judul_kuesioner'),
             'flag'         => $this->request->getPost('flag'),
         );
-    	$m_kuesioner->update(['id' => $id],$data);
-    	$alert = view(
-    		'partials/notification-alert',
-    		[
-    			'notif_text' => 'Data Kuesioner Berhasil Di Ubah',
-    			'status' => 'success'
-    		]
-    	);
+        $m_kuesioner->update(['id' => $id], $data);
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'Data Kuesioner Berhasil Di Ubah',
+                'status' => 'success'
+            ]
+        );
 
-    	session()->setFlashdata('notif', $alert);
-    	return redirect()->to('admin/kuesioner');
+        session()->setFlashdata('notif', $alert);
+        return redirect()->to('admin/kuesioner');
     }
 
+    public function process_update_pertanyaan()
+    {
+        $m_pertanyaan = new M_pertanyaan();
+        $id = $this->request->getPost('idPut');
+        $data = array(
+            'pertanyaan'       => $this->request->getPost('pertanyaan'),
+            'jenis_pertanyaan'       => $this->request->getPost('jenis_pertanyaan'),
+            'flag'         => $this->request->getPost('flagPertanyaan'),
+        );
+        $check = $m_pertanyaan->update(['id' => $id], $data);
+
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'Data Pertanyaan Berhasil Di Ubah',
+                'status' => 'success'
+            ]
+        );
+
+        session()->setFlashdata('notif', $alert);
+        return redirect()->to('admin/kuesioner');
+    }
 }
