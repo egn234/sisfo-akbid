@@ -176,6 +176,48 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="updateDataPertanyaan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/kuesioner/update-process-pertanyaan') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">PERTANYAAN</label>
+                            <input type="text" class="form-control" name="idPut" id="idPertanyaanPut" style="display:none;">
+                            <input type="text" class="form-control" name="pertanyaan" id="pertanyaanPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">JENIS PERTANYAAN</label>
+                            <select class="form-select" name="jenis_pertanyaan" id="jenisPut" required>
+                                <option value="" selected>--Pilih Jenis Pertanyaan--</option>
+                                <option value="PG">PG</option>
+                                <option value="Essay">Essay</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">STATUS</label>
+                            <select class="form-select" name="flagPertanyaan" id="flagPertanyaanPut" required>
+                                <option value="" selected>--Pilih Status--</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Non-Aktif</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="delData" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -187,6 +229,27 @@
                     <div class="modal-body">
                         <input type="text" class="form-control" id="idDel" name="idDel" placeholder="KODE MATA KULIAH" style="display: none;">
                         <p>Anda yakin ingin menghapus data? (<b id="nameDel"></b>)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="delDataPertanyaan" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/kuesioner/delete-process-pertanyaan') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="idPertanyaanDel" name="idDel" placeholder="KODE MATA KULIAH" style="display: none;">
+                        <p>Anda yakin ingin menghapus data? (<b id="namePertanyaanDel"></b>)</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

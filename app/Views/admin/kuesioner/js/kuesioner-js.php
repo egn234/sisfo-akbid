@@ -11,6 +11,19 @@
         $('#flagPut').val($(x).attr('data-flagPut'))
 
     }
+
+    function deleteDataPertanyaan(x) {
+        $('#idPertanyaanDel').val($(x).attr('data-idDel'))
+        $('#namePertanyaanDel').text($(x).attr('data-nameDel'))
+    }
+
+    function updateDataPertanyaan(x) {
+        $('#idPertanyaanPut').val($(x).attr('data-idPut'))
+        $('#pertanyaanPut').val($(x).attr('data-pertanyaanPut'))
+        $('#jenisPut').val($(x).attr('data-jenisPut'))
+        $('#flagPertanyaanPut').val($(x).attr('data-flagPut'))
+
+    }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
@@ -35,7 +48,7 @@
                 data: "judul_kuesioner",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        return '<a onclick="listPertanyaan(this)" data-id="' + row['id'] + '">' + data + '</a>'
+                        return '<a onclick="listPertanyaan(this)" data-id="' + row['id'] + '" style="color:blue;cursor:pointer;">' + data + '</a>'
                     }
                     return data
                 }
@@ -146,8 +159,8 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
-                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['pertanyaan'] + '" >Hapus</a>'
+                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateDataPertanyaan(this)" data-bs-toggle="modal" data-bs-target="#updateDataPertanyaan" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                            '<a class="btn btn-danger btn-sm" onclick="deleteDataPertanyaan(this)" data-bs-toggle="modal" data-bs-target="#delDataPertanyaan" data-idDel="' + data + '" data-nameDel="' + row['pertanyaan'] + '" >Hapus</a>'
                         return html
                     }
                     return data
