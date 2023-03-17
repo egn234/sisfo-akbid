@@ -137,6 +137,19 @@ $routes->group('admin', static function ($routes)
         $routes->add('delete-process', 'Admin\Kuesioner::process_delete');
         $routes->add('delete-process-pertanyaan', 'Admin\Kuesioner::process_delete_pertanyaan');
 
+    });
+
+    // Kelola posting
+    $routes->group('posting', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Posting::index');
+        $routes->get('data_posting','Admin\Posting::data_posting');
+
+        $routes->add('input-process', 'Admin\Posting::process_input');
+
+        $routes->add('update-process', 'Admin\Posting::process_update');
+
+        $routes->add('delete-process', 'Admin\Posting::process_delete');
 
     });
 });
