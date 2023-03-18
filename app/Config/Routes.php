@@ -51,6 +51,7 @@ $routes->group('admin', static function ($routes)
         // $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
         $routes->add('switch-mhs', 'Admin\Mahasiswa::flag_switch');
         $routes->add('input-process', 'Admin\Mahasiswa::process_input');
+        $routes->add('update-process', 'Admin\Mahasiswa::process_update');
 
         $routes->get('data_mhs','Admin\Mahasiswa::data_mhs');
     });
@@ -62,7 +63,7 @@ $routes->group('admin', static function ($routes)
         $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->get('data_dosen','Admin\Dosen::data_dosen');
         $routes->add('input-process', 'Admin\Dosen::process_input');
-
+        $routes->add('update-process', 'Admin\Dosen::process_update');
         
     });
 

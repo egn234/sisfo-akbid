@@ -130,21 +130,49 @@
                     <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/matkul/update-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/dosen/update-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">KODE MATA KULIAH</label>
-                            <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="kodeMatkul" id="kodePut">
+                            <label class="form-label">NAMA</label>
+                            <input type="text" style="display: none;" name="idPut" id="idPut">
+                            <input type="text" class="form-control" name="nama" id="namePut">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA MATA KULIAH</label>
-                            <input type="text" class="form-control" name="namaMatkul" id="namaMatkulPut">
+                            <label class="form-label">NIP</label>
+                            <input type="text" class="form-control" name="nip" id="nipPut">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                            <label class="form-label">NIK</label>
+                            <input type="text" class="form-control" name="nik" id="nikPut">
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">KODE DOSEN</label>
+                            <input type="text" class="form-control" name="kodeDosen" id="kodeDosenPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">JENIS KELAMIN</label>
+                            <select class="form-select" name="jenisKelamin" id="jenisKelaminPut" required>
+                                <option value="" selected>--Pilih Jenis Kelamin--</option>
+                                <option value="L">Laki-Laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALAMAT</label>
+                            <input type="text" class="form-control" name="alamat" id="alamatPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">EMAIL</label>
+                            <input type="text" class="form-control" name="email" id="emailPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">KONTAK</label>
+                            <input type="text" class="form-control" name="kontak" id="kontakPut">
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="formFile" class="form-label">FOTO DOSEN</label>
+                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

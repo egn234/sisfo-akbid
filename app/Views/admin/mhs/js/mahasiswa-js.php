@@ -5,9 +5,22 @@
     }
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
-        $('#kodePut').val($(x).attr('data-kodePut'))
-        $('#namaMatkulPut').val($(x).attr('data-namePut'))
-        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+        $('#namePut').val($(x).attr('data-namePut'))
+        $('#nimPut').val($(x).attr('data-nimPut'))
+        $('#nikPut').val($(x).attr('data-nikPut'))
+        $('#jenisKelaminPut').val($(x).attr('data-jenisKelaminPut'))
+        $('#tempatLahirPut').val($(x).attr('data-tempatLahirPut'))
+        $('#tanggalLahirPut').val($(x).attr('data-tanggalLahirPut'))
+        $('#alamatPut').val($(x).attr('data-alamatPut'))
+        $('#emailPut').val($(x).attr('data-emailPut'))
+        $('#kontakPut').val($(x).attr('data-kontakPut'))
+        $('#namaIbuPut').val($(x).attr('data-namaIbuPut'))
+        $('#kontakIbuPut').val($(x).attr('data-kontakIbuPut'))
+        $('#namaAyahPut').val($(x).attr('data-namaAyahPut'))
+        $('#kontakAyahPut').val($(x).attr('data-kontakAyahPut'))
+        $('#namaWaliPut').val($(x).attr('data-namaWaliPut'))
+        $('#kontakWaliPut').val($(x).attr('data-kontakWaliPut'))
+
     }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
@@ -59,8 +72,13 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
+                        console.log(row);
                         let html
-                        let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaMatkul'] + '" data-kodePut="' + row['kodeMatkul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' 
+                        let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" '+
+                        ' data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-emailPut="' + row['email'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '"  data-nimPut="' + row['nim'] + '"  data-nikPut="' + row['nik'] +'"'+ 
+                        ' data-kontakAyahPut="' + row['kontakAyah'] + '" data-kontakIbuPut="' + row['kontakIbu'] + '" data-kontakWaliPut="' + row['kontakWali'] + '"'+
+                        ' data-namaAyahPut="' + row['namaAyah'] + '" data-namaIbuPut="' + row['namaIbu'] + '" data-namaWaliPut="' + row['namaWali'] + '"'+
+                        ' data-tanggalLahirPut="' + row['tanggalLahir'] + '" data-tempatLahirPut="' + row['tempatLahir'] + '"  data-alamatPut="' + row['alamat'] + '"  data-kontakPut="' + row['kontak'] + '" >Ubah</a>' 
 
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
