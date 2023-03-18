@@ -136,12 +136,11 @@ class Dosen extends BaseController
 	public function process_update()
 	{
 		$m_dosen = new M_dosen();
-		$m_user = new M_user();
 
 		$id = $this->request->getPost('idPut');
-		$fileUploadName = $_FILES["fileUpload"]["name"];
-		$fileUploadType = $_FILES['fileUpload']['type'];
-		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
+		// $fileUploadName = $_FILES["fileUpload"]["name"];
+		// $fileUploadType = $_FILES['fileUpload']['type'];
+		// $fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
 		$data = array(
 			'kodeDosen'        => $this->request->getPost('kodeDosen'),
 			'nip'       => $this->request->getPost('nip'),
@@ -151,19 +150,18 @@ class Dosen extends BaseController
 			'alamat' => $this->request->getPost('alamat'),
 			'email' => $this->request->getPost('email'),
 			'kontak' => $this->request->getPost('kontak'),
-			'foto' => $fileUploadName,
-			'userID' => $this->request->getPost('idUser')
+			// 'foto' => $fileUploadName
 		);
 		$m_dosen->update(['id' => $id], $data);
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
+				'notif_text' => 'Data Dosen Berhasil Di Ubah',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/mahasiswa/listl');
+		return redirect()->to('admin/dosen');
 	}
 }

@@ -203,12 +203,11 @@ class Mahasiswa extends BaseController
 	public function process_update()
 	{
 		$m_mahasiswa = new M_mahasiswa();
-		$m_user = new M_user();
 
 		$id = $this->request->getPost('idPut');
-		$fileUploadName = $_FILES["fileUpload"]["name"];
-		$fileUploadType = $_FILES['fileUpload']['type'];
-		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
+		// $fileUploadName = $_FILES["fileUpload"]["name"];
+		// $fileUploadType = $_FILES['fileUpload']['type'];
+		// $fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
 		$data = array(
 			'nim'        => $this->request->getPost('nim'),
 			'nama'       => $this->request->getPost('nama'),
@@ -225,19 +224,18 @@ class Mahasiswa extends BaseController
 			'kontakAyah' => $this->request->getPost('kontakAyah'),
 			'namaWali' => $this->request->getPost('namaWali'),
 			'kontakWali' => $this->request->getPost('kontakWali'),
-			'foto' => $fileUploadName,
-			'userID' => $this->request->getPost('idUser')
+			// 'foto' => $fileUploadName
 		);
 		$m_mahasiswa->update(['id' => $id],$data);
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
+				'notif_text' => 'Data Dosen Berhasil Di Ubah',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/mahasiswa/listl');
+		return redirect()->to('admin/mahasiswa/list');
 	}
 }
