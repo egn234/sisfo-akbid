@@ -83,6 +83,28 @@ class Dosen extends BaseController
 
 		return json_encode($data);
 	}
+	public function data_dosen_flag()
+	{
+		$m_user = new M_user();
+		$m_dosen = new M_dosen();
+		// $account = $m_user->where('id', session()->get('user_id'))->first();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.username AS username, tb_user.id AS user_id, flag')
+			->join('tb_user', 'tb_user.id = tb_dosen.userID')
+			->where('tb_user.flag','1')
+			->orderBy('tb_dosen.created_at', 'DESC')
+			->get()
+			->getResult();
+		$data = [
+			'title' => 'Daftar Dosen',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'list_dosen' => $list_dosen
+		];
+
+		return json_encode($data);
+	}
 
 	public function process_input()
 	{

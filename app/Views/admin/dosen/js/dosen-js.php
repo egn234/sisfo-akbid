@@ -67,7 +67,6 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        console.log(row);
                         let html
                         let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal"'+
                         ' data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-nipPut="' + row['nip'] + '" data-alamatPut="' + row['alamat'] + '"  data-emailPut="' + row['email'] + '"  data-kodeDosenPut="' + row['kodeDosen'] + '"  data-kontakPut="' + row['kontak'] + '"  data-jenisKelaminPut="' + row['jenisKelamin'] + '" data-nikPut="'+row['nik']+'">Ubah</a>' 

@@ -62,6 +62,7 @@ $routes->group('admin', static function ($routes)
         $routes->get('/', 'Admin\Dosen::index');
         $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->get('data_dosen','Admin\Dosen::data_dosen');
+        $routes->get('data_dosen_flag','Admin\Dosen::data_dosen_flag');
         $routes->add('input-process', 'Admin\Dosen::process_input');
         $routes->add('update-process', 'Admin\Dosen::process_update');
         
@@ -105,9 +106,15 @@ $routes->group('admin', static function ($routes)
     {
         $routes->get('/', 'Admin\Kelas::index');
         $routes->get('data_kelas','Admin\Kelas::data_kelas');
+        $routes->get('detail/(:any)','Admin\Kelas::detail_kelas/$1');
+
         $routes->add('input-process', 'Admin\Kelas::process_input');
         $routes->add('update-process', 'Admin\Kelas::process_update');
         $routes->add('delete-process', 'Admin\Kelas::process_delete');
+        $routes->add('data-detail-kelas', 'Admin\Kelas::detail_data_kelas');
+
+        $routes->add('add_dosen_wali', 'Admin\Kelas::add_dosen_wali');
+        $routes->add('remove_dosen_wali', 'Admin\Kelas::remove_dosen_wali');
 
     });
 

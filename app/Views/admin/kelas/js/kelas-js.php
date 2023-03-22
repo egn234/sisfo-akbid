@@ -1,4 +1,8 @@
 <script>
+    function detailPage(x) {
+        window.location.href = "<?= base_url() ?>/admin/kelas/detail/"+$(x).attr('data-idKelas');
+    }
+
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))
@@ -70,7 +74,8 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-kodePut="' + row['kodeKelas'] + '" data-angkatanPut="' + row['angkatan'] + '" data-tahunPut="' + row['tahunAngkatan'] + '" data-flagPut="' + row['flag'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
+                        html = '<a onclick="detailPage(this)" data-idKelas="' + data + '" class="btn btn-info btn-sm" style="margin-right:2%;" >Detail</a>' +
+                            '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-kodePut="' + row['kodeKelas'] + '" data-angkatanPut="' + row['angkatan'] + '" data-tahunPut="' + row['tahunAngkatan'] + '" data-flagPut="' + row['flag'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['kodeKelas'] + '" >Hapus</a>'
                         return html
                     }
