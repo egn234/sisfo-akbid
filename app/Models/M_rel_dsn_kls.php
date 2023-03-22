@@ -4,16 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_kelas extends Model
+class M_rel_dsn_kls extends Model
 {
-    protected $table      = 'tb_kelas';
+    protected $table      = 'rel_dsn_kls';
     protected $primaryKey = 'id';
     
     protected $allowedFields = [
-      'kodeKelas',
-      'angkatan',
-      'tahunAngkatan',
-      'deskripsi',
+      'dosenID',
+      'kelasID',
       'flag'
     ];
 
