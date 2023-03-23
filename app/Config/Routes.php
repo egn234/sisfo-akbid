@@ -54,6 +54,8 @@ $routes->group('admin', static function ($routes)
         $routes->add('update-process', 'Admin\Mahasiswa::process_update');
 
         $routes->get('data_mhs','Admin\Mahasiswa::data_mhs');
+        $routes->get('data_mhs_flag','Admin\Mahasiswa::data_mhs_flag');
+
     });
 
     // Kelola Dosen
@@ -113,8 +115,14 @@ $routes->group('admin', static function ($routes)
         $routes->add('delete-process', 'Admin\Kelas::process_delete');
         $routes->add('data-detail-kelas', 'Admin\Kelas::detail_data_kelas');
 
+        // Dosen wali Kelas
+
         $routes->add('add_dosen_wali', 'Admin\Kelas::add_dosen_wali');
         $routes->add('remove_dosen_wali', 'Admin\Kelas::remove_dosen_wali');
+
+        // Kelas mahasiswa
+        $routes->add('ploting_Kelas_Mhs', 'Admin\Kelas::ploting_Kelas_Mhs');
+        $routes->add('remove_mhs', 'Admin\Kelas::remove_mhs');
 
     });
 
@@ -158,6 +166,20 @@ $routes->group('admin', static function ($routes)
         $routes->add('update-process', 'Admin\Posting::process_update');
 
         $routes->add('delete-process', 'Admin\Posting::process_delete');
+
+    });
+
+    // Kelola posting
+    $routes->group('kordinator', static function ($routes)
+    {
+        $routes->get('/', 'Admin\Kordinator::index');
+        $routes->get('data_kordinator','Admin\Kordinator::data_kordinator');
+
+        $routes->add('input-process', 'Admin\Kordinator::process_input');
+
+        $routes->add('update-process', 'Admin\Kordinator::process_update');
+
+        $routes->add('delete-process', 'Admin\Kordinator::process_delete');
 
     });
 });
