@@ -26,10 +26,10 @@
 
                                 </nav>
                             </div>
-                            <!-- <a class="nav-link <?= ($title == 'Daftar Dosen Wali') ? 'active' : '' ?>" href="<?= url_to('admin/dashboard') ?>">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Kelola Dosen Wali
-                            </a> -->
+                            <a class="nav-link <?= ($title == 'Daftar Kordinator Mata Kuliah') ? 'active' : '' ?>" href="<?= url_to('admin/kordinator') ?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Kelola Kordinator Mata Kuliah
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

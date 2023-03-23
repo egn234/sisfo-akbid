@@ -23,6 +23,35 @@
         });
     }
 
+    function removeMhs(x) {
+        $('#idDelMhs').val($(x).attr('data-idDel'))
+        $('#nameDelMhs').text($(x).attr('data-nameDel'))
+    }
+
+    function removeMhsProcess(x) {
+        $.ajax({
+            url: "<?= base_url() ?>/admin/kelas/remove_mhs",
+            type: "post",
+            data: {
+                idDel: $('#idDelMhs').val()
+            }
+        }).done(function(result) {
+            try {
+                var data = jQuery.parseJSON(result);
+                if (data[0]['status'] == 'success') {
+                    alert(data[0]['notif_text']) ? "" : location.reload();
+                } else {
+                    alert('Gagal') ? "" : location.reload();
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            // needs to implement if it fails
+        });
+    }
+
     function pilihDosen(x) {
         $.ajax({
             url: "<?= base_url() ?>/admin/kelas/add_dosen_wali",
@@ -47,7 +76,32 @@
             // needs to implement if it fails
         });
     }
-    let dataDosen, dataTable
+
+    function plotMhs(x) {
+        $.ajax({
+            url: "<?= base_url() ?>/admin/kelas/ploting_Kelas_Mhs",
+            type: "post",
+            data: {
+                kelasID: $('#id-kelas-mhs').val(),
+                mahasiswaID: $(x).attr('data-idMhs')
+            }
+        }).done(function(result) {
+            try {
+                var data = jQuery.parseJSON(result);
+                if (data[0]['status'] == 'success') {
+                    alert(data[0]['notif_text']) ? "" : location.reload();
+                } else {
+                    alert('Gagal') ? "" : location.reload();
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            // needs to implement if it fails
+        });
+    }
+    let dataDosen, dataTable, dataMhs
 
     function removeDosen(x) {
         $('#idDel').val($(x).attr('data-idDos'))
@@ -82,11 +136,54 @@
         ]
     });
 
+    dataMhs = $("#dataTableMhs").DataTable({
+        columnDefs: [{
+            searchable: true,
+            orderable: false,
+            targets: "_all",
+            defaultContent: "-",
+        }, ],
+        data: [],
+        columns: [{},
+            {
+                data: "nim"
+            },
+            {
+                data: "nama"
+            },
+            {
+                data: "id",
+                render: function(data, type, row, full) {
+                    if (type === 'display') {
+                        let html
+                        if (row['idRelasiKls'] == null) {
+                            html = '<a type="button" onclick="plotMhs(this)" data-idMhs="' + data + '" class="btn btn-sm btn-primary">PILIH</a>'
+                        } else {
+                            html = ''
+                        }
+                        return html
+                    }
+                    return data
+                }
+            }
+        ]
+    });
     // Numbering Row
     dataDosen.on('order.dt search.dt', function() {
         let i = 1;
 
         dataDosen.cells(null, 0, {
+            search: 'applied',
+            order: 'applied'
+        }).every(function(cell) {
+            this.data(i++);
+        });
+    }).draw();
+    // Numbering Row
+    dataMhs.on('order.dt search.dt', function() {
+        let i = 1;
+
+        dataMhs.cells(null, 0, {
             search: 'applied',
             order: 'applied'
         }).every(function(cell) {
@@ -104,6 +201,25 @@
                 var data = jQuery.parseJSON(result);
                 dataDosen.clear().draw();
                 dataDosen.rows.add(data['list_dosen']).draw();
+            } catch (error) {
+                console.log(error.message);
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            // needs to implement if it fails
+        });
+    }
+
+    function listMhs(x) {
+        $('#id-kelas-mhs').val(<?= $idKelas ?>)
+        $.ajax({
+            url: "<?= base_url() ?>/admin/mahasiswa/data_mhs_flag",
+            type: "get"
+        }).done(function(result) {
+            try {
+                var data = jQuery.parseJSON(result);
+                dataMhs.clear().draw();
+                dataMhs.rows.add(data['list_mhs']).draw();
             } catch (error) {
                 console.log(error.message);
             }
@@ -157,19 +273,8 @@
                     data: "id",
                     render: function(data, type, row, full) {
                         if (type === 'display') {
-                            let html
-                            let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" ' +
-                                ' data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-emailPut="' + row['email'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '"  data-nimPut="' + row['nim'] + '"  data-nikPut="' + row['nik'] + '"' +
-                                ' data-kontakAyahPut="' + row['kontakAyah'] + '" data-kontakIbuPut="' + row['kontakIbu'] + '" data-kontakWaliPut="' + row['kontakWali'] + '"' +
-                                ' data-namaAyahPut="' + row['namaAyah'] + '" data-namaIbuPut="' + row['namaIbu'] + '" data-namaWaliPut="' + row['namaWali'] + '"' +
-                                ' data-tanggalLahirPut="' + row['tanggalLahir'] + '" data-tempatLahirPut="' + row['tempatLahir'] + '"  data-alamatPut="' + row['alamat'] + '"  data-kontakPut="' + row['kontak'] + '" >Ubah</a>'
-
-                            if (row['flag'] == 1) {
-                                html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
-                            } else {
-                                html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '">Aktifkan</a>'
-                            }
-                            return htmlPut + html
+                            let html = '<a class="btn btn-danger btn-sm" onclick="removeMhs(this)" data-bs-toggle="modal" data-bs-target="#remove-Mhs" data-idDel="' + data + '" data-nameDel="' + row['nim'] + ' - ' + row['nama'] +'" >Hapus</a>'
+                            return html
                         }
                         return data
                     }

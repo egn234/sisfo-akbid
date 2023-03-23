@@ -7,6 +7,8 @@ use App\Controllers\BaseController;
 use App\Models\M_user;
 use App\Models\M_kelas;
 use App\Models\M_rel_dsn_kls;
+use App\Models\M_rel_mhs_kls;
+
 
 
 class Kelas extends BaseController
@@ -185,5 +187,40 @@ class Kelas extends BaseController
         );
         return json_encode($alert);
 
+    }
+
+    public function ploting_Kelas_Mhs()
+    {
+        $m_rel_mhs_kls = new M_rel_mhs_kls();
+
+        $data = array(
+            'mahasiswaID'       => $this->request->getPost('mahasiswaID'),
+            'kelasID'       => $this->request->getPost('kelasID'),
+            'flag'         => 1
+        );
+        $check = $m_rel_mhs_kls->insert($data);
+
+        $alert = array(
+            [
+                'notif_text' => 'Mahasiswa Berhasil Ditambahkan ke kelas',
+                'status' => 'success'
+            ]
+        );
+        return json_encode($alert);
+    }
+
+    public function remove_mhs()
+    {
+        $m_rel_mhs_kls = new M_rel_mhs_kls();
+        $id = $this->request->getPost('idDel');
+        $m_rel_mhs_kls->where('mahasiswaID', $id);
+        $check = $m_rel_mhs_kls->delete();
+        $alert = array(
+            [
+                'notif_text' => 'Mahasiswa Berhasil Diremove',
+                'status' => 'success'
+            ]
+        );
+        return json_encode($alert);
     }
 }

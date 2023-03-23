@@ -55,6 +55,30 @@ class Mahasiswa extends BaseController
 		return json_encode($data);
 	}
 
+	public function data_mhs_flag()
+	{
+		$m_user = new M_user();
+		$m_mahasiswa = new M_mahasiswa();
+		// $account = $m_user->where('id', session()->get('user_id'))->first();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$list_mhs = $m_mahasiswa->select('tb_mahasiswa.* , rel_mhs_kls.id as idRelasiKls, tb_user.flag')
+			->join('tb_user', 'tb_user.id = tb_mahasiswa.userID','left')
+			->join('rel_mhs_kls', 'tb_mahasiswa.id = rel_mhs_kls.mahasiswaID','left')
+			->where('tb_user.flag','1')
+			->orderBy('tb_mahasiswa.created_at', 'DESC')
+			->get()
+			->getResult();
+		$data = [
+			'title' => 'Daftar Mahasiswa',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'list_mhs' => $list_mhs
+		];
+
+		return json_encode($data);
+	}
+
 
 	public function add_mhs()
 	{
