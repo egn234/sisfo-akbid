@@ -90,8 +90,9 @@ class Dosen extends BaseController
 		// $account = $m_user->where('id', session()->get('user_id'))->first();
 		$account = $m_user->getAccount(session()->get('user_id'));
 
-		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.username AS username, tb_user.id AS user_id, flag')
-			->join('tb_user', 'tb_user.id = tb_dosen.userID')
+		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.flag, rel_dsn_kls.id AS idRelKls , tb_user.username AS username, tb_user.id AS user_id')
+			->join('tb_user', 'tb_user.id = tb_dosen.userID', 'left')
+			->join('rel_dsn_kls', 'tb_dosen.id = rel_dsn_kls.dosenID', 'left')
 			->where('tb_user.flag','1')
 			->orderBy('tb_dosen.created_at', 'DESC')
 			->get()

@@ -18,6 +18,7 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4"><?= $titleDetail ?></h1>
                     <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active"><a href="<?= url_to('admin/kelas'); ?>">Daftar Kelas</a></li>
                         <li class="breadcrumb-item active"><?= $titleDetail ?></li>
                     </ol>
 
@@ -116,7 +117,7 @@
 
     <!-- CRUD Modal -->
     <div class="modal fade" id="pilih-Dosen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Daftar Dosen</h5>
@@ -154,7 +155,7 @@
     </div>
 
     <div class="modal fade" id="createDataMhs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Plotting Kelas Mahasiswa</h5>
@@ -162,29 +163,29 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- <form action="<?= base_url('admin/kelas/input-process') ?>" method="POST" enctype="multipart/form-data"> -->
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <table id="dataTableMhs" class="table table-bordered table-responsive" style="width:100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIM</th>
-                                            <th>Nama</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table id="dataTableMhs" class="table table-bordered table-responsive" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>NIM</th>
+                                        <th>Nama</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
+                </div>
                 <!-- </form> -->
             </div>
         </div>

@@ -188,4 +188,30 @@ class Kuesioner extends BaseController
         session()->setFlashdata('notif', $alert);
         return redirect()->to('admin/kuesioner');
     }
+
+    public function flag_switch()
+    {
+        $m_kuesioner = new M_kuesioner();
+        $id = $this->request->getPost('idPut');
+        $data = array(
+            'flag'         => $this->request->getPost('flag'),
+        );
+        $m_kuesioner->update(['id' => $id], $data);
+        if ($data['flag'] == 1) {
+            $alert = array(
+                [
+                    'notif_text' => 'Data Kuesioner Berhasil Di Aktifkan',
+                    'status' => 'success'
+                ]
+            );
+        } else {
+            $alert = array(
+                [
+                    'notif_text' => 'Data Kuesioner Berhasil Di Non-Aktifkan',
+                    'status' => 'success'
+                ]
+            );
+        }
+        return json_encode($alert);
+    }
 }

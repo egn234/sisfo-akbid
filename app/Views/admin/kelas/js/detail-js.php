@@ -127,7 +127,12 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html = '<a type="button" onclick="pilihDosen(this)" data-idDos="' + data + '" class="btn btn-sm btn-primary">PILIH</a>'
+                        let html
+                        if (row['idRelKls'] == null) {
+                            html = '<a type="button" onclick="pilihDosen(this)" data-idDos="' + data + '" class="btn btn-sm btn-primary">PILIH</a>'
+                        } else {
+                            html = 'Sudah Terdaftar'
+                        }
                         return html
                     }
                     return data
@@ -159,7 +164,7 @@
                         if (row['idRelasiKls'] == null) {
                             html = '<a type="button" onclick="plotMhs(this)" data-idMhs="' + data + '" class="btn btn-sm btn-primary">PILIH</a>'
                         } else {
-                            html = ''
+                            html = 'Sudah Terdaftar'
                         }
                         return html
                     }
@@ -273,7 +278,7 @@
                     data: "id",
                     render: function(data, type, row, full) {
                         if (type === 'display') {
-                            let html = '<a class="btn btn-danger btn-sm" onclick="removeMhs(this)" data-bs-toggle="modal" data-bs-target="#remove-Mhs" data-idDel="' + data + '" data-nameDel="' + row['nim'] + ' - ' + row['nama'] +'" >Hapus</a>'
+                            let html = '<a class="btn btn-danger btn-sm" onclick="removeMhs(this)" data-bs-toggle="modal" data-bs-target="#remove-Mhs" data-idDel="' + data + '" data-nameDel="' + row['nim'] + ' - ' + row['nama'] + '" >Hapus</a>'
                             return html
                         }
                         return data
