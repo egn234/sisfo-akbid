@@ -24,6 +24,34 @@
         $('#flagPertanyaanPut').val($(x).attr('data-flagPut'))
 
     }
+
+    function changeFlag(x) {
+        let id = $(x).attr('data-idFlag')
+        let flag = $(x).attr('data-flag')
+
+        $.ajax({
+            url: "<?= base_url() ?>/admin/kuesioner/switch-kuesioner",
+            type: "post",
+            data: {
+                idPut: id,
+                flag : flag
+            }
+        }).done(function(result) {
+            try {
+                var data = jQuery.parseJSON(result);
+                if (data[0]['status'] == 'success') {
+                    alert(data[0]['notif_text']) ? "" : location.reload();
+                } else {
+                    alert('Gagal') ? "" : location.reload();
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            // needs to implement if it fails
+        });
+    }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
@@ -41,6 +69,7 @@
         }, ],
         data: [],
         columns: [{
+                width: '5%',
                 title: 'NO'
             },
             {
@@ -70,14 +99,20 @@
                 }
             },
             {
+                width: '20%',
                 title: "Aksi",
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html
+                        let html, htmlFlag
                         html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
-                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['judul_kuesioner'] + '" >Hapus</a>'
-                        return html
+                            '<a class="btn btn-danger btn-sm" style="margin-right:2%;" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['judul_kuesioner'] + '" >Hapus</a>'
+                        if (row['flag'] == 1) {
+                            htmlFlag = '<a class="btn btn-danger btn-sm" onclick="changeFlag(this)" data-idFlag="' + data + '" data-flag="0">Non-Aktifkan</a>'
+                        } else {
+                            htmlFlag = '<a class="btn btn-success btn-sm" onclick="changeFlag(this)" data-idFlag="' + data + '" data-flag="1">Aktifkan</a>'
+                        }
+                        return html + htmlFlag
                     }
                     return data
                 }

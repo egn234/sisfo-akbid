@@ -10,12 +10,12 @@
                             <div class="sb-sidenav-menu-heading">Master Data</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#kelolaMD" aria-expanded="false" aria-controls="kelolaMD">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Kelola Pengguna
+                                Menu Mahasiswa
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?= ($title == 'Daftar Mahasiswa') ? 'show' : '' ?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?= ($title == 'Lihat Posting') ? 'show' : '' ?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <!-- <a class="nav-link <?= ($title == 'Daftar Mahasiswa') ? 'active' : '' ?>" href="<?= url_to('admin/mahasiswa') ?>">Mahasiswa</a> -->
+                                    <a class="nav-link <?= ($title == 'Lihat Posting') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/posting') ?>">Posting</a>
                                 </nav>
                             </div>
                         </div>
