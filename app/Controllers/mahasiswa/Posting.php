@@ -16,7 +16,7 @@ class Posting extends BaseController
         $m_posting = new M_posting();
         $account = $m_user->getAccount(session()->get('user_id'));
 
-        $batas = 2;
+        $batas = 6;
         $halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
         $halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
         $list_posting = $m_posting->select('*')
@@ -43,24 +43,6 @@ class Posting extends BaseController
     }
 
     // ? Load data into json
-    public function data_posting()
-    {
-        $m_user = new M_user();
-        $m_posting = new M_posting();
-        $account = $m_user->getAccount(session()->get('user_id'));
-
-        $list_posting = $m_posting->select('*')
-            ->get()
-            ->getResult();
-        $data = [
-            'title' => 'Lihat Posting',
-            'usertype' => session()->get('userType'),
-            'duser' => $account,
-            'list_posting' => $list_posting
-        ];
-
-        return json_encode($data);
-    }
 
     public function detail_posting($id = false)
     {

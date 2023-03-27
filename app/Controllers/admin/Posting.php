@@ -51,24 +51,47 @@ class Posting extends BaseController
         $fileUploadName = $_FILES["fileUpload"]["name"];
         $fileUploadType = $_FILES['fileUpload']['type'];
         $fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
-        $data = array(
-            'judul'       => $this->request->getPost('judul'),
-            'deskripsi'       => $this->request->getPost('deskripsi'),
-            'attachment'         => $fileUploadName,
-            'adminID' => session()->get('user_id')
-        );
-
-        $check = $m_posting->insert($data);
-        $alert = view(
-            'partials/notification-alert',
-            [
-                'notif_text' => 'Data Posting Berhasil DiTambahkan',
-                'status' => 'success'
+        $input = $this->validate([
+            'fileUpload' => [
+                'uploaded[fileUpload]',
+                'mime_in[fileUpload,image/jpg,image/jpeg,image/png]',
+                'max_size[fileUpload,10024]',
             ]
-        );
+        ]);
 
-        session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/posting');
+        if (!$input) {
+            $alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'File Tidak Sesuai',
+					'status' => 'error'
+				]
+			);
+			session()->setFlashdata('notif', $alert);
+			return redirect()->to('admin/posting');
+        } else {
+            $img = $this->request->getFile('fileUpload');
+			$newName = $img->getRandomName();
+			$img->move('../public/uploads/post', $newName);
+            $data = array(
+                'judul'       => $this->request->getPost('judul'),
+                'deskripsi'       => $this->request->getPost('deskripsi'),
+                'attachment'         => $newName,
+                'adminID' => session()->get('user_id')
+            );
+
+            $check = $m_posting->insert($data);
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Data Posting Berhasil DiTambahkan',
+                    'status' => 'success'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+            return redirect()->to('admin/posting');
+        }
     }
 
     public function process_delete()
