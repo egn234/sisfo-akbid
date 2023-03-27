@@ -93,7 +93,7 @@ class Dosen extends BaseController
 		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.flag, rel_dsn_kls.id AS idRelKls , tb_user.username AS username, tb_user.id AS user_id')
 			->join('tb_user', 'tb_user.id = tb_dosen.userID', 'left')
 			->join('rel_dsn_kls', 'tb_dosen.id = rel_dsn_kls.dosenID', 'left')
-			->where('tb_user.flag','1')
+			->where('tb_user.flag', '1')
 			->orderBy('tb_dosen.created_at', 'DESC')
 			->get()
 			->getResult();
@@ -119,41 +119,64 @@ class Dosen extends BaseController
 		$fileUploadName = $_FILES["fileUpload"]["name"];
 		$fileUploadType = $_FILES['fileUpload']['type'];
 		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
-
-		$username = $this->request->getPost('username');
-		$password = $this->request->getPost('password');
-
-		$dataUser = array(
-			'username' => $username,
-			'password' => password_hash($password, PASSWORD_BCRYPT, $options),
-			'userType' => 'dosen'
-		);
-		$idUser = $m_user->insert($dataUser);
-
-		$data = array(
-			'kodeDosen'        => $this->request->getPost('kodeDosen'),
-			'nip'       => $this->request->getPost('nip'),
-			'nama' => $this->request->getPost('nama'),
-			'jenisKelamin' => $this->request->getPost('jenisKelamin'),
-			'nik' => $this->request->getPost('nik'),
-			'alamat' => $this->request->getPost('alamat'),
-			'email' => $this->request->getPost('email'),
-			'kontak' => $this->request->getPost('kontak'),
-			'foto' => $fileUploadName,
-			'userID' => $idUser
-		);
-
-		$check = $m_dosen->insert($data);
-		$alert = view(
-			'partials/notification-alert',
-			[
-				'notif_text' => 'Data Dosen Berhasil DiTambahkan',
-				'status' => 'success'
+		$input = $this->validate([
+			'fileUpload' => [
+				'uploaded[fileUpload]',
+				'mime_in[fileUpload,image/jpg,image/jpeg,image/png]',
+				'max_size[fileUpload,1024]',
 			]
-		);
+		]);
+		if (!$input) {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'File Tidak Sesuai',
+					'status' => 'error'
+				]
+			);
+			session()->setFlashdata('notif', $alert);
+			return redirect()->to('admin/dosen');
 
-		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/dosen');
+		} else {
+			$img = $this->request->getFile('fileUpload');
+			$newName = $img->getRandomName();
+			$img->move('../public/uploads/dosen', $newName);
+
+			$username = $this->request->getPost('username');
+			$password = $this->request->getPost('password');
+
+			$dataUser = array(
+				'username' => $username,
+				'password' => password_hash($password, PASSWORD_BCRYPT, $options),
+				'userType' => 'dosen'
+			);
+			$idUser = $m_user->insert($dataUser);
+
+			$data = array(
+				'kodeDosen'        => $this->request->getPost('kodeDosen'),
+				'nip'       => $this->request->getPost('nip'),
+				'nama' => $this->request->getPost('nama'),
+				'jenisKelamin' => $this->request->getPost('jenisKelamin'),
+				'nik' => $this->request->getPost('nik'),
+				'alamat' => $this->request->getPost('alamat'),
+				'email' => $this->request->getPost('email'),
+				'kontak' => $this->request->getPost('kontak'),
+				'foto' => $newName,
+				'userID' => $idUser
+			);
+
+			$check = $m_dosen->insert($data);
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Data Dosen Berhasil DiTambahkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->to('admin/dosen');
+		}
 	}
 
 	public function process_update()

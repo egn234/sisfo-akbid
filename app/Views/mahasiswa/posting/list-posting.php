@@ -37,7 +37,7 @@
                                     <div style="width: 96%; border: 2px solid gray; border-radius: 25px; height: 125px;">
                                         <div class="row ">
                                             <div class="col-lg-2" style="padding-top: 5px; padding-left: 15px;">
-                                                <img src="<?php echo base_url('img/people.png') ?>" data-url="<?= $data->attachment ?>" width="100" height="100" alt="pic">
+                                                <img src="<?php echo base_url('uploads/post').'/'.$data->attachment ?>" data-url="<?= $data->attachment ?>" width="100" height="100" alt="pic">
                                             </div>
                                             <div class="col-lg-8" style="padding-top: 30px;">
                                                 <h5 class="text-justify"><?= $data->judul ?></h5>
