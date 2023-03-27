@@ -26,7 +26,7 @@ class Posting extends BaseController
         $total_halaman = ceil($jumlah_data / $batas);
 
         $posting_limit = $m_posting->select('*')
-            ->limit($batas,$halaman_awal)
+            ->limit($batas, $halaman_awal)
             ->get()
             ->getResult();
 
@@ -60,5 +60,24 @@ class Posting extends BaseController
         ];
 
         return json_encode($data);
+    }
+
+    public function detail_posting($id = false)
+    {
+        $m_user = new M_user();
+        $m_posting = new M_posting();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $list_posting = $m_posting->select('*')
+            ->where('id',$id)
+            ->get()
+            ->getResult();
+
+        $data = [
+            'title' => 'Lihat Posting',
+            'usertype' => session()->get('userType'),
+            'duser' => $account,
+            'list_posting' => $list_posting
+        ];
+        return view('mahasiswa/posting/detail-posting', $data);
     }
 }

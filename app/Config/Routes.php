@@ -171,7 +171,8 @@ $routes->group('mahasiswa', static function ($routes) {
     // View posting
     $routes->group('posting', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Posting::index');
-        $routes->get('data_posting', 'Mahasiswa\Posting::data_posting');
+        $routes->get('detail/(:any)', 'Mahasiswa\Posting::detail_posting/$1');
+
     });
 });
 
