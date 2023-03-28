@@ -128,3 +128,6 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 /.php-cs-fixer.php
+
+# Misc
+public/uploads/*
