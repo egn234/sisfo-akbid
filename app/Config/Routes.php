@@ -172,6 +172,19 @@ $routes->group('mahasiswa', static function ($routes) {
     $routes->group('posting', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Posting::index');
         $routes->get('detail/(:any)', 'Mahasiswa\Posting::detail_posting/$1');
+    });
+
+    // View jadwal
+    $routes->group('jadwal', static function ($routes) {
+        $routes->get('/', 'Mahasiswa\Jadwal::index');
+    });
+
+    // View nilai
+    $routes->group('nilai', static function ($routes) {
+        $routes->get('/', 'Mahasiswa\Nilai::index');
+        $routes->get('data_periode', 'Mahasiswa\Nilai::data_periode');
+        $routes->get('data_nilai', 'Mahasiswa\Nilai::data_nilai');
+
 
     });
 });
