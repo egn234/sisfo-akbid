@@ -185,6 +185,12 @@ $routes->group('mahasiswa', static function ($routes) {
         $routes->get('data_periode', 'Mahasiswa\Nilai::data_periode');
         $routes->get('data_nilai', 'Mahasiswa\Nilai::data_nilai');
 
+    });
+
+    // View Kuesioner
+    $routes->group('kuesioner', static function ($routes) {
+        $routes->get('/', 'Mahasiswa\Kuesioner::index');
+        $routes->get('data_kuesioner', 'Mahasiswa\Kuesioner::data_kuesioner');
 
     });
 });
