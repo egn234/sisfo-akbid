@@ -1,6 +1,8 @@
 <script>
     function detailKuesioner(x) {
-
+        let id = $(x).attr('data-id')
+        let base_url = '<?php echo base_url() ?>'
+        window.location.href = base_url+'/mahasiswa/kuesioner/pertanyaan_kuesioner/'+id;
     }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
@@ -53,7 +55,7 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html, htmlFlag
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="detailKuesioner(this)" >Detail</a>'
+                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="detailKuesioner(this)" data-id="' + data + '" >Detail</a>'
                         return html
                     }
                     return data

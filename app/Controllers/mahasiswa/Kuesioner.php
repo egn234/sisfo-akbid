@@ -26,6 +26,28 @@ class Kuesioner extends BaseController
         return view('mahasiswa/kuesioner/list-kuesioner', $data);
     }
 
+    public function pertanyaan_kuesioner($id = false)
+    {
+        $m_user = new M_user();
+        $m_kuesioner = new M_kuesioner();
+
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $list_pertanyaan = $m_kuesioner->select('tb_kuesioner.judul_kuesioner,tb_pertanyaan.*')
+            ->join('tb_pertanyaan', 'tb_pertanyaan.kuesionerID = tb_kuesioner.id', 'left')
+            ->where('tb_pertanyaan.kuesionerID', $id)
+            ->get()
+            ->getResult();
+        $data = [
+            'title' => 'Kuesioner',
+            'usertype' => session()->get('userType'),
+            'duser' => $account,
+            'list_pertanyaan' => $list_pertanyaan
+
+        ];
+
+        return view('mahasiswa/kuesioner/pertanyaan-kuesioner', $data);
+    }
+
     // ? Load data into json
     public function data_kuesioner()
     {
@@ -66,5 +88,4 @@ class Kuesioner extends BaseController
 
         return json_encode($data);
     }
-
 }

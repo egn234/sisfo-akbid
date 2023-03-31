@@ -190,6 +190,8 @@ $routes->group('mahasiswa', static function ($routes) {
     // View Kuesioner
     $routes->group('kuesioner', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Kuesioner::index');
+        $routes->get('pertanyaan_kuesioner/(:any)', 'Mahasiswa\Kuesioner::pertanyaan_kuesioner/$1');
+
         $routes->get('data_kuesioner', 'Mahasiswa\Kuesioner::data_kuesioner');
 
     });
