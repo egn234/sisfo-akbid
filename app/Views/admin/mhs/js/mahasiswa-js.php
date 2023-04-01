@@ -123,15 +123,4 @@
             this.data(i++);
         });
     }).draw();
-    // $('#switchMahasiswa').on('show.bs.modal', function(e) {
-    //     var rowid = $(e.relatedTarget).data('id');
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '<?= base_url() ?>/admin/mahasiswa/switch-mhs',
-    //         data: 'rowid=' + rowid,
-    //         success: function(data) {
-    //             $('.fetched-data').html(data);
-    //         }
-    //     });
-    // });
 </script>
