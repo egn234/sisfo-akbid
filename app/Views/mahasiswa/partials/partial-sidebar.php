@@ -13,9 +13,13 @@
                                 Menu Mahasiswa
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?= ($title == 'Lihat Posting') ? 'show' : '' ?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?= ($title == 'Lihat Posting' || $title == 'Jadwal' || $title == 'Nilai' || $title == 'Kuesioner') ? 'show' : '' ?>" id="kelolaMD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link <?= ($title == 'Lihat Posting') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/posting') ?>">Posting</a>
+                                    <a class="nav-link <?= ($title == 'Jadwal') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/jadwal') ?>">Jadwal</a>
+                                    <a class="nav-link <?= ($title == 'Nilai') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/nilai') ?>">Nilai</a>
+                                    <a class="nav-link <?= ($title == 'Kuesioner') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/kuesioner') ?>">Kuesioner</a>
+
                                 </nav>
                             </div>
                         </div>
