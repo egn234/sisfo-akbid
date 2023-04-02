@@ -132,76 +132,162 @@ class Mahasiswa extends BaseController
 			'cost' => 12
 		];
 
-		$fileUploadName = $_FILES["fileUpload"]["name"];
-		$fileUploadType = $_FILES['fileUpload']['type'];
-		$fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
-		$input = $this->validate([
-			'fileUpload' => [
-				'uploaded[fileUpload]',
-				'mime_in[fileUpload,image/jpg,image/jpeg,image/png]',
-				'max_size[fileUpload,1024]',
-			]
-		]);
-		if (!$input) {
+		$nama = $this->request->getPost('nama');
+		$nim = $this->request->getPost('nim');
+		$nik = $this->request->getPost('nik');
+		$jenisKelamin = $this->request->getPost('jenisKelamin');
+		$tempatLahir = $this->request->getPost('tempatLahir');
+		$tanggalLahir = $this->request->getPost('tanggalLahir');
+		$alamat = $this->request->getPost('alamat');
+		$email = $this->request->getPost('email');
+		$kontak = $this->request->getPost('kontak');
+		$namaIbu = $this->request->getPost('namaIbu');
+		$kontakIbu = $this->request->getPost('kontakIbu');
+		$namaAyah = $this->request->getPost('namaAyah');
+		$kontakAyah = $this->request->getPost('kontakAyah');
+		$namaWali = $this->request->getPost('namaWali');
+		$kontakWali = $this->request->getPost('kontakWali');
+		$username = $this->request->getPost('username');
+		$password = $this->request->getPost('password') ? $this->request->getPost('password') : $_POST['password'];
+		$password2 = $this->request->getPost('password2') ? $this->request->getPost('password2') : $_POST['password2'];
+
+		$dataset_mhs = [
+			'nama' => $nama,
+			'nim' => $nim,
+			'nik' => $nik,
+			'jenisKelamin' => $jenisKelamin,
+			'tempatLahir' => $tempatLahir,
+			'tanggalLahir' => $tanggalLahir,
+			'alamat' => $alamat,
+			'email' => $email,
+			'kontak' => $kontak,
+			'namaIbu' => $namaIbu,
+			'kontakIbu' => $kontakIbu,
+			'namaAyah' => $namaAyah,
+			'kontakAyah' => $kontakAyah,
+			'namaWali' => $namaWali,
+			'kontakWali' => $kontakWali,
+			'userType' => 'mahasiswa'
+		];
+
+		$foto = $this->request->getFile('fileUpload');
+
+		if($jenisKelamin == ""){
 			$alert = view(
-				'partials/notification-alert',
+				'partials/notification-alert', 
 				[
-					'notif_text' => 'File Tidak Sesuai',
-					'status' => 'error'
+					'notif_text' => 'Pilih Jenis Kelamin terlebih dahulu',
+				 	'status' => 'warning'
 				]
 			);
-			session()->setFlashdata('notif', $alert);
-			return redirect()->to('admin/mahasiswa/list');
-		} else {
-			$img = $this->request->getFile('fileUpload');
-			$newName = $img->getRandomName();
-			$img->move('../public/uploads/mhs', $newName);
-			// $data = [
-			// 	'name' =>  $img->getName(),
-			// 	'type'  => $img->getClientMimeType()
-			// ];
-
-			$username = $this->request->getPost('username');
-			$password = $this->request->getPost('password') ? $this->request->getPost('password') : $_POST['password'];
-
-			$dataUser = array(
-				'username' => $username,
-				'password' => password_hash($password, PASSWORD_BCRYPT, $options),
-				'userType' => 'mahasiswa'
-			);
-			$idUser = $m_user->insert($dataUser);
-
-			$data = array(
-				'nim'        => $this->request->getPost('nim'),
-				'nama'       => $this->request->getPost('nama'),
-				'jenisKelamin' => $this->request->getPost('jenisKelamin'),
-				'nik' => $this->request->getPost('nik'),
-				'tempatLahir' => $this->request->getPost('tempatLahir'),
-				'tanggalLahir' => $this->request->getPost('tanggalLahir'),
-				'alamat' => $this->request->getPost('alamat'),
-				'email' => $this->request->getPost('email'),
-				'kontak' => $this->request->getPost('kontak'),
-				'namaIbu' => $this->request->getPost('namaIbu'),
-				'kontakIbu' => $this->request->getPost('kontakIbu'),
-				'namaAyah' => $this->request->getPost('namaAyah'),
-				'kontakAyah' => $this->request->getPost('kontakAyah'),
-				'namaWali' => $this->request->getPost('namaWali'),
-				'kontakWali' => $this->request->getPost('kontakWali'),
-				'foto' => $newName,
-				'userID' => $idUser
-			);
-			$check = $m_mahasiswa->insert($data);
-			$alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'Data Mahasiswa Berhasil DiTambahkan',
-					'status' => 'success'
-				]
-			);
-
-			session()->setFlashdata('notif', $alert);
-			return redirect()->to('admin/mahasiswa/list');
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
 		}
+
+		$cek_nik = $m_mahasiswa->where('nik', $nik)->get()->getResult() ? true : false ;
+		$cek_nim = $m_mahasiswa->where('nim', $nim)->get()->getResult() ? true : false ;
+		$cek_username = $m_user->where('username', $username)->get()->getResult() ? true : false ;
+
+		if($cek_nik){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'NIK telah terdaftar',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+
+		if($cek_nim){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'NIM telah terdaftar',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+
+		if($cek_username){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Username telah terdaftar',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+
+		if($password != $password2){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Password tidak cocok',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+
+		$dataset_user = [
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_BCRYPT, $options),
+			'flag' => "1",
+			'userType' => 'mahasiswa'
+		];
+
+		$m_user->insert($dataset_user);
+
+		$iduser = $m_user->where('username', $username)->get()->getResult()[0]->id;
+		$dataset_mhs += ['userID' => $iduser];
+
+		if($foto->isValid()){
+			$newName = $foto->getRandomName();
+			$foto->move(ROOTPATH . 'public/uploads/user/' . $username . '/profil_pic/', $newName);
+			$profile_pic = $foto->getName();
+			$dataset_mhs += ['foto' => $profile_pic];
+		}else{
+			helper('filesystem');
+			$imgSource = FCPATH . 'assets/images/users/image.jpg';
+
+			mkdir(FCPATH . 'uploads/user/'.$username, 0777);
+			mkdir(FCPATH . 'uploads/user/'.$username.'/profil_pic', 0777);
+			
+			$imgDest = FCPATH . 'uploads/user/'.$username.'/profil_pic/image.jpg';
+			copy($imgSource, $imgDest);
+			$dataset_mhs += ['foto' => 'image.jpg'];
+		}
+
+		$m_mahasiswa->insert($dataset_mhs);
+
+		$alert = view(
+			'partials/notification-alert', 
+			[
+				'notif_text' => 'Data mahasiswa berhasil dibuat',
+				'status' => 'success'
+			]
+		);
+		
+		$dataset_mhs = ['notif' => $alert];
+		session()->setFlashdata($dataset_mhs);
+		return redirect()->back();
 	}
 
 	public function process_update()

@@ -63,92 +63,98 @@
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/mahasiswa/input-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= url_to('admin/mahasiswa/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">NAMA</label>
-                            <input type="text" class="form-control" name="nama">
+                            <label class="form-label">NAMA <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="nama" value="<?=session()->getFlashdata('nama')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIM</label>
-                            <input type="text" class="form-control" name="nim">
+                            <label class="form-label">NIM <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control numeric-input" name="nim" value="<?=session()->getFlashdata('nim')?>" id="nimNumber" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIK</label>
-                            <input type="text" class="form-control" name="nik">
+                            <label class="form-label">NIK <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=session()->getFlashdata('nik')?>" name="nik" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">JENIS KELAMIN</label>
+                            <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenisKelamin" required>
-                                <option value="" selected>--Pilih Jenis Kelamin--</option>
-                                <option value="L">Laki-Laki</option>
-                                <option value="P">Perempuan</option>
+                                <option value="L" <?=(session()->getFlashdata('JenisKelamin') == 'L')?'':'selected'?>>Laki-Laki</option>
+                                <option value="P" <?=(session()->getFlashdata('JenisKelamin') == 'P')?'':'selected'?>>Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">TEMPAT/TANGGAL LAHIR</label>
+                            <label class="form-label">TEMPAT/TANGGAL LAHIR <span class="text-danger">*</span></label>
                             <div class="row">
                                 <div class="col-4">
-                                    <input type="text" class="form-control" name="tempatLahir">
+                                    <input type="text" class="form-control" name="tempatLahir" value="<?=session()->getFlashdata('tempatLahir')?>" required>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control flatpickr-basic" name="tanggalLahir">
+                                    <input type="text" class="form-control flatpickr-basic" name="tanggalLahir" value="<?=session()->getFlashdata('tanggalLahir')?>" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">ALAMAT</label>
-                            <input type="text" class="form-control" name="alamat">
+                            <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="alamat" value="<?=session()->getFlashdata('alamat')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">EMAIL</label>
-                            <input type="text" class="form-control" name="email">
+                            <label class="form-label">EMAIL <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" name="email" value="<?=session()->getFlashdata('email')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">KONTAK</label>
-                            <input type="text" class="form-control" name="kontak">
+                            <label class="form-label">KONTAK <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control numeric-input" name="kontak" value="<?=session()->getFlashdata('kontak')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA IBU</label>
-                            <input type="text" class="form-control" name="namaIbu">
+                            <label class="form-label">NAMA IBU KANDUNG/ANGKAT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="namaIbu" value="<?=session()->getFlashdata('namaIbu')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">KONTAK IBU</label>
-                            <input type="text" class="form-control" name="kontakIbu">
+                            <label class="form-label">KONTAK IBU KANDUNG/ANGKAT</label>
+                            <input type="text" class="form-control numeric-input" name="kontakIbu" value="<?=session()->getFlashdata('kontakIbu')?>">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NAMA AYAH</label>
-                            <input type="text" class="form-control" name="namaAyah">
+                            <label class="form-label">NAMA AYAH KANDUNG/ANGKAT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="namaAyah" value="<?=session()->getFlashdata('namaAyah')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">KONTAK AYAH</label>
-                            <input type="text" class="form-control" name="kontakAyah">
+                            <label class="form-label">KONTAK AYAH KANDUNG/ANGKAT</label>
+                            <input type="text" class="form-control numeric-input" name="kontakAyah" value="<?=session()->getFlashdata('kontakAyah')?>">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA WALI</label>
-                            <input type="text" class="form-control" name="namaWali">
+                            <input type="text" class="form-control" name="namaWali" value="<?=session()->getFlashdata('namaWali')?>">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK WALI</label>
-                            <input type="text" class="form-control" name="kontakWali">
+                            <input type="text" class="form-control numeric-input" name="kontakWali" value="<?=session()->getFlashdata('kontakWali')?>">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">FOTO MAHASISWA</label>
-                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
+                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept="image/jpeg">
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">USERNAME</label>
-                            <input type="text" class="form-control" name="username">
+                            <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="username" required>
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">PASSWORD</label>
-                            <input type="text" class="form-control" name="password">
+                            <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" name="password" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" name="password2" required>
+                        </div>
+                        <span class="text-xs text-danger">
+                            <i>*Tidak boleh dikosongkan</i>
+                        </span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -267,7 +273,6 @@
             </div>
         </div>
     </div>
-
 
     <?= $this->include('admin/partials/partial-footer') ?>
 
