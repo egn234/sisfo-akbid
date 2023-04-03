@@ -260,7 +260,7 @@
 
                                         <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('admin/mahasiswa/update-process') ?>" method="POST" enctype="multipart/form-data">
+                                                <form action="<?= url_to('update-mahasiswa-1', $detail_mhs->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="nama" value="<?=$detail_mhs->nama?>" required>
@@ -344,10 +344,14 @@
 
                                         <div class="tab-pane fade" id="pass_edit" role="tabpanel" aria-labelledby="pass-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('update-pass-mahasiswa-1', $detail_mhs->user_id) ?>" method="POST">
+                                                <form action="<?= url_to('update-pass-mahasiswa-1', $detail_mhs->user_id) ?>" id="ubahPassword" method="POST">
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="username" value="<?=$detail_mhs->username?>" autocomplete="off" disabled>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">PASSWORD LAMA<span class="text-danger">*</span></label>
+                                                        <input type="password" class="form-control" name="password_old" autocomplete="off" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
@@ -358,6 +362,11 @@
                                                         <input type="password" class="form-control" name="password2" autocomplete="off" required>
                                                     </div>
                                                 </form>
+                                                <div class="d-flex float-end btn-group">
+                                                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatePass">
+                                                        Submit
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -370,6 +379,24 @@
             <?= $this->include('partials/footer') ?>
         </div>
     </div>
+
+    <div class="modal fade" id="updatePass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    apakah anda mau eheh?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="ubahPassword" class="btn btn-primary">Ubah</button>
+                </div>
+            </div>
+        </div>
+    </div>    
 
     <?= $this->include('admin/partials/partial-footer') ?>
     
