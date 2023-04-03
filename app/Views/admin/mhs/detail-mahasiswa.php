@@ -68,8 +68,12 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab" aria-controls="edit" aria-selected="false">Ubah Profil</button>
                                         </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#pass_edit" type="button" role="tab" aria-controls="pass_edit" aria-selected="false">Ubah Password</button>
+                                        </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
+
                                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                             <div class="col-12 m-3">
                                                 <div class="pb-1">
@@ -253,20 +257,21 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                            <form action="<?= url_to('admin/mahasiswa/update-process') ?>" method="POST" enctype="multipart/form-data">
-                                                <div class="modal-body">
+                                            <div class="m-3">
+                                                <form action="<?= url_to('admin/mahasiswa/update-process') ?>" method="POST" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="nama" value="<?=$detail_mhs->nama?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NIM <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control numeric-input" name="nim" value="<?=$detail_mhs->nim?>" id="nimNumber" required>
+                                                        <input type="text" class="form-control numeric-input" name="nim" value="<?=$detail_mhs->nim?>" id="nimNumber" disabled>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NIK <span class="text-danger">*</span></label>
-                                                        <input type="number" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?$detail_mhs->nik?>" name="nik" required>
+                                                        <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=$detail_mhs->nik?>" name="nik" disabled>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
@@ -327,26 +332,33 @@
                                                         <label for="formFile" class="form-label">FOTO MAHASISWA</label>
                                                         <input class="form-control" type="file" name="fileUpload" id="formFile" accept="image/jpeg">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="username" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
-                                                        <input type="password" class="form-control" name="password" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
-                                                        <input type="password" class="form-control" name="password2" required>
-                                                    </div>
                                                     <span class="text-xs text-danger">
                                                         <i>*Tidak boleh dikosongkan</i>
                                                     </span>
-                                                </div>
-                                                <div class="d-flex float-end btn-group m-3">
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
-                                            </form>
+                                                    <div class="d-flex float-end btn-group">
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="pass_edit" role="tabpanel" aria-labelledby="pass-tab">
+                                            <div class="m-3">
+                                                <form action="<?= url_to('update-pass-mahasiswa-1', $detail_mhs->user_id) ?>" method="POST">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" name="username" value="<?=$detail_mhs->username?>" autocomplete="off" disabled>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
+                                                        <input type="password" class="form-control" name="password" autocomplete="off" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
+                                                        <input type="password" class="form-control" name="password2" autocomplete="off" required>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

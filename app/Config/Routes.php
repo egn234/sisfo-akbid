@@ -54,6 +54,7 @@ $routes->group('admin', static function ($routes) {
         $routes->get('data_mhs', 'Admin\Mahasiswa::data_mhs');
         $routes->get('data_mhs_flag', 'Admin\Mahasiswa::data_mhs_flag');
         $routes->get('detail/(:num)', 'Admin\Mahasiswa::detail/$1', ['as' => 'detail-mahasiswa-1']);
+        $routes->get('update-password/(:num)', 'Admin\Mahasiswa::update_password/$1', ['as' => 'update-pass-mahasiswa-1']);
     });
 
     // Kelola Dosen

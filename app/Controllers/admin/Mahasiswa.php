@@ -342,4 +342,9 @@ class Mahasiswa extends BaseController
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/mahasiswa/list');
 	}
+
+	public function update_pass($iduser = false)
+	{
+		
+	}
 }
