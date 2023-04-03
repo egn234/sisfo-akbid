@@ -304,7 +304,99 @@ class Mahasiswa extends BaseController
 		return redirect()->back();
 	}
 
-	public function process_update()
+	
+	public function process_update($user_id = false)
+	{
+		$m_mahasiswa = new M_mahasiswa();
+		$m_user = new M_user();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$user = $m_user->select('
+			tb_user.username, 
+			tb_user.id AS user_id, 
+			tb_user.flag AS user_flag,
+			tb_user.userType, 
+			tb_mahasiswa.*
+		')
+		->where('tb_user.id', $user_id)
+		->join('tb_mahasiswa', 'tb_user.id = tb_mahasiswa.userID')
+		->get()->getResult()[0];
+
+		$nama = $this->request->getPost('nama');
+		$nim = $this->request->getPost('nim');
+		$nik = $this->request->getPost('nik');
+		$jenisKelamin = $this->request->getPost('jenisKelamin');
+		$tempatLahir = $this->request->getPost('tempatLahir');
+		$tanggalLahir = $this->request->getPost('tanggalLahir');
+		$alamat = $this->request->getPost('alamat');
+		$email = $this->request->getPost('email');
+		$kontak = $this->request->getPost('kontak');
+		$namaIbu = $this->request->getPost('namaIbu');
+		$kontakIbu = $this->request->getPost('kontakIbu');
+		$namaAyah = $this->request->getPost('namaAyah');
+		$kontakAyah = $this->request->getPost('kontakAyah');
+		$namaWali = $this->request->getPost('namaWali');
+		$kontakWali = $this->request->getPost('kontakWali');
+
+		$dataset_mhs = [
+			'nama' => $nama,
+			'nim' => $nim,
+			'nik' => $nik,
+			'jenisKelamin' => $jenisKelamin,
+			'tempatLahir' => $tempatLahir,
+			'tanggalLahir' => $tanggalLahir,
+			'alamat' => $alamat,
+			'email' => $email,
+			'kontak' => $kontak,
+			'namaIbu' => $namaIbu,
+			'kontakIbu' => $kontakIbu,
+			'namaAyah' => $namaAyah,
+			'kontakAyah' => $kontakAyah,
+			'namaWali' => $namaWali,
+			'kontakWali' => $kontakWali
+		];
+
+		$foto = $this->request->getFile('fileUpload');
+
+		if($jenisKelamin == ""){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Pilih Jenis Kelamin terlebih dahulu',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+
+		if ($foto->isValid())
+		{
+			unlink(ROOTPATH . "public/uploads/user/" . $user->username . "/profil_pic/" . $user->profil_pic );
+			$newName = $foto->getRandomName();
+			$foto->move(ROOTPATH . 'public/uploads/user/' . $user->username . '/profil_pic/', $newName);
+			$profile_pic = $foto->getName();
+			$dataset_mhs += ['profil_pic' => $profile_pic];
+		}
+
+		$m_mahasiswa->insert($dataset_mhs);
+
+		$alert = view(
+			'partials/notification-alert', 
+			[
+				'notif_text' => 'Data mahasiswa berhasil dibuat',
+				'status' => 'success'
+			]
+		);
+		
+		$dataset_mhs = ['notif' => $alert];
+		session()->setFlashdata($dataset_mhs);
+		return redirect()->back();
+	}
+
+	public function process_update2()
 	{
 		$m_mahasiswa = new M_mahasiswa();
 
@@ -340,7 +432,7 @@ class Mahasiswa extends BaseController
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/mahasiswa/list');
+		return redirect()->back();
 	}
 
 	public function update_pass($iduser = false)
