@@ -80,7 +80,7 @@
                                     <input type="text" class="form-control" name="tempatLahir" value="<?=session()->getFlashdata('tempatLahir')?>" required>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control flatpickr-basic" name="tanggalLahir" value="<?=session()->getFlashdata('tanggalLahir')?>" required>
+                                    <input type="date" class="form-control" name="tanggalLahir" value="<?=session()->getFlashdata('tanggalLahir')?>" required>
                                 </div>
                             </div>
                         </div>
@@ -256,7 +256,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
                     </div>
                 </form>
             </div>

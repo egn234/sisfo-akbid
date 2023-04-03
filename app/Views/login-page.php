@@ -30,12 +30,17 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Sistem Informasi Akademik
-                                        Annisa Jaya</h3>
-                                    <p class="text-center font-weight-light my-4" style="font-size: 24px;">Login</p>
-                                </div>
                                 <div class="card-body">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <img src="<?= base_url('') ?>/img/akbid_logo_t.png" class="img-fluid" style="width:200px">
+                                    </div>
+                                    <h4 class="text-center font-weight-light my-4">
+                                        Sistem Informasi Akademik<br>
+                                        Annisa Jaya
+                                    </h4>
+                                    <p class="text-center font-weight-light my-4" style="font-size: 20px;">
+                                        Login
+                                    </p>
                                     <?= session()->getFlashdata('notif'); ?>
                                     <form action="<?= url_to('auth-login') ?>" method="post">
                                         <div class="form-floating mb-3">
@@ -46,7 +51,7 @@
                                             <input class="form-control" id="inputPassword" type="password" name="password" placeholder="Password" />
                                             <label for="inputPassword">Password</label>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
+                                        <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
                                             <button type="submit" class="btn btn-primary">Login</a>
                                         </div>
                                     </form>

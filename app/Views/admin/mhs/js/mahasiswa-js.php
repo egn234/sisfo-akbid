@@ -3,29 +3,7 @@
         $('#user_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
-    function updateData(x) {
-        $('#idPut').val($(x).attr('data-idPut'))
-        $('#namePut').val($(x).attr('data-namePut'))
-        $('#nimPut').val($(x).attr('data-nimPut'))
-        $('#nikPut').val($(x).attr('data-nikPut'))
-        $('#jenisKelaminPut').val($(x).attr('data-jenisKelaminPut'))
-        $('#tempatLahirPut').val($(x).attr('data-tempatLahirPut'))
-        $('#tanggalLahirPut').val($(x).attr('data-tanggalLahirPut'))
-        $('#alamatPut').val($(x).attr('data-alamatPut'))
-        $('#emailPut').val($(x).attr('data-emailPut'))
-        $('#kontakPut').val($(x).attr('data-kontakPut'))
-        $('#namaIbuPut').val($(x).attr('data-namaIbuPut'))
-        $('#kontakIbuPut').val($(x).attr('data-kontakIbuPut'))
-        $('#namaAyahPut').val($(x).attr('data-namaAyahPut'))
-        $('#kontakAyahPut').val($(x).attr('data-kontakAyahPut'))
-        $('#namaWaliPut').val($(x).attr('data-namaWaliPut'))
-        $('#kontakWaliPut').val($(x).attr('data-kontakWaliPut'))
-
-    }
     $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
-        })
         $('.numeric-input').keydown(function(e) {
             // Allow: backspace, delete, tab, escape, enter and .
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
@@ -54,7 +32,8 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO'
+                title: 'NO',
+                width: '5%'
             },
             {
                 title: 'NIM',
@@ -83,18 +62,14 @@
             },
             {
                 title: "Aksi",
-                width:"20%",
+                width:"15%",
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         console.log(row);
                         let html
-                        let open_group = '<div class="btn-group">'
-                        let htmlPut = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" '+
-                        ' data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-emailPut="' + row['email'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '"  data-nimPut="' + row['nim'] + '"  data-nikPut="' + row['nik'] +'"'+ 
-                        ' data-kontakAyahPut="' + row['kontakAyah'] + '" data-kontakIbuPut="' + row['kontakIbu'] + '" data-kontakWaliPut="' + row['kontakWali'] + '"'+
-                        ' data-namaAyahPut="' + row['namaAyah'] + '" data-namaIbuPut="' + row['namaIbu'] + '" data-namaWaliPut="' + row['namaWali'] + '"'+
-                        ' data-tanggalLahirPut="' + row['tanggalLahir'] + '" data-tempatLahirPut="' + row['tempatLahir'] + '"  data-alamatPut="' + row['alamat'] + '"  data-kontakPut="' + row['kontak'] + '" >Ubah</a>' 
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let open_group = '<div class="btn-group">' 
                         let base_url = "<?= base_url() ?>"
                         let button = '<a class="btn btn-sm btn-primary" href="' + base_url + 'admin/mahasiswa/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
@@ -102,8 +77,8 @@
                         } else {
                             html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
                         }
-                        let close_group = '</div>'
-                        return open_group + htmlPut + html + button + close_group
+                        let close_group = '</div></div>'
+                        return alignment + open_group + html + button + close_group
                     }
                     return data
                 }
