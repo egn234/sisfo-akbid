@@ -77,7 +77,7 @@
                 data: "judul_kuesioner",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        return '<a onclick="listPertanyaan(this)" data-id="' + row['id'] + '" style="color:blue;cursor:pointer;">' + data + '</a>'
+                        return '<a onclick="listPertanyaan(this)" data-id="' + row['id'] + '" data-name="'+data+'" style="color:blue;cursor:pointer;">' + data + '</a>'
                     }
                     return data
                 }
@@ -220,6 +220,7 @@
 
     function listPertanyaan(x) {
         $('#card-pertanyaan').show()
+        $('#nama-kuesioner').text($(x).attr('data-name'))
         $('#kuesionerID').val($(x).attr('data-id'))
         $.ajax({
             url: "<?= base_url() ?>/admin/kuesioner/data_pertanyaan",
