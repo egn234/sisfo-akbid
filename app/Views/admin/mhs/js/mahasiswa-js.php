@@ -83,23 +83,27 @@
             },
             {
                 title: "Aksi",
+                width:"20%",
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         console.log(row);
                         let html
-                        let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" '+
+                        let open_group = '<div class="btn-group">'
+                        let htmlPut = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" '+
                         ' data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-emailPut="' + row['email'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '"  data-nimPut="' + row['nim'] + '"  data-nikPut="' + row['nik'] +'"'+ 
                         ' data-kontakAyahPut="' + row['kontakAyah'] + '" data-kontakIbuPut="' + row['kontakIbu'] + '" data-kontakWaliPut="' + row['kontakWali'] + '"'+
                         ' data-namaAyahPut="' + row['namaAyah'] + '" data-namaIbuPut="' + row['namaIbu'] + '" data-namaWaliPut="' + row['namaWali'] + '"'+
                         ' data-tanggalLahirPut="' + row['tanggalLahir'] + '" data-tempatLahirPut="' + row['tempatLahir'] + '"  data-alamatPut="' + row['alamat'] + '"  data-kontakPut="' + row['kontak'] + '" >Ubah</a>' 
-
+                        let base_url = "<?= base_url() ?>"
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + 'admin/mahasiswa/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {
                             html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
                         }
-                        return htmlPut + html
+                        let close_group = '</div>'
+                        return open_group + htmlPut + html + button + close_group
                     }
                     return data
                 }

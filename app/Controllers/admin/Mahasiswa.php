@@ -31,6 +31,34 @@ class Mahasiswa extends BaseController
 		return view('admin/mhs/list-mahasiswa', $data);
 	}
 
+	public function detail($iduser = false)
+	{
+		$m_user = new M_user();
+		$m_mahasiswa = new M_mahasiswa();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$detail_mhs = $m_user->select('
+				tb_user.username, 
+				tb_user.id AS user_id, 
+				tb_user.flag AS user_flag,
+				tb_user.userType, 
+				tb_mahasiswa.*
+			')
+			->where('tb_user.id', $iduser)
+			->join('tb_mahasiswa', 'tb_user.id = tb_mahasiswa.userID')
+			->get()->getResult();
+
+		$data = [
+			'title' => 'Detail Mahasiswa',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'detail_mhs' => $detail_mhs[0]
+		];
+
+		// return json_encode($data);
+		return view('admin/mhs/detail-mahasiswa', $data);
+	}
+
 	// ? Load data into json
 	public function data_mhs()
 	{
@@ -77,21 +105,6 @@ class Mahasiswa extends BaseController
 		return json_encode($data);
 	}
 
-
-	public function add_mhs()
-	{
-		$m_user = new M_user();
-		$account = $m_user->getAccount(session()->get('user_id'));
-
-		$data = [
-			'title' => 'Tambah Mahasiswa',
-			'usertype' => 'Admin',
-			'duser' => $account
-		];
-
-		return view('admin/mhs/add-mhs', $data);
-	}
-
 	public function flag_switch()
 	{
 		$m_user = new M_user();
@@ -127,6 +140,7 @@ class Mahasiswa extends BaseController
 	{
 		$m_mahasiswa = new M_mahasiswa();
 		$m_user = new M_user();
+		$account = $m_user->getAccount(session()->get('user_id'));
 
 		$options = [
 			'cost' => 12
