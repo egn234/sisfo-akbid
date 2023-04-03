@@ -369,7 +369,7 @@ class Mahasiswa extends BaseController
 
 		if ($foto->isValid())
 		{
-			unlink(ROOTPATH . "public/uploads/user/" . $user->username . "/profil_pic/" . $user->profil_pic );
+			unlink(ROOTPATH . "public/uploads/user/" . $user->username . "/profil_pic/" . $user->foto );
 			$newName = $foto->getRandomName();
 			$foto->move(ROOTPATH . 'public/uploads/user/' . $user->username . '/profil_pic/', $newName);
 			$profile_pic = $foto->getName();
