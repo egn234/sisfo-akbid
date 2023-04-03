@@ -40,6 +40,7 @@
                     </div>
                     <div class="card mb-4" style="display:none;" id="card-pertanyaan">
                         <div class="card-header">
+                            <h5 id="nama-kuesioner"></h5>
                             <i class="fas fa-table me-1"></i>
                             Daftar Pertanyaan
                             <div class="btn-group float-end">

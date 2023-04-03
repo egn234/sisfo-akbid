@@ -31,7 +31,9 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                    <h3 class="text-center font-weight-light my-4">Sistem Informasi Akademik
+                                        Annisa Jaya</h3>
+                                    <p class="text-center font-weight-light my-4" style="font-size: 24px;">Login</p>
                                 </div>
                                 <div class="card-body">
                                     <?= session()->getFlashdata('notif'); ?>
@@ -59,17 +61,22 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Akademi Kebidanan Annisa Jaya</div>
-                        <div>
+                        <div class="text-muted">Copyright &copy; Akademi Kebidanan Annisa Jaya <img src="<?= base_url('') ?>/img/akbid_logo_t.png" width="25" alt=""></div>
+                        <!-- <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
                             <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+    <script>
+        <?php if (isset($error)) {?>
+            alert('<?php echo $msg ?>')
+        <?php } ?>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<?= base_url() ?>/assets/js/scripts.js"></script>
 </body>

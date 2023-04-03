@@ -21,10 +21,10 @@ class Login extends BaseController
         $username = $this->request->getPost('username');
         $password = (string) $this->request->getPost('password');
         $data = $m_user->where('username', $username)->first();
-        if($data){
+        if ($data) {
             $pass = $data['password'];
             $check = password_verify($password, $pass);
-            if($check){
+            if ($check) {
                 $ses_data = [
                     'user_id' => $data['id'],
                     'flag' => $data['flag'],
@@ -33,25 +33,38 @@ class Login extends BaseController
                 ];
 
                 $session->set($ses_data);
-					
-                if($data['userType'] == 'admin'){
+
+                if ($data['userType'] == 'admin') {
                     return redirect()->to('admin/dashboard');
-                }
-                elseif($data['userType'] == 'mahasiswa'){
+                } elseif ($data['userType'] == 'mahasiswa') {
                     return redirect()->to('mahasiswa/dashboard');
-                }
-                elseif($data['userType'] == 'dosen'){
+                } elseif ($data['userType'] == 'dosen') {
                     return redirect()->to('dosen/dashboard');
                 }
-            }else{
-                echo 'password salah';
+            } else {
+                $session = session();
+                $session->destroy();
+                $data = [
+                    'title' => 'LOGIN',
+                    'msg' => 'password salah',
+                    'error' => true
+                ];
+                return view('login-page', $data);
             }
-        }else{
-            echo 'tidak ada user terdaftar';
+        } else {
+            $session = session();
+            $session->destroy();
+            $data = [
+                'title' => 'LOGIN',
+                'msg' => 'tidak ada user terdaftar',
+                'error' => true
+            ];
+            return view('login-page', $data);
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $session = session();
         $session->destroy();
         $data = [
@@ -63,10 +76,10 @@ class Login extends BaseController
     function testing()
     {
         $m_user = new M_user();
-        $options =[
+        $options = [
             'cost' => 12
         ];
-        
+
         $data = [
             [
                 'username' => 'admin001',
@@ -88,7 +101,7 @@ class Login extends BaseController
             ],
         ];
 
-        for ($i=0; $i < count($data); $i++) { 
+        for ($i = 0; $i < count($data); $i++) {
             $m_user->insert($data[$i]);
         }
         echo 'success';
