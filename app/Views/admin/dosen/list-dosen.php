@@ -56,23 +56,23 @@
                 <form action="<?= base_url('admin/dosen/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">NAMA</label>
-                            <input type="text" class="form-control" name="nama">
+                            <label class="form-label">NAMA  <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="nama" value="<?=session()->getFlashdata('nama')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIP</label>
-                            <input type="text" class="form-control" name="nip">
+                            <label class="form-label">NIP  <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="nip" value="<?=session()->getFlashdata('nip')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIK</label>
-                            <input type="text" class="form-control" name="nik">
+                            <label class="form-label">NIK  <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="nik" value="<?=session()->getFlashdata('nik')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">KODE DOSEN</label>
-                            <input type="text" class="form-control" name="kodeDosen">
+                            <label class="form-label">KODE DOSEN  <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="kodeDosen" value="<?=session()->getFlashdata('kodeDosen')?>"  required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">JENIS KELAMIN</label>
+                            <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenisKelamin" required>
                                 <option value="" selected>--Pilih Jenis Kelamin--</option>
                                 <option value="L">Laki-Laki</option>
@@ -80,89 +80,36 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">ALAMAT</label>
-                            <input type="text" class="form-control" name="alamat">
+                            <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="alamat" value="<?=session()->getFlashdata('alamat')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">EMAIL</label>
-                            <input type="text" class="form-control" name="email">
+                            <label class="form-label">EMAIL <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="email" value="<?=session()->getFlashdata('email')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">KONTAK</label>
-                            <input type="text" class="form-control" name="kontak">
+                            <label class="form-label">KONTAK <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="kontak" value="<?=session()->getFlashdata('kontak')?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">FOTO DOSEN</label>
                             <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">USERNAME</label>
-                            <input type="text" class="form-control" name="username">
+                            <label class="form-label">USERNAME <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="username" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">PASSWORD</label>
-                            <input type="text" class="form-control" name="password">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="updateData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="<?= base_url('admin/dosen/update-process') ?>" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">NAMA</label>
-                            <input type="text" style="display: none;" name="idPut" id="idPut">
-                            <input type="text" class="form-control" name="nama" id="namePut">
+                            <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" name="password" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">NIP</label>
-                            <input type="text" class="form-control" name="nip" id="nipPut">
+                            <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" name="password2" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">NIK</label>
-                            <input type="text" class="form-control" name="nik" id="nikPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KODE DOSEN</label>
-                            <input type="text" class="form-control" name="kodeDosen" id="kodeDosenPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">JENIS KELAMIN</label>
-                            <select class="form-select" name="jenisKelamin" id="jenisKelaminPut" required>
-                                <option value="" selected>--Pilih Jenis Kelamin--</option>
-                                <option value="L">Laki-Laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">ALAMAT</label>
-                            <input type="text" class="form-control" name="alamat" id="alamatPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">EMAIL</label>
-                            <input type="text" class="form-control" name="email" id="emailPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KONTAK</label>
-                            <input type="text" class="form-control" name="kontak" id="kontakPut">
-                        </div>
-                        <!-- <div class="mb-3">
-                            <label for="formFile" class="form-label">FOTO DOSEN</label>
-                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
-                        </div> -->
+                        <span class="text-xs text-danger">
+                            <i>*Tidak boleh dikosongkan</i>
+                        </span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

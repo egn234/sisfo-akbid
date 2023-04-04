@@ -67,15 +67,19 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
+                        console.log(row);
                         let html
-                        let htmlPut = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal"'+
-                        ' data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-nipPut="' + row['nip'] + '" data-alamatPut="' + row['alamat'] + '"  data-emailPut="' + row['email'] + '"  data-kodeDosenPut="' + row['kodeDosen'] + '"  data-kontakPut="' + row['kontak'] + '"  data-jenisKelaminPut="' + row['jenisKelamin'] + '" data-nikPut="'+row['nik']+'">Ubah</a>' 
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let open_group = '<div class="btn-group">' 
+                        let base_url = "<?= base_url() ?>"
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
-                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
+                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
                         }
-                        return htmlPut + html
+                        let close_group = '</div></div>'
+                        return alignment + open_group + html + button + close_group
                     }
                     return data
                 }
