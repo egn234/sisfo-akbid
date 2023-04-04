@@ -71,7 +71,7 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">' 
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + 'admin/mahasiswa/detail/' + row['user_id'] + '"> Detail </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/mahasiswa/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchMahasiswa" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {
