@@ -212,10 +212,6 @@
                                                         <input type="text" class="form-control" name="username" value="<?=$detail_dosen->username?>" autocomplete="off" disabled>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="formFile" class="form-label">PASSWORD LAMA<span class="text-danger">*</span></label>
-                                                        <input type="password" class="form-control" name="password_old" autocomplete="off" required>
-                                                    </div>
-                                                    <div class="mb-3">
                                                         <label for="formFile" class="form-label">PASSWORD BARU<span class="text-danger">*</span></label>
                                                         <input type="password" class="form-control" name="password" autocomplete="off" required>
                                                     </div>
