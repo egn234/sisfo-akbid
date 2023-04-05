@@ -60,9 +60,9 @@
                             <label class="form-label">TAHUN AJARAN</label>
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="tahun1" max="1975" aria-label="tahun1">
+                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" aria-label="tahun1">
                                     <span class="input-group-text">/</span>
-                                    <input type="number" class="form-control" name="tahun2" max="3000" aria-label="tahun2">
+                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" aria-label="tahun2">
                                     <select class="form-select" name="semester" required>
                                         <option value="" selected hidden>--Pilih Semester--</option>
                                         <option value="ganjil">Ganjil</option>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <textarea class="form-control ckeditor" style="height:400px" name="deskripsi"></textarea>
+                            <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,23 +95,26 @@
                 </div>
                 <form action="<?= base_url('admin/tahunAjaran/update-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div class="mb-3 row">
                             <label class="form-label">TAHUN AJARAN</label>
-                            <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="tahunPeriode" id="tahunPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">SEMESTER</label>
-                            <select class="form-select" name="semester" id="semesterPut" required>
-                                <option value="" selected>--Pilih Semester--</option>
-                                <option value="ganjil">Ganjil</option>
-                                <option value="genap">Genap</option>
-                                <option value="pendek">Pendek</option>
-                            </select>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="idPut" id="idPut" hidden>
+                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" id="tahunPut1" aria-label="tahun1">
+                                    <span class="input-group-text">/</span>
+                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" id="tahunPut2" aria-label="tahun2">
+                                    <select class="form-select" name="semester" id="semesterPut" required>
+                                        <option value="" selected hidden>--Pilih Semester--</option>
+                                        <option value="ganjil">Ganjil</option>
+                                        <option value="genap">Genap</option>
+                                        <option value="pendek">Pendek</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                            <textarea class="form-control ckeditor2" id="deskripsiPut" style="height:400px" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -143,6 +146,27 @@
         </div>
     </div>
 
+    <div id="switchMahasiswa" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/mahasiswa/switch-mhs') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="user_id" name="user_id" style="display: none;">
+                        <p>Ubah Status User ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <?= $this->include('admin/partials/partial-footer') ?>
 
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
