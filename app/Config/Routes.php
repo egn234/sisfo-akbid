@@ -71,7 +71,6 @@ $routes->group('admin', static function ($routes) {
         $routes->add('update-password/(:num)', 'Admin\Dosen::update_pass/$1', ['as' => 'update-pass-dosen-1']);
         $routes->add('update-process/(:num)', 'Admin\Dosen::process_update/$1', ['as' => 'update-dosen-1']);
 
-
     });
 
     // Kelola Mata Kuliah

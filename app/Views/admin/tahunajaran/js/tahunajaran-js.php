@@ -12,11 +12,14 @@
         $('#flagPut').val($(x).attr('data-flagPut'))
 
     }
-    $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
-        })
-    })
+    ClassicEditor
+        .create( document.querySelector( '.ckeditor' ),{
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            height:'500px'
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
 
     let dataTable
     // Data Table

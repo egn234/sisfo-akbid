@@ -48,19 +48,47 @@ class Tahunajaran extends BaseController
     {
         $m_tahunajaran = new M_tahunajaran();
 
-        $data = array(
-            'tahunPeriode'      => $this->request->getPost('tahunPeriode'),
-            'semester'          => $this->request->getPost('semester'),
-            'deskripsi'         => $this->request->getPost('deskripsi'),
-            'flag'              => $this->request->getPost('flag')
+        $tahun1 = $this->request->getPost('tahun1');
+        $tahun2 = $this->request->getPost('tahun2');
+        $semester = $this->request->getPost('semester');
+        $deskripsi = $this->request->getPost('deskripsi');
 
-        );
+        $periode = (string) $tahun1 . '/' . $tahun2;
 
-        $check = $m_tahunajaran->insert($data);
+        $cek_count = $m_tahunajaran->select("COUNT(id) AS hitung")
+            ->where('tahunPeriode', $periode)
+            ->where('semester', $semester)
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if($cek_count > 0){
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Tahun Ajaran telah terdaftar',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        $data = [
+            'tahunPeriode' => $periode,
+            'semester' => $semester,
+            'deskripsi' => $deskripsi
+        ];
+
+        try {
+            $m_tahunajaran->insert($data);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Periode Berhasil DiTambahkan',
+                'notif_text' => 'Tahun Ajaran berhasil ditambahkan',
                 'status' => 'success'
             ]
         );

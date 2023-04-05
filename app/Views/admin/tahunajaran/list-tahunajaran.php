@@ -56,29 +56,25 @@
                 </div>
                 <form action="<?= base_url('admin/tahunAjaran/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">TAHUN PERIODE</label>
-                            <input type="text" class="form-control" name="tahunPeriode">
+                        <div class="mb-3 row">
+                            <label class="form-label">TAHUN AJARAN</label>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="tahun1" max="1975" aria-label="tahun1">
+                                    <span class="input-group-text">/</span>
+                                    <input type="number" class="form-control" name="tahun2" max="3000" aria-label="tahun2">
+                                    <select class="form-select" name="semester" required>
+                                        <option value="" selected hidden>--Pilih Semester--</option>
+                                        <option value="ganjil">Ganjil</option>
+                                        <option value="genap">Genap</option>
+                                        <option value="pendek">Pendek</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">SEMESTER</label>
-                            <select class="form-select" name="semester" required>
-                                <option value="" selected>--Pilih Semester--</option>
-                                <option value="ganjil">Ganjil</option>
-                                <option value="genap">Genap</option>
-                                <option value="pendek">Pendek</option>
-                            </select>                        </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <textarea class="form-control ckeditor" style="height:400px" name="deskripsi"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
-                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -116,14 +112,6 @@
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" id="flagPut" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
-                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
