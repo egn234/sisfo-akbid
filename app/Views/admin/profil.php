@@ -155,7 +155,7 @@
 
                                         <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('update-profil-user', $detail_admin->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
+                                                <form action="<?= url_to('update-profil-dosen') ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="nama" value="<?=$detail_admin->nama?>" required>

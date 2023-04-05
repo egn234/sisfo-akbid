@@ -260,7 +260,7 @@
 
                                         <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('update-mahasiswa-1', $detail_mhs->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
+                                                <form action="<?= url_to('update-profil-mhs') ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="nama" value="<?=$detail_mhs->nama?>" required>
