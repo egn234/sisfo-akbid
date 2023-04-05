@@ -54,7 +54,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/tahunAjaran/input-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahun-ajaran/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3 row">
                             <label class="form-label">TAHUN AJARAN</label>
@@ -93,7 +93,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/tahunAjaran/update-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahun-ajaran/update-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3 row">
                             <label class="form-label">TAHUN AJARAN</label>
@@ -132,7 +132,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/tahunAjaran/delete-process') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahun-ajaran/delete-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="text" class="form-control" id="idDel" name="idDel" placeholder="KODE MATA KULIAH" style="display: none;">
                         <p>Anda yakin ingin menghapus data? (<b id="nameDel"></b>)</p>
@@ -146,17 +146,17 @@
         </div>
     </div>
 
-    <div id="switchMahasiswa" class="modal fade" tabindex="-1">
+    <div id="switchTahunAjaran" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/mahasiswa/switch-mhs') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/tahun-ajaran/switch-periode') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <input type="text" id="user_id" name="user_id" style="display: none;">
-                        <p>Ubah Status User ini? <b id="nameUser"></b></p>
+                        <input type="text" id="user_id" name="id_data" style="display: none;">
+                        <p>Ubah Status Data ini? <b id="nameUser"></b></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

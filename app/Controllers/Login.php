@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\M_user;
-use App\Models\M_dosen;
-use App\Models\M_mahasiswa;
 
 class Login extends BaseController
 {
@@ -112,8 +110,6 @@ class Login extends BaseController
     public function Profil()
     {
         $m_user = new M_user();
-        $m_mahasiswa = new M_mahasiswa();
-        $m_dosen = new M_dosen();
         $account = $m_user->getAccount(session()->get('user_id'));
         $useType = session()->get('user_type');
         if ($useType == 'admin') {

@@ -155,14 +155,14 @@
 
                                         <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('update-mahasiswa-1', $detail_admin->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
+                                                <form action="<?= url_to('update-profil-user', $detail_admin->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="nama" value="<?=$detail_admin->nama?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NIK <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=$detail_admin->nik?>" name="nik" disabled>
+                                                        <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=$detail_admin->nik?>" name="nik" readonly>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
