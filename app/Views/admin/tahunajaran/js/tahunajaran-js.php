@@ -1,4 +1,5 @@
 <script>
+    
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))

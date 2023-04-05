@@ -36,6 +36,9 @@ $routes->get('test-page', 'Login::testing');
 
 $routes->post('auth-login', 'Login::login_proc');
 
+// Profil
+$routes->get('profil', 'Login::Profil');
+
 //GROUP ADMIN
 $routes->group('admin', static function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');

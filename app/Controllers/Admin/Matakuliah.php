@@ -110,66 +110,66 @@ class Matakuliah extends BaseController
 		return redirect()->to('admin/matkul');
 	}
 
-	// example xls
-	public function export()
-	{
-		$m_matkul = new M_matkul();
-		$list_matkul = $m_matkul->select('*')
-			->get()
-			->getResult();
+	// // example xls
+	// public function export()
+	// {
+	// 	$m_matkul = new M_matkul();
+	// 	$list_matkul = $m_matkul->select('*')
+	// 		->get()
+	// 		->getResult();
 
-		$spreadsheet = new Spreadsheet();
+	// 	$spreadsheet = new Spreadsheet();
 
-		$spreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A1', 'Nama')
-			->setCellValue('B1', 'Email')
-			->setCellValue('C1', 'Tanggal dibuat');
+	// 	$spreadsheet->setActiveSheetIndex(0)
+	// 		->setCellValue('A1', 'Nama')
+	// 		->setCellValue('B1', 'Email')
+	// 		->setCellValue('C1', 'Tanggal dibuat');
 
-		$column = 2;
+	// 	$column = 2;
 
-		// foreach ($list_matkul as $user) {
-		// 	$spreadsheet->setActiveSheetIndex(0)
-		// 		->setCellValue('A' . $column, $user['name'])
-		// 		->setCellValue('B' . $column, $user['email'])
-		// 		->setCellValue('C' . $column, $user['created_at']);
+	// 	// foreach ($list_matkul as $user) {
+	// 	// 	$spreadsheet->setActiveSheetIndex(0)
+	// 	// 		->setCellValue('A' . $column, $user['name'])
+	// 	// 		->setCellValue('B' . $column, $user['email'])
+	// 	// 		->setCellValue('C' . $column, $user['created_at']);
 
-		// 	$column++;
-		// }
+	// 	// 	$column++;
+	// 	// }
 
-		$writer = new Xlsx($spreadsheet);
-		$filename = date('Y-m-d-His') . '-Data-User';
+	// 	$writer = new Xlsx($spreadsheet);
+	// 	$filename = date('Y-m-d-His') . '-Data-User';
 
-		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
-		header('Cache-Control: max-age=0');
+	// 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	// 	header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+	// 	header('Cache-Control: max-age=0');
 
-		$writer->save('php://output');
-	}
+	// 	$writer->save('php://output');
+	// }
 
-	// example pdf
-	public function generate()
-    {
-		$m_matkul = new M_matkul();
-		$data['list_matkul'] = $m_matkul->select('*')
-			->get()
-			->getResult();
+	// // example pdf
+	// public function generate()
+    // {
+	// 	$m_matkul = new M_matkul();
+	// 	$data['list_matkul'] = $m_matkul->select('*')
+	// 		->get()
+	// 		->getResult();
 			
-        $filename = date('y-m-d-H-i-s'). '-test-pdf';
+    //     $filename = date('y-m-d-H-i-s'). '-test-pdf';
 
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
+    //     // instantiate and use the dompdf class
+    //     $dompdf = new Dompdf();
 
-        // load HTML content
-        $dompdf->loadHtml(view('admin/test_pdf', $data));
+    //     // load HTML content
+    //     $dompdf->loadHtml(view('admin/test_pdf', $data));
 
-        // (optional) setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+    //     // (optional) setup the paper size and orientation
+    //     $dompdf->setPaper('A4', 'landscape');
 
-        // render html as PDF
-        $dompdf->render();
+    //     // render html as PDF
+    //     $dompdf->render();
 
-        // output the generated pdf
-        $dompdf->stream($filename);
-    }
+    //     // output the generated pdf
+    //     $dompdf->stream($filename);
+    // }
 
 }

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\M_user;
+use App\Models\M_dosen;
+use App\Models\M_mahasiswa;
 
 class Login extends BaseController
 {
@@ -105,5 +107,70 @@ class Login extends BaseController
             $m_user->insert($data[$i]);
         }
         echo 'success';
+    }
+
+    public function Profil()
+    {
+        $m_user = new M_user();
+        $m_mahasiswa = new M_mahasiswa();
+        $m_dosen = new M_dosen();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $useType = session()->get('user_type');
+        if ($useType == 'admin') {
+            $detail_admin = $m_user->select('
+				tb_user.username, 
+				tb_user.id AS user_id, 
+				tb_user.flag AS user_flag,
+				tb_user.userType, 
+				tb_admin.*
+			')
+                ->where('tb_user.id', session()->get('user_id'))
+                ->join('tb_admin', 'tb_user.id = tb_admin.userID')
+                ->get()->getResult();
+            $data = [
+                'title' => 'Profil',
+                'usertype' => $useType,
+                'duser' => $account,
+                'detail_admin' => $detail_admin[0]
+            ];
+            return view('admin/profil', $data);
+        } else if ($useType == 'mahasiswa') {
+            $detail_mhs = $m_user->select('
+				tb_user.username, 
+				tb_user.id AS user_id, 
+				tb_user.flag AS user_flag,
+				tb_user.userType, 
+				tb_mahasiswa.*
+			')
+                ->where('tb_user.id', session()->get('user_id'))
+                ->join('tb_mahasiswa', 'tb_user.id = tb_mahasiswa.userID')
+                ->get()->getResult();
+            $data = [
+                'title' => 'Profil',
+                'usertype' => $useType,
+                'duser' => $account,
+                'detail_mhs' => $detail_mhs[0]
+            ];
+            return view('mahasiswa/profil', $data);
+        } else if ($useType == 'dosen') {
+
+            $detail_dosen = $m_user->select('
+				tb_user.username, 
+				tb_user.id AS user_id, 
+				tb_user.flag AS user_flag,
+				tb_user.userType, 
+				tb_dosen.*
+			')
+                ->where('tb_user.id', session()->get('user_id'))
+                ->join('tb_dosen', 'tb_user.id = tb_dosen.userID')
+                ->get()->getResult();
+            $data = [
+                'title' => 'Profil',
+                'usertype' => $useType,
+                'duser' => $account,
+                'detail_dosen' => $detail_dosen[0]
+            ];
+            return view('dosen/profil', $data);
+        }
     }
 }
