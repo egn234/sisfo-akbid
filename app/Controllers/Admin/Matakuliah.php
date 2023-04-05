@@ -6,6 +6,9 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_matkul;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Dompdf\Dompdf;
 
 class Matakuliah extends BaseController
 {
@@ -94,7 +97,7 @@ class Matakuliah extends BaseController
 			'namaMatkul'       	=> $this->request->getPost('namaMatkul'),
 			'deskripsi' 		=> $this->request->getPost('deskripsi')
 		);
-		$m_matkul->update(['id' => $id],$data);
+		$m_matkul->update(['id' => $id], $data);
 		$alert = view(
 			'partials/notification-alert',
 			[
@@ -106,4 +109,67 @@ class Matakuliah extends BaseController
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/matkul');
 	}
+
+	// // example xls
+	// public function export()
+	// {
+	// 	$m_matkul = new M_matkul();
+	// 	$list_matkul = $m_matkul->select('*')
+	// 		->get()
+	// 		->getResult();
+
+	// 	$spreadsheet = new Spreadsheet();
+
+	// 	$spreadsheet->setActiveSheetIndex(0)
+	// 		->setCellValue('A1', 'Nama')
+	// 		->setCellValue('B1', 'Email')
+	// 		->setCellValue('C1', 'Tanggal dibuat');
+
+	// 	$column = 2;
+
+	// 	// foreach ($list_matkul as $user) {
+	// 	// 	$spreadsheet->setActiveSheetIndex(0)
+	// 	// 		->setCellValue('A' . $column, $user['name'])
+	// 	// 		->setCellValue('B' . $column, $user['email'])
+	// 	// 		->setCellValue('C' . $column, $user['created_at']);
+
+	// 	// 	$column++;
+	// 	// }
+
+	// 	$writer = new Xlsx($spreadsheet);
+	// 	$filename = date('Y-m-d-His') . '-Data-User';
+
+	// 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	// 	header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+	// 	header('Cache-Control: max-age=0');
+
+	// 	$writer->save('php://output');
+	// }
+
+	// // example pdf
+	// public function generate()
+    // {
+	// 	$m_matkul = new M_matkul();
+	// 	$data['list_matkul'] = $m_matkul->select('*')
+	// 		->get()
+	// 		->getResult();
+			
+    //     $filename = date('y-m-d-H-i-s'). '-test-pdf';
+
+    //     // instantiate and use the dompdf class
+    //     $dompdf = new Dompdf();
+
+    //     // load HTML content
+    //     $dompdf->loadHtml(view('admin/test_pdf', $data));
+
+    //     // (optional) setup the paper size and orientation
+    //     $dompdf->setPaper('A4', 'landscape');
+
+    //     // render html as PDF
+    //     $dompdf->render();
+
+    //     // output the generated pdf
+    //     $dompdf->stream($filename);
+    // }
+
 }

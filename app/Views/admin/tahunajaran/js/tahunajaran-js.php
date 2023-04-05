@@ -1,13 +1,5 @@
 <script>
-    ClassicEditor
-        .create( document.querySelector( '.ckeditor' ),{
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-            height:'500px'
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-        Array.from( editor.ui.componentFactory.names() );
+    
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))

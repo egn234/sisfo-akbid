@@ -36,6 +36,9 @@ $routes->get('test-page', 'Login::testing');
 
 $routes->post('auth-login', 'Login::login_proc');
 
+// Profil
+$routes->get('profil', 'Login::Profil');
+
 //GROUP ADMIN
 $routes->group('admin', static function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
@@ -78,6 +81,11 @@ $routes->group('admin', static function ($routes) {
         $routes->add('input-process', 'Admin\Matakuliah::process_input');
         $routes->add('update-process', 'Admin\Matakuliah::process_update');
         $routes->add('delete-process', 'Admin\Matakuliah::process_delete');
+
+        // Contoh export xls dan pdf
+        $routes->add('export', 'Admin\Matakuliah::export');
+        $routes->add('generate', 'Admin\Matakuliah::generate');
+
     });
 
     // Kelola Ruangan
