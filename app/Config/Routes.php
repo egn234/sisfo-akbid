@@ -43,6 +43,13 @@ $routes->get('profil', 'Login::Profil');
 $routes->group('admin', static function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
 
+    //Profil Admin
+    $routes->group('profil', static function ($routes) {
+
+        $routes->add('update-process', 'Admin\Profil::process_update', ['as' => 'update-profil-user']);
+
+    });
+
     //KELOLA MAHASISWA
     $routes->group('mahasiswa', static function ($routes) {
         $routes->get('/', 'Admin\Mahasiswa::index');

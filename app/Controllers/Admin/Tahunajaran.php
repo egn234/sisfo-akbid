@@ -198,8 +198,7 @@ class Tahunajaran extends BaseController
     public function flag_switch()
 	{
 		$m_tahunajaran = new M_tahunajaran();
-		$periode_id = $this->request->getPost('idPut');
-        echo $periode_id;
+		$periode_id = $this->request->getPost('id_data');
 		$periode = $m_tahunajaran->where('id', $periode_id)->first();
 		if ($periode['flag'] == 0) {
 			$m_tahunajaran->where('id', $periode_id)->set('flag', '1')->update();
