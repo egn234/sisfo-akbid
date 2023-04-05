@@ -47,7 +47,6 @@ $routes->group('admin', static function ($routes) {
     $routes->group('profil', static function ($routes) {
 
         $routes->add('update-process', 'Admin\Profil::process_update', ['as' => 'update-profil-user']);
-
     });
 
     //KELOLA MAHASISWA
@@ -77,7 +76,6 @@ $routes->group('admin', static function ($routes) {
         $routes->get('detail/(:num)', 'Admin\Dosen::detail/$1', ['as' => 'detail-dosen-1']);
         $routes->add('update-password/(:num)', 'Admin\Dosen::update_pass/$1', ['as' => 'update-pass-dosen-1']);
         $routes->add('update-process/(:num)', 'Admin\Dosen::process_update/$1', ['as' => 'update-dosen-1']);
-
     });
 
     // Kelola Mata Kuliah
@@ -91,7 +89,6 @@ $routes->group('admin', static function ($routes) {
         // Contoh export xls dan pdf
         $routes->add('export', 'Admin\Matakuliah::export');
         $routes->add('generate', 'Admin\Matakuliah::generate');
-
     });
 
     // Kelola Ruangan
@@ -188,7 +185,11 @@ $routes->group('admin', static function ($routes) {
 //GROUP MAHASISWA
 $routes->group('mahasiswa', static function ($routes) {
     $routes->get('dashboard', 'Mahasiswa\Dashboard::index');
+    //Profil Mahasiswa
+    $routes->group('profil', static function ($routes) {
 
+        $routes->add('update-process', 'Mahasiswa\Profil::process_update', ['as' => 'update-profil-mhs']);
+    });
     // View posting
     $routes->group('posting', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Posting::index');
@@ -205,7 +206,6 @@ $routes->group('mahasiswa', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Nilai::index');
         $routes->get('data_periode', 'Mahasiswa\Nilai::data_periode');
         $routes->get('data_nilai', 'Mahasiswa\Nilai::data_nilai');
-
     });
 
     // View Kuesioner
@@ -214,13 +214,17 @@ $routes->group('mahasiswa', static function ($routes) {
         $routes->get('pertanyaan_kuesioner/(:any)', 'Mahasiswa\Kuesioner::pertanyaan_kuesioner/$1');
 
         $routes->get('data_kuesioner', 'Mahasiswa\Kuesioner::data_kuesioner');
-
     });
 });
 
 //GROUP DOSEN
 $routes->group('dosen', static function ($routes) {
     $routes->get('dashboard', 'Dosen\Dashboard::index');
+    //Profil Mahasiswa
+    $routes->group('profil', static function ($routes) {
+
+        $routes->add('update-process', 'Dosen\Profil::process_update', ['as' => 'update-profil-dosen']);
+    });
 });
 
 
