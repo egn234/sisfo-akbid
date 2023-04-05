@@ -4,6 +4,7 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -69,7 +70,7 @@
                             </select>                        </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi">
+                            <textarea class="form-control ckeditor" style="height:400px" name="deskripsi"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">STATUS</label>

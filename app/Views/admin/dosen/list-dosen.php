@@ -61,22 +61,22 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NIP  <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nip" value="<?=session()->getFlashdata('nip')?>" required>
+                            <input type="text" class="form-control numeric-input" name="nip" value="<?=session()->getFlashdata('nip')?>" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NIK  <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nik" value="<?=session()->getFlashdata('nik')?>" required>
+                            <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999"  name="nik" value="<?=session()->getFlashdata('nik')?>" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KODE DOSEN  <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="kodeDosen" value="<?=session()->getFlashdata('kodeDosen')?>"  required>
+                            <input type="text" class="form-control" maxlength="3" name="kodeDosen" value="<?=session()->getFlashdata('kodeDosen')?>"  required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenisKelamin" required>
                                 <option value="" selected>--Pilih Jenis Kelamin--</option>
-                                <option value="L">Laki-Laki</option>
-                                <option value="P">Perempuan</option>
+                                <option value="L" <?=(session()->getFlashdata('jenisKelamin') == 'L')?'selected':''?>>Laki-Laki</option>
+                                <option value="P" <?=(session()->getFlashdata('jenisKelamin') == 'P')?'selected':''?>>Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -85,15 +85,15 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">EMAIL <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="email" value="<?=session()->getFlashdata('email')?>" required>
+                            <input type="email" class="form-control" name="email" value="<?=session()->getFlashdata('email')?>" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">KONTAK <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="kontak" value="<?=session()->getFlashdata('kontak')?>" required>
+                            <input type="text" class="form-control numeric-input" name="kontak" value="<?=session()->getFlashdata('kontak')?>" required>
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">FOTO DOSEN</label>
-                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg, image/png">
+                            <label for="formFile" class="form-label">FOTO DOSEN (.jpg)</label>
+                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">USERNAME <span class="text-danger">*</span></label>
