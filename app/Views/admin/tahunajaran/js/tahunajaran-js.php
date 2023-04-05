@@ -1,4 +1,8 @@
 <script>
+    function switchFlag(x) {
+        $('#user_id').val($(x).attr('data-id'))
+        $('#nameUser').text($(x).attr('data-name'))
+    }
     
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
@@ -6,14 +10,26 @@
     }
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
-        $('#tahunPut').val($(x).attr('data-tahunPut'))
+        $('#tahunPut1').val($(x).attr('data-tahunPut1'))
+        $('#tahunPut2').val($(x).attr('data-tahunPut2'))
         $('#semesterPut').val($(x).attr('data-semesterPut'))
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
         $('#flagPut').val($(x).attr('data-flagPut'))
-
+        
+        ClassicEditor
+        .create( document.querySelector( '.ckeditor2' ),{
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            height:'500px'
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+        
+        CKEDITOR.instances['ckeditor2'].setData($(x).attr('data-deskripsiPut'))
     }
+
     ClassicEditor
-        .create( document.querySelector( '.ckeditor' ),{
+        .create( document.querySelector( '.ckeditor1' ),{
             toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
             height:'500px'
         } )
@@ -32,23 +48,27 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO'
+                title: 'No',
+                width:'5%'
             },
             {
                 title: 'Tahun Periode',
-                data: "tahunPeriode"
+                data: "tahunPeriode",
+                width:'10%'
             },
             {
                 title: 'Semester',
-                data: "semester"
+                data: "semester",
+                width:'10%'
             },
             {
                 title: 'Deskripsi',
-                data: 'deskripsi'
+                data: 'deskripsi',
             },
             {
                 title: 'Status',
                 data: 'flag',
+                width:'7%',
                 render: function(data, type, row) {
                     if (type === 'display') {
                         let html
@@ -65,13 +85,20 @@
             {
                 title: "Aksi",
                 data: "id",
+                width:'13%',
                 render: function(data, type, row, full) {
                     if (type === 'display') {
+                        
                         let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData"'+
-                        ' data-idPut="' + data + '" data-tahunPut="' + row['tahunPeriode'] + '" data-semesterPut="' + row['semester'] + '" data-deskripsiPut="' + row['deskripsi'] + '"  data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                        let tahun1 = row['tahunPeriode'].slice(0,4)
+                        let tahun2 = row['tahunPeriode'].slice(5,9)
+                        let grouping = '<div class="btn-group">'
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let close_group = '</div>'
+                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData"'+
+                        ' data-idPut="' + data + '" data-tahunPut1="' + tahun1 + '" data-tahunPut2="' + tahun2 + '" data-semesterPut="' + row['semester'] + '" data-deskripsiPut="' + row['deskripsi'] + '"  data-flagPut="' + row['flag'] + '" >Ubah</a>' +
                         '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="'+row['tahunPeriode']+'" >Hapus</a>'
-                        return html
+                        return alignment + grouping + html + close_group + close_group
                     }
                     return data
                 }

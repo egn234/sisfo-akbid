@@ -26,7 +26,7 @@
                             </a>
                             <div class="collapse <?= ($title == 'Daftar Mata Kuliah' || $title == 'Daftar Ruangan' || $title == 'Daftar Tahun Ajaran' || $title == 'Daftar Kelas') ? 'show' : '' ?>" id="kelolaPerkuliahan" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link <?= ($title == 'Daftar Tahun Ajaran') ? 'active' : '' ?>" href="<?= url_to('admin/tahunAjaran') ?>">Tahun Ajaran</a>
+                                    <a class="nav-link <?= ($title == 'Daftar Tahun Ajaran') ? 'active' : '' ?>" href="<?= url_to('admin/tahun-ajaran') ?>">Tahun Ajaran</a>
                                     <a class="nav-link <?= ($title == 'Daftar Mata Kuliah') ? 'active' : '' ?>" href="<?= url_to('admin/matkul') ?>">Mata Kuliah</a>
                                     <a class="nav-link <?= ($title == 'Daftar Kelas') ? 'active' : '' ?>" href="<?= url_to('admin/kelas') ?>">Kelas</a>
                                     <a class="nav-link <?= ($title == 'Daftar Ruangan') ? 'active' : '' ?>" href="<?= url_to('admin/ruangan') ?>">Ruangan</a>

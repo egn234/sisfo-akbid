@@ -74,6 +74,19 @@ class Tahunajaran extends BaseController
             return redirect()->back();
         }
 
+        if($semester == ''){
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Pilih semester terlebih dahulu',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
         $data = [
             'tahunPeriode' => $periode,
             'semester' => $semester,
@@ -94,7 +107,7 @@ class Tahunajaran extends BaseController
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/tahunAjaran');
+        return redirect()->back();
     }
 
     public function process_delete()
@@ -118,23 +131,99 @@ class Tahunajaran extends BaseController
     {
         $m_tahunajaran = new M_tahunajaran();
         $id = $this->request->getPost('idPut');
-        $data = array(
-            'tahunPeriode'      => $this->request->getPost('tahunPeriode'),
-            'semester'          => $this->request->getPost('semester'),
-            'deskripsi'         => $this->request->getPost('deskripsi'),
-            'flag'              => $this->request->getPost('flag')
 
-        );
-        $m_tahunajaran->update(['id' => $id], $data);
+        $tahun1 = $this->request->getPost('tahun1');
+        $tahun2 = $this->request->getPost('tahun2');
+        $semester = $this->request->getPost('semester');
+        $deskripsi = $this->request->getPost('deskripsi');
+
+        $periode = (string) $tahun1 . '/' . $tahun2;
+
+        $cek_count = $m_tahunajaran->select("COUNT(id) AS hitung")
+            ->where('tahunPeriode', $periode)
+            ->where('semester', $semester)
+            ->where('id != '.$id)
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if($cek_count > 0){
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Tahun Ajaran telah terdaftar',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        if($semester == ''){
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Pilih semester terlebih dahulu',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        $data = [
+            'tahunPeriode' => $periode,
+            'semester' => $semester,
+            'deskripsi' => $deskripsi
+        ];
+
+        try {
+            $m_tahunajaran->set($data)->where('id', $id)->update();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Periode Berhasil Di Ubah',
+                'notif_text' => 'Tahun Ajaran berhasil ditambahkan',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/tahunAjaran');
+        return redirect()->back();
     }
+
+    public function flag_switch()
+	{
+		$m_tahunajaran = new M_tahunajaran();
+		$periode_id = $this->request->getPost('idPut');
+        echo $periode_id;
+		$periode = $m_tahunajaran->where('id', $periode_id)->first();
+		if ($periode['flag'] == 0) {
+			$m_tahunajaran->where('id', $periode_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Periode Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($periode['flag'] == 1) {
+			$m_tahunajaran->where('id', $periode_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Periode Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
 }
