@@ -4,6 +4,7 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -50,39 +51,31 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kelas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="<?= base_url('admin/kelas/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">KODE KELAS</label>
-                            <input type="text" class="form-control" name="kodeKelas">
+                            <input type="text" class="form-control" name="kodeKelas" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">ANGKATAN</label>
-                            <input type="text" class="form-control" name="angkatan">
+                            <input type="number" class="form-control" name="angkatan" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">TAHUN ANGKATAN</label>
-                            <input type="text" class="form-control" name="tahunAngkatan">
+                            <input type="number" min="1975" max="3000" class="form-control" name="tahunAngkatan" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
-                            </select>
+                            <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Tambah Kelas</button>
                     </div>
                 </form>
             </div>

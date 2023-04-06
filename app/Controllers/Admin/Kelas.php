@@ -93,25 +93,47 @@ class Kelas extends BaseController
     {
         $m_kelas = new M_kelas();
 
-        $data = array(
-            'kodeKelas'       => $this->request->getPost('kodeKelas'),
-            'angkatan'       => $this->request->getPost('angkatan'),
-            'tahunAngkatan'         => $this->request->getPost('tahunAngkatan'),
-            'deskripsi'         => $this->request->getPost('deskripsi'),
-            'flag'         => $this->request->getPost('flag'),
-        );
+        $kodeKelas = strtoupper((string) $this->request->getPost('kodeKelas'));
+        $angkatan = $this->request->getPost('angkatan');
+        $tahunAngkatan = $this->request->getPost('tahunAngkatan');
+        $deskripsi = $this->request->getPost('deskripsi');
 
-        $check = $m_kelas->insert($data);
+        $cek_kelas = $m_kelas->select('COUNT(id) AS hitung')
+            ->where('kodeKelas', $kodeKelas)
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if ($cek_kelas != 0) {    
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Kode kelas telah terdaftar',
+                    'status' => 'warning'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        $data = [
+            'kodeKelas' => $kodeKelas,
+            'angkatan' => $angkatan,
+            'tahunAngkatan' => $tahunAngkatan,
+            'deskripsi' => $deskripsi
+        ];
+
+        $m_kelas->insert($data);
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Kelas Berhasil DiTambahkan',
+                'notif_text' => 'Kelas berhasil dibuat',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kelas');
+        return redirect()->back();
     }
 
     public function process_delete()
@@ -135,24 +157,49 @@ class Kelas extends BaseController
     {
         $m_kelas = new M_kelas();
         $id = $this->request->getPost('idPut');
-        $data = array(
-            'kodeKelas'       => $this->request->getPost('kodeKelas'),
-            'angkatan'       => $this->request->getPost('angkatan'),
-            'tahunAngkatan'         => $this->request->getPost('tahunAngkatan'),
-            'deskripsi'         => $this->request->getPost('deskripsi'),
-            'flag'         => $this->request->getPost('flag'),
-        );
-        $m_kelas->update(['id' => $id], $data);
+
+        $kodeKelas = strtoupper((string) $this->request->getPost('kodeKelas'));
+        $angkatan = $this->request->getPost('angkatan');
+        $tahunAngkatan = $this->request->getPost('tahunAngkatan');
+        $deskripsi = $this->request->getPost('deskripsi');
+
+        $cek_kelas = $m_kelas->select('COUNT(id) AS hitung')
+            ->where('kodeKelas', $kodeKelas)
+            ->where('id != '.$id)
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if ($cek_kelas != 0) {    
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Kode kelas telah terdaftar',
+                    'status' => 'warning'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        $data = [
+            'kodeKelas' => $kodeKelas,
+            'angkatan' => $angkatan,
+            'tahunAngkatan' => $tahunAngkatan,
+            'deskripsi' => $deskripsi
+        ];
+
+        $m_kelas->set($data)->where('id', $id)->update();
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
+                'notif_text' => 'Kelas berhasil dibuat',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kelas');
+        return redirect()->back();
     }
 
     public function add_dosen_wali()
