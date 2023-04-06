@@ -124,6 +124,8 @@ $routes->group('admin', static function ($routes) {
         $routes->add('delete-process', 'Admin\Kelas::process_delete');
         $routes->add('data-detail-kelas', 'Admin\Kelas::detail_data_kelas');
 
+        $routes->add('switch-kelas', 'Admin\Kelas::flag_switch');
+
         // Dosen wali Kelas
 
         $routes->add('add_dosen_wali', 'Admin\Kelas::add_dosen_wali');
