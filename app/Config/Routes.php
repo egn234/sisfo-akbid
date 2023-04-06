@@ -47,6 +47,8 @@ $routes->group('admin', static function ($routes) {
     $routes->group('profil', static function ($routes) {
 
         $routes->add('update-process', 'Admin\Profil::process_update', ['as' => 'update-profil-user']);
+        $routes->add('update-pass', 'Admin\Profil::update_pass', ['as' => 'update-pass-user']);
+        
     });
 
     //KELOLA MAHASISWA
@@ -189,6 +191,8 @@ $routes->group('mahasiswa', static function ($routes) {
     $routes->group('profil', static function ($routes) {
 
         $routes->add('update-process', 'Mahasiswa\Profil::process_update', ['as' => 'update-profil-mhs']);
+        $routes->add('update-pass', 'Mahasiswa\Profil::update_pass', ['as' => 'update-pass-mhs']);
+
     });
     // View posting
     $routes->group('posting', static function ($routes) {
@@ -224,6 +228,8 @@ $routes->group('dosen', static function ($routes) {
     $routes->group('profil', static function ($routes) {
 
         $routes->add('update-process', 'Dosen\Profil::process_update', ['as' => 'update-profil-dosen']);
+        $routes->add('update-pass', 'Dosen\Profil::update_pass', ['as' => 'update-pass-dosen']);
+
     });
 });
 

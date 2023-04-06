@@ -373,7 +373,7 @@ class Mahasiswa extends BaseController
 			$newName = $foto->getRandomName();
 			$foto->move(ROOTPATH . 'public/uploads/user/' . $user->username . '/profil_pic/', $newName);
 			$profile_pic = $foto->getName();
-			$dataset_mhs += ['profil_pic' => $profile_pic];
+			$dataset_mhs += ['foto' => $profile_pic];
 		}
 
 		$m_mahasiswa->set($dataset_mhs)->where('id', $user->id)->update();

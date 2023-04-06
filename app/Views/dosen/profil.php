@@ -206,7 +206,7 @@
 
                                         <div class="tab-pane fade" id="pass_edit" role="tabpanel" aria-labelledby="pass-tab">
                                             <div class="m-3">
-                                                <form action="<?= url_to('update-pass-dosen-1', $detail_dosen->user_id) ?>" id="ubahPassword" method="POST">
+                                                <form action="<?= url_to('update-pass-dosen') ?>" id="ubahPassword" method="POST">
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="username" value="<?=$detail_dosen->username?>" autocomplete="off" disabled>
