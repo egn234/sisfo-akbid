@@ -137,7 +137,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/kelas/switch-kelas') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/ruangan/switch-ruangan') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="text" id="user_id" name="id_data" style="display: none;">
                         <p>Ubah Status Data ini? <b id="nameUser"></b></p>

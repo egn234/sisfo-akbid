@@ -101,6 +101,8 @@ $routes->group('admin', static function ($routes) {
         $routes->add('input-process', 'Admin\Ruangan::process_input');
         $routes->add('update-process', 'Admin\Ruangan::process_update');
         $routes->add('delete-process', 'Admin\Ruangan::process_delete');
+        $routes->add('switch-ruangan', 'Admin\Ruangan::flag_switch');
+
     });
 
     // Kelola Tahun Ajaran
