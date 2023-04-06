@@ -4,6 +4,12 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 500px !important;
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
@@ -57,15 +63,15 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">JUDUL</label>
-                            <input type="text" class="form-control" name="judul">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi">
+                            <input type="text" class="form-control" name="judul" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">FILE</label>
-                            <input class="form-control" type="file" name="fileUpload" >
+                            <input class="form-control" type="file" name="fileUpload">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DESKRIPSI</label>
+                            <textarea class="form-control ckeditor1" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -92,12 +98,12 @@
                             <input type="text" class="form-control" name="judul" id="judulPut">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">FILE</label>
                             <input class="form-control" type="file" name="fileUpload" id="attachmentPut">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DESKRIPSI</label>
+                            <textarea class="form-control ckeditor2" name="deskripsi" id="deskripsiPut"></textarea>
                         </div>
                     </div>
 

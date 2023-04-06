@@ -14,7 +14,7 @@ class Posting extends BaseController
     {
         $m_user = new M_user();
         $account = $m_user->getAccount(session()->get('user_id'));
-
+        
         $data = [
             'title' => 'Daftar Posting',
             'usertype' => 'Admin',
@@ -47,51 +47,39 @@ class Posting extends BaseController
     public function process_input()
     {
         $m_posting = new M_posting();
+        $m_user = new M_user();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        
+        $judul = $this->request->getPost('judul');
+        $deskripsi = $this->request->getPost('deskripsi');
 
-        $fileUploadName = $_FILES["fileUpload"]["name"];
-        $fileUploadType = $_FILES['fileUpload']['type'];
-        $fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
-        $input = $this->validate([
-            'fileUpload' => [
-                'uploaded[fileUpload]',
-                'mime_in[fileUpload,image/jpg,image/jpeg,image/png]',
-                'max_size[fileUpload,10024]',
-            ]
-        ]);
+        $data = [
+            'judul' => $judul,
+            'deskripsi' => $deskripsi,
+            'adminID' => $account->user_id
+        ];
 
-        if (!$input) {
-            $alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'File Tidak Sesuai',
-					'status' => 'error'
-				]
-			);
-			session()->setFlashdata('notif', $alert);
-			return redirect()->to('admin/posting');
-        } else {
-            $img = $this->request->getFile('fileUpload');
-			$newName = $img->getRandomName();
-			$img->move('../public/uploads/post', $newName);
-            $data = array(
-                'judul'       => $this->request->getPost('judul'),
-                'deskripsi'       => $this->request->getPost('deskripsi'),
-                'attachment'         => $newName,
-                'adminID' => session()->get('user_id')
-            );
+        $file = $this->request->getFile('fileUpload');
 
-            $check = $m_posting->insert($data);
-            $alert = view(
-                'partials/notification-alert',
-                [
-                    'notif_text' => 'Data Posting Berhasil DiTambahkan',
-                    'status' => 'success'
-                ]
-            );
-
-            session()->setFlashdata('notif', $alert);
-            return redirect()->to('admin/posting');
+        if ($file->isValid()) {
+            $newName = $file->getRandomName() . '_'. $account->user_id;
+			$file->move(ROOTPATH . 'public/uploads/posts/', $newName);
+			$attachment = $file->getName();
+			$data += ['attachment' => $attachment];
         }
+
+        $m_posting->insert($data);
+
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'Postingan berhasil dibuat',
+                'status' => 'success'
+            ]
+        );
+
+        session()->setFlashdata('notif', $alert);
+        return redirect()->back();
     }
 
     public function process_delete()
@@ -114,17 +102,33 @@ class Posting extends BaseController
     public function process_update()
     {
         $m_posting = new M_posting();
+        $m_user = new M_user();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        
         $id = $this->request->getPost('idPut');
 
-        $fileUploadName = $_FILES["fileUpload"]["name"];
-        $fileUploadType = $_FILES['fileUpload']['type'];
-        $fileUploadTMP = $_FILES['fileUpload']['tmp_name'];
+        $posting = $m_posting->where('id', $id)->get()->getResult()[0];
+
+        $judul = $this->request->getPost('judul');
+        $deskripsi = $this->request->getPost('deskripsi');
+
         $data = array(
-            'judul'       => $this->request->getPost('judul'),
-            'deskripsi'       => $this->request->getPost('deskripsi'),
-            'attachment'         => $fileUploadName,
-            'adminID' => session()->get('user_id')
+            'judul' => $this->request->getPost('judul'),
+            'deskripsi' => $this->request->getPost('deskripsi')
         );
+
+        $file = $this->request->getFile('fileUpload');
+
+        if ($file->isValid()) {
+            if ($posting->attachment) {
+			    unlink(ROOTPATH . 'public/uploads/posts/' . $posting->attachment );
+            }
+            $newName = $file->getRandomName() . '_'. $account->user_id;
+            $file->move(ROOTPATH . 'public/uploads/posts/', $newName);
+			$attachment = $file->getName();
+			$data += ['attachment' => $attachment];
+        }
+
         $m_posting->update(['id' => $id], $data);
         $alert = view(
             'partials/notification-alert',

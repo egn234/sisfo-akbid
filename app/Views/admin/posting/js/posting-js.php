@@ -4,19 +4,34 @@
         $('#nameDel').text($(x).attr('data-nameDel'))
     }
 
+    let ckEditor
+    ClassicEditor
+        .create(document.querySelector('.ckeditor2'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
+        }).then(editor => {
+            ckEditor = editor
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
         $('#judulPut').val($(x).attr('data-judulPut'))
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
-        $('#attachmentPut').val($(x).attr('data-attachmentPut'))
 
+        ckEditor.setData($(x).attr('data-deskripsiPut'))
     }
-    $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
-        })
-    })
 
+    ClassicEditor
+        .create(document.querySelector('.ckeditor1'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote']
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        
     let dataTable
     // Data Table
     dataTable = $("#dataTable").DataTable({
@@ -28,29 +43,33 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO'
+                title: 'NO',
+                width: '5%',
             },
             {
                 title: 'Judul',
                 data: "judul"
             },
             {
-                title: 'Deskripsi',
-                data: "deskripsi"
-            },
-            {
-                title: 'File',
-                data: "attachment"
-            },
-            {
                 title: "Aksi",
                 data: "id",
+                width: "10%",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
+                        let grouping = '<div class="btn-group">'
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let close_group = '</div>'
+                        let base_url = '<?= base_url(); ?>'
+                        let attachment_link
+                        if (row['attachment']) {
+                            attachment_link = '<img src="' + base_url + 'uploads/posts/' + row['attachment'] +'">'
+                        }else{
+                            attachment_link = ''
+                        }
                         let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-judulPut="' + row['judul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-attachmentPut="' + row['attachment'] + '" >Ubah</a>' +
+                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-judulPut="' + row['judul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-attachmentPut="' + row['attachment'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['judul'] + '" >Hapus</a>'
-                        return html
+                        return alignment + attachment_link + grouping + html + close_group + close_group
                     }
                     return data
                 }
