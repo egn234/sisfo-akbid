@@ -4,6 +4,7 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -57,20 +58,44 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">KODE MATA KULIAH</label>
-                            <input type="text" class="form-control" name="kodeMatkul">
+                            <input type="text" class="form-control" name="kodeMatkul" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA MATA KULIAH</label>
-                            <input type="text" class="form-control" name="namaMatkul">
+                            <input type="text" class="form-control" name="namaMatkul" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TINGKAT</label>
+                            <select name="tingkat" class="form-select" required>
+                                <option value="" hidden>--Pilih Tingkat--</option>
+                                <option value="1">Tingkat 1</option>
+                                <option value="2">Tingkat 2</option>
+                                <option value="3">Tingkat 3</option>
+                                <option value="4">Tingkat 4</option>
+                                <option value="5">Tingkat 5</option>
+                                <option value="6">Tingkat 6</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">SKS</label>
+                            <input type="number" min="1" max="12" class="form-control" name="sks" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">SEMESTER</label>
+                            <select class="form-select" name="semester" required>
+                                <option value="" hidden>--Pilih Semester--</option>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi">
+                            <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Tambah Matakuliah</button>
                     </div>
                 </form>
             </div>
@@ -89,20 +114,44 @@
                         <div class="mb-3">
                             <label class="form-label">KODE MATA KULIAH</label>
                             <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="kodeMatkul" id="kodePut">
+                            <input type="text" class="form-control" name="kodeMatkul" id="kodePut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA MATA KULIAH</label>
-                            <input type="text" class="form-control" name="namaMatkul" id="namaMatkulPut">
+                            <input type="text" class="form-control" name="namaMatkul" id="namaMatkulPut" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TINGKAT</label>
+                            <select name="tingkat" class="form-select" required>
+                                <option value="" hidden>--Pilih Tingkat--</option>
+                                <option value="1">Tingkat 1</option>
+                                <option value="2">Tingkat 2</option>
+                                <option value="3">Tingkat 3</option>
+                                <option value="4">Tingkat 4</option>
+                                <option value="5">Tingkat 5</option>
+                                <option value="6">Tingkat 6</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">SKS</label>
+                            <input type="number" min="1" max="12" class="form-control" name="sks" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">SEMESTER</label>
+                            <select class="form-select" name="semester" required>
+                                <option value="" hidden>--Pilih Semester--</option>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                            <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi" id="deskripsiPut"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Tambah Matakuliah</button>
                     </div>
                 </form>
             </div>

@@ -11,11 +11,15 @@
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
     }
     
-    $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
+    let ckeditor
+    ClassicEditor
+        .create(document.querySelector('.ckeditor1'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
         })
-    })
+        .catch(error => {
+            console.error(error);
+        });
 
     let dataTable
     // Data Table

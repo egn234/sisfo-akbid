@@ -51,24 +51,78 @@ class Matakuliah extends BaseController
 	{
 		$m_matkul = new M_matkul();
 
-		$data = array(
-			'kodeMatkul'        => $this->request->getPost('kodeMatkul'),
-			'namaMatkul'       => $this->request->getPost('namaMatkul'),
-			'deskripsi' => $this->request->getPost('deskripsi'),
+		$kodeMatkul = strtoupper((string) $this->request->getPost('kodeMatkul'));
+		$namaMatkul = strtoupper((string) $this->request->getPost('namaMatkul'));
+		$deskripsi = $this->request->getPost('deskripsi');
+		$tingkat = $this->request->getPost('tingkat');
+		$semester = $this->request->getPost('semester');
+		$sks = $this->request->getPost('sks');
 
-		);
+		$cek_kode = $m_matkul->select('COUNT(id) AS hitung')
+			->where('kodeMatkul', $kodeMatkul)
+			->get()->getResult()[0]
+			->hitung;
 
-		$check = $m_matkul->insert($data);
+		if ($cek_kode != 0) {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kode matakuliah sudah terdaftar',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();	
+		}
+
+		if ($semester == "") {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Semester belum dipilih',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		if ($tingkat == "") {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Tingkat belum dipilih',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		$data = [
+			'kodeMatkul' => $kodeMatkul,
+			'namaMatkul' => $namaMatkul,
+			'deskripsi' => $deskripsi,
+			'tingkat' => $tingkat,
+			'semester' => $semester,
+			'sks' => $sks
+		];
+
+		$m_matkul->insert($data);
+
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil DiTambahkan',
+				'notif_text' => 'Mata kuliah berhasil dibuat',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/matkul');
+		return redirect()->back();
 	}
 
 	public function process_delete()
@@ -92,22 +146,80 @@ class Matakuliah extends BaseController
 	{
 		$m_matkul = new M_matkul();
 		$id = $this->request->getPost('idPut');
-		$data = array(
-			'kodeMatkul'        => $this->request->getPost('kodeMatkul'),
-			'namaMatkul'       	=> $this->request->getPost('namaMatkul'),
-			'deskripsi' 		=> $this->request->getPost('deskripsi')
-		);
-		$m_matkul->update(['id' => $id], $data);
+
+		$kodeMatkul = strtoupper((string) $this->request->getPost('kodeMatkul'));
+		$namaMatkul = strtoupper((string) $this->request->getPost('namaMatkul'));
+		$deskripsi = $this->request->getPost('deskripsi');
+		$tingkat = $this->request->getPost('tingkat');
+		$semester = $this->request->getPost('semester');
+		$sks = $this->request->getPost('sks');
+
+		$cek_kode = $m_matkul->select('COUNT(id) AS hitung')
+			->where('kodeMatkul', $kodeMatkul)
+			->where('id !='.$id)
+			->get()->getResult()[0]
+			->hitung;
+
+		if ($cek_kode != 0) {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kode matakuliah sudah terdaftar',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();	
+		}
+
+		if ($semester == "") {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Semester belum dipilih',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		if ($tingkat == "") {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Tingkat belum dipilih',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		$data = [
+			'kodeMatkul' => $kodeMatkul,
+			'namaMatkul' => $namaMatkul,
+			'deskripsi' => $deskripsi,
+			'tingkat' => $tingkat,
+			'semester' => $semester,
+			'sks' => $sks
+		];
+
+		$m_matkul->set($data)->where('id', $id)->update();
+
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
+				'notif_text' => 'Mata kuliah berhasil diubah',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/matkul');
+		return redirect()->back();
 	}
 
 	// // example xls

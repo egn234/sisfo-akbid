@@ -12,7 +12,11 @@ class M_matkul extends Model
     protected $allowedFields = [
       'kodeMatkul',
       'namaMatkul',
-      'deskripsi'
+      'deskripsi',
+      'sks',
+      'tingkat',
+      'semester',
+      'flag'
     ];
 
     protected $returnType = 'array';

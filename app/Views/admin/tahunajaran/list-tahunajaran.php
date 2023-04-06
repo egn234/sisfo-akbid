@@ -60,9 +60,9 @@
                             <label class="form-label">TAHUN AJARAN</label>
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" aria-label="tahun1">
+                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" aria-label="tahun1" required>
                                     <span class="input-group-text">/</span>
-                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" aria-label="tahun2">
+                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" aria-label="tahun2" required>
                                     <select class="form-select" name="semester" required>
                                         <option value="" selected hidden>--Pilih Semester--</option>
                                         <option value="ganjil">Ganjil</option>
@@ -100,9 +100,9 @@
                             <div class="col-sm-12">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="idPut" id="idPut" hidden>
-                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" id="tahunPut1" aria-label="tahun1">
+                                    <input type="number" class="form-control" name="tahun1" min="1975" max="3000" id="tahunPut1" aria-label="tahun1" required>
                                     <span class="input-group-text">/</span>
-                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" id="tahunPut2" aria-label="tahun2">
+                                    <input type="number" class="form-control" name="tahun2" min="1975" max="3000" id="tahunPut2" aria-label="tahun2" required>
                                     <select class="form-select" name="semester" id="semesterPut" required>
                                         <option value="" selected hidden>--Pilih Semester--</option>
                                         <option value="ganjil">Ganjil</option>
