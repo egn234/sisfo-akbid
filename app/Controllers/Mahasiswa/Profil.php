@@ -95,5 +95,50 @@ class Profil extends BaseController
 		session()->setFlashdata($dataset_mhs);
 		return redirect()->back();
 	}
+
+	public function update_pass()
+	{
+		$m_mahasiswa = new M_mahasiswa();
+		$m_user = new M_user();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$user = $m_user->where('id', session()->get('user_id'))->get()->getResult()[0];
+
+		$password = $this->request->getPost('password') ? $this->request->getPost('password') : $_POST['password'];
+		$password2 = $this->request->getPost('password2') ? $this->request->getPost('password2') : $_POST['password2'];
+
+		if($password != $password2){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Password tidak cocok',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$notif = ['notif' => $alert];
+			session()->setFlashdata($notif);
+			return redirect()->back();
+		}
+		
+		$options = [
+			'cost' => 12
+		];
+
+		$pass_new = password_hash($password, PASSWORD_BCRYPT, $options);
+		$m_user->set('password', $pass_new)->where('id', session()->get('user_id'))->update();
+		
+		$alert = view(
+			'partials/notification-alert', 
+			[
+				'notif_text' => 'Password berhasil diubah',
+				'status' => 'success'
+			]
+		);
+		
+		$data = ['notif' => $alert];
+		session()->setFlashdata($data);
+		return redirect()->back();
+	}
 	
 }

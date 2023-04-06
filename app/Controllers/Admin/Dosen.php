@@ -356,7 +356,7 @@ class Dosen extends BaseController
 			$newName = $foto->getRandomName();
 			$foto->move(ROOTPATH . 'public/uploads/user/' . $user->username . '/profil_pic/', $newName);
 			$profile_pic = $foto->getName();
-			$dataset_dosen += ['profil_pic' => $profile_pic];
+			$dataset_dosen += ['foto' => $profile_pic];
 		}
 
 		$m_dosen->set($dataset_dosen)->where('id', $user->id)->update();
