@@ -31,12 +31,10 @@
         $('#angkatanPut').val($(x).attr('data-angkatanPut'))
         $('#tahunPut').val($(x).attr('data-tahunPut'))
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
-        $('#flagPut').val($(x).attr('data-flagPut'))
         ckEditor.setData($(x).attr('data-deskripsiPut'))
 
     }
 
-    let ckeditor
     ClassicEditor
         .create(document.querySelector('.ckeditor1'), {
             toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
@@ -107,7 +105,7 @@
                             htmlFlag = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchFlag" data-id="' + data + '" data-name="' + row['kodeKelas'] + '">Aktifkan</a>'
                         }
                         html = '<a onclick="detailPage(this)" data-idKelas="' + data + '" class="btn btn-info btn-sm" >Detail</a>' +
-                            '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-kodePut="' + row['kodeKelas'] + '" data-angkatanPut="' + row['angkatan'] + '" data-tahunPut="' + row['tahunAngkatan'] + '" data-flagPut="' + row['flag'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
+                            '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-kodePut="' + row['kodeKelas'] + '" data-angkatanPut="' + row['angkatan'] + '" data-tahunPut="' + row['tahunAngkatan'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['kodeKelas'] + '" >Hapus</a>'
                         return alignment + grouping + html + htmlFlag + close_group + close_group
                     }

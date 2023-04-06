@@ -9,11 +9,18 @@
         $('#namaRuanganPut').val($(x).attr('data-namePut'))
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
     }
-    $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
+
+    ClassicEditor
+        .create(document.querySelector('.ckeditor1'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
+        }).then(editor => {
+            ckEditor = editor
         })
-    })
+        .catch(error => {
+            console.error(error);
+        });
+
 
     let dataTable
     // Data Table

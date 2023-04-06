@@ -12,7 +12,8 @@ class M_ruangan extends Model
     protected $allowedFields = [
       'kodeRuangan',
       'namaRuangan',
-      'deskripsi'
+      'deskripsi',
+      'flag'
     ];
 
     protected $returnType = 'array';

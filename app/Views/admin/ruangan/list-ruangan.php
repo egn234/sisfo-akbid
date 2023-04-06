@@ -4,6 +4,7 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -57,15 +58,15 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">KODE RUANGAN</label>
-                            <input type="text" class="form-control" name="kodeRuangan">
+                            <input type="text" class="form-control" name="kodeRuangan" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA RUANGAN</label>
-                            <input type="text" class="form-control" name="namaRuangan">
+                            <input type="text" class="form-control" name="namaRuangan" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi">
+                            <textarea class="form-control ckeditor1" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -88,16 +89,16 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">KODE RUANGAN</label>
-                            <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="kodeRuangan" id="kodePut">
+                            <input type="text" class="form-control" name="idPut" id="idPut" hidden>
+                            <input type="text" class="form-control" name="kodeRuangan" id="kodePut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA RUANGAN</label>
-                            <input type="text" class="form-control" name="namaRuangan" id="namaRuanganPut">
+                            <input type="text" class="form-control" name="namaRuangan" id="namaRuanganPut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <input type="text" class="form-control" name="deskripsi" id="deskripsiPut">
+                            <textarea class="form-control ckeditor2" name="deskripsi" id="deskripsiPut"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -123,6 +124,27 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="switchFlag" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/kelas/switch-kelas') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="user_id" name="id_data" style="display: none;">
+                        <p>Ubah Status Data ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
                     </div>
                 </form>
             </div>

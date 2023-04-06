@@ -48,25 +48,45 @@ class Ruangan extends BaseController
 	{
 		$m_ruangan = new M_ruangan();
 		
-		$data = array(
-			'kodeRuangan'       => $this->request->getPost('kodeRuangan'),
-			'namaRuangan'       => $this->request->getPost('namaRuangan'),
-			'deskripsi' 		=> $this->request->getPost('deskripsi'),
-			
-		);
+		$kodeRuangan = strtoupper((string) $this->request->getPost('kodeRuangan'));
+		$namaRuangan = strtoupper((string) $this->request->getPost('namaRuangan'));
+		$deskripsi = $this->request->getPost('deskripsi');
+
+		$cek_kode = $m_ruangan->select('COUNT(id) AS hitung')
+			->where('kodeRuangan', $kodeRuangan)
+			->get()->getResult()[0]
+			->hitung;
+
+		if ($cek_kode != 0) {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kode ruangan telah terdaftar',
+					'status' => 'warning'
+				]
+			);
+	
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		$data = [
+			'kodeRuangan' => $kodeRuangan,
+			'namaRuangan' => $namaRuangan,
+			'deskripsi' => $deskripsi,
+		];
 		
-		$check = $m_ruangan->insert($data);
+		$m_ruangan->insert($data);
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Ruangan Berhasil DiTambahkan',
+				'notif_text' => 'Ruangan berhasil dibuat',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
 		return redirect()->to('admin/ruangan');
-
 	}
 
     public function process_delete()
@@ -108,4 +128,34 @@ class Ruangan extends BaseController
 		return redirect()->to('admin/ruangan');
 	}
 
+	public function flag_switch()
+	{
+		$m_ruangan = new M_ruangan();
+		$ruangan_id = $this->request->getPost('id_data');
+		$ruangan = $m_ruangan->where('id', $ruangan_id)->first();
+		if ($ruangan['flag'] == 0) {
+			$m_ruangan->where('id', $ruangan_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Ruangan Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($ruangan['flag'] == 1) {
+			$m_ruangan->where('id', $ruangan_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Ruangan Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
 }

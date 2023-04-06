@@ -93,28 +93,20 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">KODE KELAS</label>
-                            <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
-                            <input type="text" class="form-control" name="kodeKelas" id="kodePut">
+                            <input type="text" class="form-control" name="idPut" id="idPut" hidden>
+                            <input type="text" class="form-control" name="kodeKelas" id="kodePut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">ANGKATAN</label>
-                            <input type="text" class="form-control" name="angkatan" id="angkatanPut">
+                            <input type="number" class="form-control" name="angkatan" id="angkatanPut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">TAHUN ANGKATAN</label>
-                            <input type="text" class="form-control" name="tahunAngkatan" id="tahunPut">
+                            <input type="number" min="1975" max="3000" class="form-control" id="tahunPut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <textarea class="form-control ckeditor2" style="height:400px" name="deskripsi" id="deskripsiPut"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" id="flagPut" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
-                            </select>
                         </div>
                     </div>
                     
