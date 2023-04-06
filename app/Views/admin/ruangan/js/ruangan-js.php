@@ -1,21 +1,38 @@
 <script>
+    function switchFlag(x) {
+        $('#user_id').val($(x).attr('data-id'))
+        $('#nameUser').text($(x).attr('data-name'))
+    }
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))
     }
+    let ckEditor
+    ClassicEditor
+        .create(document.querySelector('.ckeditor2'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
+        }).then(editor => {
+            ckEditor = editor
+        })
+        .catch(error => {
+            console.error(error);
+        });
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
         $('#kodePut').val($(x).attr('data-kodePut'))
         $('#namaRuanganPut').val($(x).attr('data-namePut'))
-        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+        $('.ckeditor2').val($(x).attr('data-deskripsiPut'))
+        console.log($(x).attr('data-deskripsiPut'));
+        console.log(ckEditor);
+        ckEditor.setData($(x).attr('data-deskripsiPut'))
+
     }
 
     ClassicEditor
         .create(document.querySelector('.ckeditor1'), {
             toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
             height: '500px'
-        }).then(editor => {
-            ckEditor = editor
         })
         .catch(error => {
             console.error(error);
@@ -52,10 +69,17 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaRuangan'] + '" data-kodePut="' + row['kodeRuangan'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
+                        let grouping = '<div class="btn-group">'
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let close_group = '</div>'
+                        if (row['flag'] == 1) {
+                            htmlFlag = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchFlag" data-id="' + data + '" data-name="' + row['namaRuangan'] + '" >Nonaktifkan</a>'
+                        } else {
+                            htmlFlag = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchFlag" data-id="' + data + '" data-name="' + row['namaRuangan'] + '">Aktifkan</a>'
+                        }
+                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaRuangan'] + '" data-kodePut="' + row['kodeRuangan'] + '" data-deskripsiPut="' + row['deskripsi'] + '" >Ubah</a>' +
                         '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="'+row['namaRuangan']+'" >Hapus</a>'
-                        return html
+                        return alignment + grouping + html + htmlFlag + close_group + close_group
                     }
                     return data
                 }
