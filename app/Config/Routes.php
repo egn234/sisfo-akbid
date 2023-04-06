@@ -87,6 +87,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('input-process', 'Admin\Matakuliah::process_input');
         $routes->add('update-process', 'Admin\Matakuliah::process_update');
         $routes->add('delete-process', 'Admin\Matakuliah::process_delete');
+        $routes->add('switch-matkul', 'Admin\Matakuliah::flag_switch');
 
         // Contoh export xls dan pdf
         $routes->add('export', 'Admin\Matakuliah::export');
@@ -122,6 +123,8 @@ $routes->group('admin', static function ($routes) {
         $routes->add('update-process', 'Admin\Kelas::process_update');
         $routes->add('delete-process', 'Admin\Kelas::process_delete');
         $routes->add('data-detail-kelas', 'Admin\Kelas::detail_data_kelas');
+
+        $routes->add('switch-kelas', 'Admin\Kelas::flag_switch');
 
         // Dosen wali Kelas
 

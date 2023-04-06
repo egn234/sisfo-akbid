@@ -122,7 +122,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">TINGKAT</label>
-                            <select name="tingkat" class="form-select" required>
+                            <select name="tingkat" class="form-select" id="tingkatPut" required>
                                 <option value="" hidden>--Pilih Tingkat--</option>
                                 <option value="1">Tingkat 1</option>
                                 <option value="2">Tingkat 2</option>
@@ -134,11 +134,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">SKS</label>
-                            <input type="number" min="1" max="12" class="form-control" name="sks" required>
+                            <input type="number" min="1" max="12" class="form-control" name="sks" id="sksPut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">SEMESTER</label>
-                            <select class="form-select" name="semester" required>
+                            <select class="form-select" name="semester" id="semesterPut" required>
                                 <option value="" hidden>--Pilih Semester--</option>
                                 <option value="ganjil">Ganjil</option>
                                 <option value="genap">Genap</option>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
-                            <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi" id="deskripsiPut"></textarea>
+                            <textarea class="form-control ckeditor2" style="height:400px" name="deskripsi" id="deskripsiPut"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -173,6 +173,27 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="switchFlag" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/matkul/switch-matkul') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="user_id" name="id_data" style="display: none;">
+                        <p>Ubah Status Data ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
                     </div>
                 </form>
             </div>

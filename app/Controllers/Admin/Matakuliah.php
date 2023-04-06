@@ -222,6 +222,37 @@ class Matakuliah extends BaseController
 		return redirect()->back();
 	}
 
+	public function flag_switch()
+	{
+		$m_matkul = new M_matkul();
+		$matkul_id = $this->request->getPost('id_data');
+		$matkul = $m_matkul->where('id', $matkul_id)->first();
+		if ($matkul['flag'] == 0) {
+			$m_matkul->where('id', $matkul_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Mata Kuliah Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($matkul['flag'] == 1) {
+			$m_matkul->where('id', $matkul_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Mata Kuliah Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
+
 	// // example xls
 	// public function export()
 	// {

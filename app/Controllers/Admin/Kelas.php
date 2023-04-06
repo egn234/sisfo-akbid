@@ -270,4 +270,35 @@ class Kelas extends BaseController
         );
         return json_encode($alert);
     }
+
+    public function flag_switch()
+	{
+		$m_kelas = new M_kelas();
+		$kelas_id = $this->request->getPost('id_data');
+		$kelas = $m_kelas->where('id', $kelas_id)->first();
+		if ($kelas['flag'] == 0) {
+			$m_kelas->where('id', $kelas_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kelas Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($kelas['flag'] == 1) {
+			$m_kelas->where('id', $kelas_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kelas Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
 }
