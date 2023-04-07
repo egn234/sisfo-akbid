@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2023 at 08:46 AM
+-- Generation Time: Apr 07, 2023 at 04:13 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -55,6 +55,23 @@ CREATE TABLE `rel_dsn_kls` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rel_mhs_jad`
+--
+
+CREATE TABLE `rel_mhs_jad` (
+  `id` int(11) NOT NULL,
+  `status` enum('waiting','approved') DEFAULT NULL,
+  `flag` binary(1) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL,
+  `mahasiswaID` int(11) DEFAULT NULL,
+  `jadwalID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rel_mhs_kls`
 --
 
@@ -62,7 +79,7 @@ CREATE TABLE `rel_mhs_kls` (
   `id` int(11) NOT NULL,
   `mahasiswaID` int(11) DEFAULT NULL,
   `kelasID` int(11) DEFAULT NULL,
-  `flag` binary(1) DEFAULT '1',
+  `flag` int(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -138,7 +155,8 @@ CREATE TABLE `tb_dosen` (
 --
 
 INSERT INTO `tb_dosen` (`id`, `kodeDosen`, `nip`, `nama`, `jenisKelamin`, `nik`, `alamat`, `email`, `kontak`, `foto`, `created_at`, `updated_at`, `userID`) VALUES
-(1, 'KSZ', '28561910', 'Kristeen Suzanne', 'P', '8444274810044556', '3338 Wilson Rd, Oak Harbor, Washington(WA), 98277', 'kristeen@yahoo.com', '(360) 675-6289', 'image.jpg', '2023-02-06 22:40:05', '2023-02-06 22:40:05', 3);
+(1, 'KSZ', '28561910', 'Kristeen Suzanne', 'P', '8444274810044556', '3338 Wilson Rd, Oak Harbor, Washington(WA), 98277', 'kristeen@yahoo.com', '(360) 675-6289', 'image.jpg', '2023-02-06 22:40:05', '2023-02-06 22:40:05', 3),
+(2, 'AST', '1234567', 'Astherielle', 'P', '1234567890192834', 'Elf Forest', 'asteriel@gmail.com', '082215204919', '1680686175_4ebb685164375c0123e1.jpg', '2023-04-05 09:16:15', '2023-04-05 09:16:15', 6);
 
 -- --------------------------------------------------------
 
@@ -152,7 +170,7 @@ CREATE TABLE `tb_jadwal` (
   `endTime` time NOT NULL,
   `day` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') DEFAULT NULL,
   `deskripsi` text DEFAULT NULL,
-  `flag` binary(1) DEFAULT '1',
+  `flag` int(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL,
@@ -171,7 +189,7 @@ CREATE TABLE `tb_jadwal` (
 CREATE TABLE `tb_jawaban` (
   `id` int(11) NOT NULL,
   `jawaban` text NOT NULL,
-  `flag` binary(1) DEFAULT '1',
+  `flag` int(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL,
@@ -208,7 +226,7 @@ CREATE TABLE `tb_kelas` (
   `angkatan` int(11) NOT NULL,
   `tahunAngkatan` int(4) NOT NULL,
   `deskripsi` text DEFAULT NULL,
-  `flag` binary(1) NOT NULL DEFAULT '1',
+  `flag` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -223,7 +241,7 @@ CREATE TABLE `tb_kelas` (
 CREATE TABLE `tb_kuesioner` (
   `id` int(11) NOT NULL,
   `judul_kuesioner` varchar(100) NOT NULL,
-  `flag` binary(1) DEFAULT '1',
+  `flag` int(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -268,7 +286,9 @@ CREATE TABLE `tb_mahasiswa` (
 --
 
 INSERT INTO `tb_mahasiswa` (`id`, `nim`, `nama`, `jenisKelamin`, `nik`, `tempatLahir`, `tanggalLahir`, `alamat`, `email`, `kontak`, `namaIbu`, `nikIbu`, `kontakIbu`, `namaAyah`, `nikAyah`, `kontakAyah`, `namaWali`, `nikWali`, `kontakWali`, `foto`, `statusAkademik`, `created_at`, `updated_at`, `deleted_at`, `userID`) VALUES
-(1, '35837226781', 'Kim Jaxton', 'L', '1980066446538298', 'Bandung', '1996-02-08', '24441 State 76 Hwy\r\nBlanchard, Oklahoma(OK), 73010', 'kimjax@gmail.com', '(405) 344-7110', 'Brittani Mervin', '0', '(405) 344-7110', 'Kori Daniel', '0', '(405) 344-7110', NULL, '0', NULL, 'image.jpg', 'aktif', '2023-02-06 22:43:06', '2023-02-06 22:43:06', NULL, 2);
+(1, '35837226781', 'Kim Jaxton', 'L', '1980066446538298', 'Bandung', '1996-02-08', '24441 State 76 Hwy\r\nBlanchard, Oklahoma(OK), 73010', 'kimjax@gmail.com', '(405) 344-7110', 'Brittani Mervin', '0', '(405) 344-7110', 'Kori Daniel', '0', '(405) 344-7110', NULL, '0', NULL, 'image.jpg', 'aktif', '2023-02-06 22:43:06', '2023-02-06 22:43:06', NULL, 2),
+(2, '4862', 'Egan Kusmaya Putra', 'L', '9021667585957671', 'Bandung', '1998-11-19', 'Bumi Parahyangan Kencana', 'egn234@gmail.com', '082215204919', 'Jane Doe', '', '029747189194', 'John Doe', '', '029374758916', '', NULL, '', '1680426630_f891e133f1398344c024.jpg', NULL, '2023-04-02 09:10:30', '2023-04-02 09:10:30', NULL, 4),
+(3, '3871', 'Muhammad Amien Fadhillah', 'L', '9021667585957672', 'Banjarmasin', '2023-04-03', 'Citereup', 'fadhil@gmail.com', '12319481341', 'Jane Doe', '', '', 'John Doe', '', '123984102', 'egan kusmaya putra', NULL, '', 'image.jpg', NULL, '2023-04-03 02:59:10', '2023-04-03 04:11:11', NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -284,7 +304,7 @@ CREATE TABLE `tb_matakuliah` (
   `tingkat` int(1) NOT NULL DEFAULT 1,
   `semester` enum('ganjil','genap') NOT NULL DEFAULT 'ganjil',
   `sks` int(1) NOT NULL,
-  `flag` binary(1) NOT NULL DEFAULT '1',
+  `flag` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -341,7 +361,7 @@ CREATE TABLE `tb_periode` (
   `tahunPeriode` varchar(9) NOT NULL,
   `semester` enum('ganjil','genap','pendek') DEFAULT 'ganjil',
   `deskripsi` text DEFAULT NULL,
-  `flag` binary(1) NOT NULL DEFAULT '1',
+  `flag` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -357,7 +377,7 @@ CREATE TABLE `tb_pertanyaan` (
   `id` int(11) NOT NULL,
   `pertanyaan` varchar(255) NOT NULL,
   `jenis_pertanyaan` enum('PG','Essay') DEFAULT NULL,
-  `flag` binary(1) DEFAULT '1',
+  `flag` int(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL,
@@ -392,7 +412,7 @@ CREATE TABLE `tb_ruangan` (
   `kodeRuangan` varchar(30) NOT NULL,
   `namaRuangan` varchar(100) NOT NULL,
   `deskripsi` text DEFAULT NULL,
-  `flag` binary(1) NOT NULL DEFAULT '1',
+  `flag` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -420,7 +440,10 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_user` (`id`, `username`, `password`, `created_at`, `updated_at`, `flag`, `userType`) VALUES
 (1, 'admin001', '$2y$12$xdn69QfrN9SIEYNummL6COvdDA/1qYfq5qtF8AwAM5dWtOApxIYlW', '2023-02-04 02:57:03', '2023-02-04 02:57:03', '1', 'admin'),
 (2, 'mhs001', '$2y$12$zIUPCkkCAdhCMeefeRMc4eIEadMV2wobVGiomMVj9gBgLnaNvZDzO', '2023-02-04 02:57:03', '2023-02-06 23:46:42', '1', 'mahasiswa'),
-(3, 'dosen001', '$2y$12$CnygMcBreSHXWSi/x4KWEuqIKjoPXfhWZ.hd9LQ2VM2VaL2PbGtqu', '2023-02-04 02:57:03', '2023-02-04 02:57:03', '1', 'dosen');
+(3, 'dosen001', '$2y$12$CnygMcBreSHXWSi/x4KWEuqIKjoPXfhWZ.hd9LQ2VM2VaL2PbGtqu', '2023-02-04 02:57:03', '2023-02-04 02:57:03', '1', 'dosen'),
+(4, 'egn234', '$2y$12$cCxAwosIzDSv9pTXN8SRm.Jy1fAIglPhu4Kcf1KCdXjNEordeTije', '2023-04-02 09:10:30', '2023-04-02 09:11:05', '1', 'mahasiswa'),
+(5, 'fadhil001', '$2y$12$NqBjOvTAnuvSItJI7Id8Wu/aCUQckVUp8rMr3HJWud8EkjVoI/itG', '2023-04-03 02:59:10', '2023-04-03 10:17:39', '1', 'mahasiswa'),
+(6, 'estariel001', '$2y$12$05xpn6hvwdsFRguN6MV0x.t7XcRET0fP0SsF0QjYv6T6OYWMzDXc6', '2023-04-05 09:16:15', '2023-04-05 09:16:15', '1', 'dosen');
 
 --
 -- Indexes for dumped tables
@@ -441,6 +464,14 @@ ALTER TABLE `rel_dsn_kls`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_kls_dsn_1` (`dosenID`),
   ADD KEY `fk_kls_dsn_2` (`kelasID`);
+
+--
+-- Indexes for table `rel_mhs_jad`
+--
+ALTER TABLE `rel_mhs_jad`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_mhs_jad_1` (`mahasiswaID`),
+  ADD KEY `fk_mhs_jad_2` (`jadwalID`);
 
 --
 -- Indexes for table `rel_mhs_kls`
@@ -587,6 +618,12 @@ ALTER TABLE `rel_dsn_kls`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `rel_mhs_jad`
+--
+ALTER TABLE `rel_mhs_jad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `rel_mhs_kls`
 --
 ALTER TABLE `rel_mhs_kls`
@@ -608,7 +645,7 @@ ALTER TABLE `tb_bap`
 -- AUTO_INCREMENT for table `tb_dosen`
 --
 ALTER TABLE `tb_dosen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_jadwal`
@@ -644,7 +681,7 @@ ALTER TABLE `tb_kuesioner`
 -- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_matakuliah`
@@ -692,7 +729,7 @@ ALTER TABLE `tb_ruangan`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -711,6 +748,13 @@ ALTER TABLE `rel_dos_matkul_koor`
 ALTER TABLE `rel_dsn_kls`
   ADD CONSTRAINT `fk_kls_dsn_1` FOREIGN KEY (`dosenID`) REFERENCES `tb_dosen` (`id`),
   ADD CONSTRAINT `fk_kls_dsn_2` FOREIGN KEY (`kelasID`) REFERENCES `tb_kelas` (`id`);
+
+--
+-- Constraints for table `rel_mhs_jad`
+--
+ALTER TABLE `rel_mhs_jad`
+  ADD CONSTRAINT `fk_mhs_jad_1` FOREIGN KEY (`mahasiswaID`) REFERENCES `tb_mahasiswa` (`id`),
+  ADD CONSTRAINT `fk_mhs_jad_2` FOREIGN KEY (`jadwalID`) REFERENCES `tb_jadwal` (`id`);
 
 --
 -- Constraints for table `rel_mhs_kls`
