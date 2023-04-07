@@ -1,4 +1,21 @@
+<script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
+    $('.search').select2({
+        dropdownParent: $('#pilih-Dosen')
+    });
+    $('.search2').select2({
+        dropdownParent: $('#createDataMhs')
+    });
+    $("#form-remove").submit(function(e) {
+        var $inputs = $('#form-remove input[type=checkbox]:checked');
+        if ($inputs.length == 0) {
+            e.preventDefault();
+
+        }
+    });
+
     function removeProcess(x) {
         $.ajax({
             url: "<?= base_url() ?>/admin/kelas/remove_dosen_wali",
@@ -52,31 +69,6 @@
         });
     }
 
-    function pilihDosen(x) {
-        $.ajax({
-            url: "<?= base_url() ?>/admin/kelas/add_dosen_wali",
-            type: "post",
-            data: {
-                kelasID: $('#id-kelas').val(),
-                dosenID: $(x).attr('data-idDos')
-            }
-        }).done(function(result) {
-            try {
-                var data = jQuery.parseJSON(result);
-                if (data[0]['status'] == 'success') {
-                    alert(data[0]['notif_text']) ? "" : location.reload();
-                } else {
-                    alert('Gagal') ? "" : location.reload();
-                }
-            } catch (error) {
-                console.log(error.message);
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-            // needs to implement if it fails
-        });
-    }
-
     function plotMhs(x) {
         $.ajax({
             url: "<?= base_url() ?>/admin/kelas/ploting_Kelas_Mhs",
@@ -107,39 +99,6 @@
         $('#idDel').val($(x).attr('data-idDos'))
         $('#nameDel').text($('#namaDosen').val())
     }
-
-    dataDosen = $("#dataTableDosen").DataTable({
-        columnDefs: [{
-            searchable: true,
-            orderable: false,
-            targets: "_all",
-            defaultContent: "-",
-        }, ],
-        data: [],
-        columns: [{},
-            {
-                data: "nip"
-            },
-            {
-                data: "nama"
-            },
-            {
-                data: "id",
-                render: function(data, type, row, full) {
-                    if (type === 'display') {
-                        let html
-                        if (row['idRelKls'] == null) {
-                            html = '<a type="button" onclick="pilihDosen(this)" data-idDos="' + data + '" class="btn btn-sm btn-primary">PILIH</a>'
-                        } else {
-                            html = 'Sudah Terdaftar'
-                        }
-                        return html
-                    }
-                    return data
-                }
-            }
-        ]
-    });
 
     dataMhs = $("#dataTableMhs").DataTable({
         columnDefs: [{
@@ -173,17 +132,7 @@
             }
         ]
     });
-    // Numbering Row
-    dataDosen.on('order.dt search.dt', function() {
-        let i = 1;
 
-        dataDosen.cells(null, 0, {
-            search: 'applied',
-            order: 'applied'
-        }).every(function(cell) {
-            this.data(i++);
-        });
-    }).draw();
     // Numbering Row
     dataMhs.on('order.dt search.dt', function() {
         let i = 1;
@@ -199,13 +148,20 @@
     function listDosen(x) {
         $('#id-kelas').val(<?= $idKelas ?>)
         $.ajax({
-            url: "<?= base_url() ?>/admin/dosen/data_dosen_flag",
+            url: "<?= base_url() ?>admin/kordinator/data_dosen_flag",
             type: "get"
         }).done(function(result) {
             try {
                 var data = jQuery.parseJSON(result);
-                dataDosen.clear().draw();
-                dataDosen.rows.add(data['list_dosen']).draw();
+                let row = data['list_dosen']
+                for (var x = 0; x < data['list_dosen'].length; x++) {
+                    $('.search').append(
+                        $('<option>', {
+                            value: row[x].id,
+                            text: row[x].nip + ' - ' + row[x].nama,
+                        })
+                    );
+                }
             } catch (error) {
                 console.log(error.message);
             }
@@ -218,13 +174,20 @@
     function listMhs(x) {
         $('#id-kelas-mhs').val(<?= $idKelas ?>)
         $.ajax({
-            url: "<?= base_url() ?>/admin/mahasiswa/data_mhs_flag",
+            url: "<?= base_url() ?>/admin/kelas/data_mhs_flag",
             type: "get"
         }).done(function(result) {
             try {
                 var data = jQuery.parseJSON(result);
-                dataMhs.clear().draw();
-                dataMhs.rows.add(data['list_mhs']).draw();
+                let row = data['list_mhs']
+                for (var x = 0; x < data['list_mhs'].length; x++) {
+                    $('.search2').append(
+                        $('<option>', {
+                            value: row[x].id,
+                            text: row[x].nim + ' - ' + row[x].nama,
+                        })
+                    );
+                }
             } catch (error) {
                 console.log(error.message);
             }
@@ -236,6 +199,7 @@
 
 
     $(document).ready(function() {
+
         // Data Table
         dataTable = $("#dataTable").DataTable({
             columnDefs: [{
@@ -274,12 +238,14 @@
                     }
                 },
                 {
+                    width: '5%',
                     title: "Aksi",
                     data: "id",
                     render: function(data, type, row, full) {
                         if (type === 'display') {
-                            let html = '<a class="btn btn-danger btn-sm" onclick="removeMhs(this)" data-bs-toggle="modal" data-bs-target="#remove-Mhs" data-idDel="' + data + '" data-nameDel="' + row['nim'] + ' - ' + row['nama'] + '" >Hapus</a>'
-                            return html
+                            // let html = '<a class="btn btn-danger btn-sm" onclick="removeMhs(this)" data-bs-toggle="modal" data-bs-target="#remove-Mhs" data-idDel="' + data + '" data-nameDel="' + row['nim'] + ' - ' + row['nama'] + '" >Hapus</a>'
+                            let checkbox = '<input class="form-check-input" type="checkbox" value="' + data + '" name="idDel[]">'
+                            return checkbox
                         }
                         return data
                     }
@@ -340,5 +306,6 @@
                 this.data(i++);
             });
         }).draw();
+
     })
 </script>
