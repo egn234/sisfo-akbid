@@ -69,8 +69,8 @@
                         <div class="mb-3">
                             <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenisKelamin" required>
-                                <option value="L" <?=(session()->getFlashdata('JenisKelamin') == 'L')?'':'selected'?>>Laki-Laki</option>
-                                <option value="P" <?=(session()->getFlashdata('JenisKelamin') == 'P')?'':'selected'?>>Perempuan</option>
+                                <option value="L" <?=(session()->getFlashdata('JenisKelamin') == 'L')?'selected':''?>>Laki-Laki</option>
+                                <option value="P" <?=(session()->getFlashdata('JenisKelamin') == 'P')?'selected':''?>>Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
