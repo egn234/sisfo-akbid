@@ -71,13 +71,14 @@ $routes->group('admin', static function ($routes) {
     // Kelola Dosen
     $routes->group('dosen', static function ($routes) {
         $routes->get('/', 'Admin\Dosen::index');
-        $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->get('data_dosen', 'Admin\Dosen::data_dosen');
         $routes->get('data_dosen_flag', 'Admin\Dosen::data_dosen_flag');
-        $routes->add('input-process', 'Admin\Dosen::process_input');
         $routes->get('detail/(:num)', 'Admin\Dosen::detail/$1', ['as' => 'detail-dosen-1']);
+
         $routes->add('update-password/(:num)', 'Admin\Dosen::update_pass/$1', ['as' => 'update-pass-dosen-1']);
+        $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->add('update-process/(:num)', 'Admin\Dosen::process_update/$1', ['as' => 'update-dosen-1']);
+        $routes->add('input-process', 'Admin\Dosen::process_input');
     });
 
     // Kelola Mata Kuliah
@@ -151,17 +152,12 @@ $routes->group('admin', static function ($routes) {
     $routes->group('kuesioner', static function ($routes) {
         $routes->get('/', 'Admin\Kuesioner::index');
         $routes->get('data_kuesioner', 'Admin\Kuesioner::data_kuesioner');
-        $routes->post('data_pertanyaan', 'Admin\Kuesioner::data_pertanyaan');
-
+        $routes->get('detail/(:num)', 'Admin\Kuesioner::detail/$1', ['as' => 'detail-kuesioner-1']);
+        
         $routes->add('input-process', 'Admin\Kuesioner::process_input');
-        $routes->add('input-process-pertanyaan', 'Admin\Kuesioner::process_input_pertanyaan');
-
         $routes->add('update-process', 'Admin\Kuesioner::process_update');
-        $routes->add('update-process-pertanyaan', 'Admin\Kuesioner::process_update_pertanyaan');
-
         $routes->add('delete-process', 'Admin\Kuesioner::process_delete');
-        $routes->add('delete-process-pertanyaan', 'Admin\Kuesioner::process_delete_pertanyaan');
-        $routes->add('switch-kuesioner', 'Admin\Kuesioner::flag_switch');
+        $routes->add('switch', 'Admin\Kuesioner::flag_switch');
     });
 
     // Kelola posting
@@ -170,9 +166,7 @@ $routes->group('admin', static function ($routes) {
         $routes->get('data_posting', 'Admin\Posting::data_posting');
 
         $routes->add('input-process', 'Admin\Posting::process_input');
-
         $routes->add('update-process', 'Admin\Posting::process_update');
-
         $routes->add('delete-process', 'Admin\Posting::process_delete');
     });
 

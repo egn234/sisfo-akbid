@@ -113,8 +113,8 @@ class Posting extends BaseController
         $deskripsi = $this->request->getPost('deskripsi');
 
         $data = array(
-            'judul' => $this->request->getPost('judul'),
-            'deskripsi' => $this->request->getPost('deskripsi')
+            'judul' => $judul,
+            'deskripsi' => $deskripsi
         );
 
         $file = $this->request->getFile('fileUpload');
