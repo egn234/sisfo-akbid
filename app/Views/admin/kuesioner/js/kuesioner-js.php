@@ -3,6 +3,7 @@
         $('#kuesioner_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+    
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))

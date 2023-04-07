@@ -146,6 +146,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('input-process', 'Admin\Pertanyaan::process_input');
         $routes->add('update-process', 'Admin\Pertanyaan::process_update');
         $routes->add('delete-process', 'Admin\Pertanyaan::process_delete');
+        $routes->add('switch', 'Admin\Pertanyaan::flag_switch');
     });
 
     // Kelola kuesioner
@@ -171,7 +172,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('delete-process', 'Admin\Posting::process_delete');
     });
 
-    // Kelola posting
+    // Kelola koordinator
     $routes->group('kordinator', static function ($routes) {
         $routes->get('/', 'Admin\Kordinator::index');
         $routes->get('data_kordinator', 'Admin\Kordinator::data_kordinator');

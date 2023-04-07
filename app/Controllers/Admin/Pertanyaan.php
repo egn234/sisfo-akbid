@@ -48,23 +48,40 @@ class Pertanyaan extends BaseController
     {
         $m_pertanyaan = new M_pertanyaan();
 
-        $data = array(
-            'pertanyaan'       => $this->request->getPost('pertanyaan'),
-            'jenis_pertanyaan'       => $this->request->getPost('jenis_pertanyaan'),
-            'flag'         => $this->request->getPost('flag'),
-        );
+        $pertanyaan = $this->request->getPost('pertanyaan');
+        $jenis_pertanyaan = $this->request->getPost('jenis_pertanyaan');
+        $kuesionerID = $this->request->getPost('kuesionerID');
 
-        $check = $m_pertanyaan->insert($data);
+        if ($jenis_pertanyaan == '') {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Belum memilih jenis pertanyaan',
+                    'status' => 'warning'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();            
+        }
+
+        $data = [
+            'pertanyaan' => $pertanyaan,
+            'jenis_pertanyaan' => $jenis_pertanyaan,
+            'kuesionerID' => $kuesionerID
+        ];
+
+        $m_pertanyaan->insert($data);
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Pertanyaan Berhasil DiTambahkan',
+                'notif_text' => 'Pertanyaan berhasil ditambahkan',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/pertanyaan');
+        return redirect()->back();
     }
 
     public function process_delete()
@@ -81,29 +98,78 @@ class Pertanyaan extends BaseController
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/pertanyaan');
+        return redirect()->back();
     }
 
     public function process_update()
     {
     	$m_pertanyaan = new M_pertanyaan();
     	$id = $this->request->getPost('idPut');
-    	$data = array(
-            'pertanyaan'       => $this->request->getPost('pertanyaan'),
-            'jenis_pertanyaan'       => $this->request->getPost('jenis_pertanyaan'),
-            'flag'         => $this->request->getPost('flag'),
-        );
-    	$m_pertanyaan->update(['id' => $id],$data);
-    	$alert = view(
-    		'partials/notification-alert',
-    		[
-    			'notif_text' => 'Data Pertanyaan Berhasil Di Ubah',
-    			'status' => 'success'
-    		]
-    	);
 
-    	session()->setFlashdata('notif', $alert);
-    	return redirect()->to('admin/pertanyaan');
+        $pertanyaan = $this->request->getPost('pertanyaan');
+        $jenis_pertanyaan = $this->request->getPost('jenis_pertanyaan');
+
+        if ($jenis_pertanyaan == '') {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Belum memilih jenis pertanyaan',
+                    'status' => 'warning'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();            
+        }
+
+        $data = [
+            'pertanyaan' => $pertanyaan,
+            'jenis_pertanyaan' => $jenis_pertanyaan
+        ];
+
+        $m_pertanyaan->set($data)->where('id', $id)->update();
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'Pertanyaan berhasil diubah',
+                'status' => 'success'
+            ]
+        );
+
+        session()->setFlashdata('notif', $alert);
+        return redirect()->back();
+    }
+
+    public function flag_switch()
+    {
+		$m_pertanyaan = new M_pertanyaan();
+		$pertanyaan_id = $this->request->getPost('pertanyaan_id');
+		$pertanyaan = $m_pertanyaan->where('id', $pertanyaan_id)->first();
+
+		if ($pertanyaan['flag'] == 0) {
+			$m_pertanyaan->where('id', $pertanyaan_id)->set('flag', 1)->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Pertanyaan Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($pertanyaan['flag'] == 1) {
+			$m_pertanyaan->where('id', $pertanyaan_id)->set('flag', 0)->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Pertanyaan Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
     }
 
 }

@@ -56,7 +56,7 @@ class Kuesioner extends BaseController
 			->get()->getResult()[0];
 
 		$data = [
-			'title' => 'Detail Kuesioner',
+			'title' => 'Detail Kuesioner '. $detail_kuesioner->judul_kuesioner,
 			'usertype' => 'Admin',
 			'duser' => $account,
 			'detail_kuesioner' => $detail_kuesioner
@@ -65,14 +65,15 @@ class Kuesioner extends BaseController
 		return view('admin/kuesioner/detail-kuesioner', $data);
 	}
 
-    public function data_pertanyaan($id = false)
+    public function data_pertanyaan($id)
     {
         $m_user = new M_user();
         $m_pertanyaan = new M_pertanyaan();
         $account = $m_user->getAccount(session()->get('user_id'));
-        $list_pertanyaan = $m_pertanyaan->select('*')->where(['kuesionerID' => $id])
+        $list_pertanyaan = $m_pertanyaan->select('*')->where('kuesionerID', $id)
             ->get()
             ->getResult();
+            
         $data = [
             'title' => 'Daftar Kuesioner',
             'usertype' => 'Admin',
@@ -148,6 +149,7 @@ class Kuesioner extends BaseController
         session()->setFlashdata('notif', $alert);
         return redirect()->to('admin/kuesioner'); 
     }
+
     public function flag_switch()
     {
 		$m_kuesioner = new M_kuesioner();

@@ -57,28 +57,21 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">PERTANYAAN</label>
-                            <input type="text" class="form-control" name="pertanyaan">
+                            <input type="text" class="form-control" name="kuesionerID" value="<?=$detail_kuesioner->id?>" hidden>
+                            <input type="text" class="form-control" name="pertanyaan" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">JENIS PERTANYAAN</label>
                             <select class="form-select" name="jenis_pertanyaan" required>
-                                <option value="" selected>--Pilih Jenis Pertanyaan--</option>
+                                <option value="" selected hidden>--Pilih Jenis Pertanyaan--</option>
                                 <option value="PG">PG</option>
                                 <option value="Essay">Essay</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -101,26 +94,23 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">JENIS PERTANYAAN</label>
-                            <input type="text" class="form-control" name="jenis_pertanyaan" id="jenisPut">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">STATUS</label>
-                            <select class="form-select" name="flag" id="flagPut" required>
-                                <option value="" selected>--Pilih Status--</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
+                            <select class="form-select" name="jenis_pertanyaan" id="jenisPut" required>
+                                <option value="" selected hidden>--Pilih Jenis Pertanyaan--</option>
+                                <option value="PG">PG</option>
+                                <option value="Essay">Essay</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
     <div id="delData" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -142,11 +132,32 @@
         </div>
     </div>
 
+    <div id="switchPertanyaan" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/pertanyaan/switch') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="text" id="pertanyaan_id" name="pertanyaan_id" hidden>
+                        <p>Ubah status pertanyaan ini? <b id="nameUser"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <?= $this->include('admin/partials/partial-footer') ?>
 
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
     <!-- Datatable with ajax load -->
-    <?= $this->include('admin/pertanyaan/js/pertanyaan-js') ?>
+    <?= $this->include('admin/kuesioner/js/pertanyaan-js') ?>
 </body>
 
 </html>

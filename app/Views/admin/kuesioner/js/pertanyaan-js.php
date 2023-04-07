@@ -1,4 +1,9 @@
-<script type="text/javascript">
+<script>
+    function switchFlag(x) {
+        $('#pertanyaan_id').val($(x).attr('data-id'))
+        $('#nameUser').text($(x).attr('data-name'))
+    }
+
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
         $('#nameDel').text($(x).attr('data-nameDel'))
@@ -8,15 +13,8 @@
         $('#idPut').val($(x).attr('data-idPut'))
         $('#pertanyaanPut').val($(x).attr('data-pertanyaanPut'))
         $('#jenisPut').val($(x).attr('data-jenisPut'))
-        $('#flagPut').val($(x).attr('data-flagPut'))
-
     }
-    $(document).ready(function() {
-        document.getElementsByClassName("flatpickr-basic").flatpickr({
-            dateFormat: "Y-m-d"
-        })
-    })
-
+    
     let dataTable
     // Data Table
     dataTable = $("#dataTable").DataTable({
@@ -59,10 +57,19 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                        let html, htmlFlag
+                        let base_url = '<?= base_url() ?>'
+                        let grouping = '<div class="btn-group">'
+                        let alignment = '<div class="d-flex justify-content-center">'
+                        let close_group = '</div>'
+                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['pertanyaan'] + '" >Hapus</a>'
-                        return html
+                        if (row['flag'] == 1) {
+                            htmlFlag = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchPertanyaan" data-id="' + row['id'] + '" data-name="'+row['pertanyaan']+'" >Nonaktifkan</a>'
+                        } else {
+                            htmlFlag = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchPertanyaan" data-id="' + row['id'] + '" data-name="'+row['pertanyaan']+'">Aktifkan</a>'
+                        }
+                        return alignment + grouping + html + htmlFlag + close_group + close_group
                     }
                     return data
                 }
@@ -74,13 +81,13 @@
     });
     
     $.ajax({
-        url: "<?= base_url() ?>/admin/kuesioner/data_pertanyaan/ <?= $detail_kuesioner->id ?>",
+        url: "<?= url_to('list-pertanyaan-1', $detail_kuesioner->id) ?>",
         type: "get"
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
             dataTable.clear().draw();
-            dataTable.rows.add(data['list_kuesioner']).draw();
+            dataTable.rows.add(data['list_pertanyaan']).draw();
         } catch (error) {
             console.log(error.message);
         }
