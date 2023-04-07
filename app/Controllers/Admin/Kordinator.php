@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_rel_dos_matkul_koor;
+use App\Models\M_dosen;
+use App\Models\M_matkul;
 
 class Kordinator extends BaseController
 {
@@ -106,6 +108,50 @@ class Kordinator extends BaseController
     	session()->setFlashdata('notif', $alert);
     	return redirect()->to('admin/kordinator');
     }
+    
+	public function data_dosen_flag()
+	{
+		$m_user = new M_user();
+		$m_dosen = new M_dosen();
+		// $account = $m_user->where('id', session()->get('user_id'))->first();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$list_dosen = $m_dosen->select('tb_dosen.*, tb_user.flag, rel_dsn_kls.id AS idRelKls , tb_user.username AS username, tb_user.id AS user_id')
+			->join('tb_user', 'tb_user.id = tb_dosen.userID', 'left')
+			->join('rel_dsn_kls', 'tb_dosen.id = rel_dsn_kls.dosenID', 'left')
+			->where('tb_user.flag', '1')
+			->orderBy('tb_dosen.created_at', 'DESC')
+			->get()
+			->getResult();
+		$data = [
+			'title' => 'Daftar Dosen',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'list_dosen' => $list_dosen
+		];
+
+		return json_encode($data);
+	}
+
+    public function data_matkul_flag()
+	{
+		$m_user = new M_user();
+		$m_matkul = new M_matkul();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$list_matkul = $m_matkul->select('*')
+            ->where('flag', 1)
+			->get()
+			->getResult();
+		$data = [
+			'title' => 'Daftar Mata Kuliah',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'list_matkul' => $list_matkul
+		];
+
+		return json_encode($data);
+	}
 
     // public function process_update()
     // {

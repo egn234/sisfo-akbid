@@ -72,7 +72,6 @@ $routes->group('admin', static function ($routes) {
     $routes->group('dosen', static function ($routes) {
         $routes->get('/', 'Admin\Dosen::index');
         $routes->get('data_dosen', 'Admin\Dosen::data_dosen');
-        $routes->get('data_dosen_flag', 'Admin\Dosen::data_dosen_flag');
         $routes->get('detail/(:num)', 'Admin\Dosen::detail/$1', ['as' => 'detail-dosen-1']);
 
         $routes->add('update-password/(:num)', 'Admin\Dosen::update_pass/$1', ['as' => 'update-pass-dosen-1']);
@@ -176,6 +175,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('kordinator', static function ($routes) {
         $routes->get('/', 'Admin\Kordinator::index');
         $routes->get('data_kordinator', 'Admin\Kordinator::data_kordinator');
+        $routes->get('data_dosen_flag', 'Admin\Dosen::data_dosen_flag');
 
         $routes->add('input-process', 'Admin\Kordinator::process_input');
 

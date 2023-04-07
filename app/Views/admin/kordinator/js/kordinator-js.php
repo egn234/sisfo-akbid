@@ -93,7 +93,7 @@
     }).draw();
 
     $.ajax({
-        url: "<?= base_url() ?>/admin/matkul/data_matkul",
+        url: "<?= base_url() ?>/admin/kordinator/data_matkul_flag",
         type: "get"
     }).done(function(result) {
         try {
@@ -115,7 +115,7 @@
     });
 
     $.ajax({
-        url: "<?= base_url() ?>/admin/dosen/data_dosen_flag",
+        url: "<?= base_url() ?>/admin/kordinator/data_dosen_flag",
         type: "get"
     }).done(function(result) {
         try {
