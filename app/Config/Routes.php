@@ -151,6 +151,7 @@ $routes->group('admin', static function ($routes) {
     // Kelola kuesioner
     $routes->group('kuesioner', static function ($routes) {
         $routes->get('/', 'Admin\Kuesioner::index');
+        $routes->get('data_pertanyaan/(:num)', 'Admin\Kuesioner::data_pertanyaan/$1', ['as' => 'list-pertanyaan-1']);
         $routes->get('data_kuesioner', 'Admin\Kuesioner::data_kuesioner');
         $routes->get('detail/(:num)', 'Admin\Kuesioner::detail/$1', ['as' => 'detail-kuesioner-1']);
         

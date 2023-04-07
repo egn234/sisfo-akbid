@@ -43,7 +43,7 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO',
+                title: 'No',
                 width: '5%',
             },
             {

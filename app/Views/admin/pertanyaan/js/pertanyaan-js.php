@@ -28,7 +28,7 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO'
+                title: 'No'
             },
             {
                 title: 'Pertanyaan',

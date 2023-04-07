@@ -16,7 +16,7 @@
         }, ],
         data: [],
         columns: [{
-                title: 'NO'
+                title: 'No'
             },
             {
                 title: 'Judul',

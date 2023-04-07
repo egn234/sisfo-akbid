@@ -1,8 +1,15 @@
-<script>
-    function detailKuesioner(x) {
-        let id = $(x).attr('data-id')
-        let base_url = '<?php echo base_url() ?>'
-        window.location.href = base_url+'/mahasiswa/kuesioner/pertanyaan_kuesioner/'+id;
+<script type="text/javascript">
+    function deleteData(x) {
+        $('#idDel').val($(x).attr('data-idDel'))
+        $('#nameDel').text($(x).attr('data-nameDel'))
+    }
+
+    function updateData(x) {
+        $('#idPut').val($(x).attr('data-idPut'))
+        $('#pertanyaanPut').val($(x).attr('data-pertanyaanPut'))
+        $('#jenisPut').val($(x).attr('data-jenisPut'))
+        $('#flagPut').val($(x).attr('data-flagPut'))
+
     }
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
@@ -21,16 +28,15 @@
         }, ],
         data: [],
         columns: [{
-                width: '5%',
                 title: 'No'
             },
             {
-                title: 'Judul Kuesioner',
-                data: "judul_kuesioner"
+                title: 'Pertanyaan',
+                data: "pertanyaan"
             },
             {
-                title: 'Jumlah Pertanyaan',
-                data: 'jumlah_pertanyaan'
+                title: 'Jenis Pertanyaan',
+                data: "jenis_pertanyaan"
             },
             {
                 title: 'Status',
@@ -49,13 +55,13 @@
                 }
             },
             {
-                width: '7.5%',
                 title: "Aksi",
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html, htmlFlag
-                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="detailKuesioner(this)" data-id="' + data + '" >Detail</a>'
+                        let html
+                        html = '<a class="btn btn-primary btn-sm" style="margin-right:2%;" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-pertanyaanPut="' + row['pertanyaan'] + '" data-jenisPut="' + row['jenis_pertanyaan'] + '" data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                            '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['pertanyaan'] + '" >Hapus</a>'
                         return html
                     }
                     return data
@@ -66,9 +72,9 @@
         "autoWidth": false,
         "scrollX": true,
     });
-
+    
     $.ajax({
-        url: "<?= base_url() ?>/mahasiswa/kuesioner/data_kuesioner",
+        url: "<?= base_url() ?>/admin/kuesioner/data_pertanyaan/ <?= $detail_kuesioner->id ?>",
         type: "get"
     }).done(function(result) {
         try {
@@ -94,4 +100,5 @@
             this.data(i++);
         });
     }).draw();
+
 </script>

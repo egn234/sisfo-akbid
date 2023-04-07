@@ -46,12 +46,30 @@ class Kuesioner extends BaseController
         return json_encode($data);
     }
 
-    public function data_pertanyaan()
+    public function detail($id = false)
+	{
+		$m_user = new M_user();
+		$m_kuesioner = new M_kuesioner();
+		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$detail_kuesioner = $m_kuesioner->where('id', $id)
+			->get()->getResult()[0];
+
+		$data = [
+			'title' => 'Detail Kuesioner',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'detail_kuesioner' => $detail_kuesioner
+		];
+
+		return view('admin/kuesioner/detail-kuesioner', $data);
+	}
+
+    public function data_pertanyaan($id = false)
     {
         $m_user = new M_user();
         $m_pertanyaan = new M_pertanyaan();
         $account = $m_user->getAccount(session()->get('user_id'));
-        $id = $this->request->getPost('id');
         $list_pertanyaan = $m_pertanyaan->select('*')->where(['kuesionerID' => $id])
             ->get()
             ->getResult();
@@ -69,46 +87,24 @@ class Kuesioner extends BaseController
     {
         $m_kuesioner = new M_kuesioner();
 
-        $data = array(
-            'judul_kuesioner'       => $this->request->getPost('judul_kuesioner'),
-            'flag'         => $this->request->getPost('flag'),
-        );
+        $judul_kuesioner = $this->request->getPost('judul_kuesioner');
 
-        $check = $m_kuesioner->insert($data);
+        $data = [
+            'judul_kuesioner' => $judul_kuesioner
+        ];
+        
+        $m_kuesioner->insert($data);
+
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Kuesioner Berhasil DiTambahkan',
+                'notif_text' => 'Kuesioner berhasil dibuat',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kuesioner');
-    }
-
-    public function process_input_pertanyaan()
-    {
-        $m_pertanyaan = new M_pertanyaan();
-
-        $data = array(
-            'pertanyaan'       => $this->request->getPost('pertanyaan'),
-            'jenis_pertanyaan'       => $this->request->getPost('jenis_pertanyaan'),
-            'flag'         => $this->request->getPost('flag'),
-            'kuesionerID' => $this->request->getPost('kuesionerID')
-        );
-
-        $check = $m_pertanyaan->insert($data);
-        $alert = view(
-            'partials/notification-alert',
-            [
-                'notif_text' => 'Data Pertanyaan Berhasil DiTambahkan',
-                'status' => 'success'
-            ]
-        );
-
-        session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kuesioner');
+        return redirect()->back();
     }
 
     public function process_delete()
@@ -128,90 +124,59 @@ class Kuesioner extends BaseController
         return redirect()->to('admin/kuesioner');
     }
 
-    public function process_delete_pertanyaan()
-    {
-        $m_pertanyaan = new M_pertanyaan();
-        $id = $this->request->getPost('idDel');
-        $check = $m_pertanyaan->delete(array('id ' => $id));
-        $alert = view(
-            'partials/notification-alert',
-            [
-                'notif_text' => 'Data Berhasil Dihapus',
-                'status' => 'success'
-            ]
-        );
-
-        session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kuesioner');
-    }
-
     public function process_update()
     {
         $m_kuesioner = new M_kuesioner();
         $id = $this->request->getPost('idPut');
-        $data = array(
-            'judul_kuesioner'       => $this->request->getPost('judul_kuesioner'),
-            'flag'         => $this->request->getPost('flag'),
-        );
-        $m_kuesioner->update(['id' => $id], $data);
+
+        $judul_kuesioner = $this->request->getPost('judul_kuesioner');
+
+        $data = [
+            'judul_kuesioner' => $judul_kuesioner
+        ];
+        
+        $m_kuesioner->set($data)->where('id', $id)->update();
+
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Data Kuesioner Berhasil Di Ubah',
+                'notif_text' => 'Kuesioner berhasil dibuat',
                 'status' => 'success'
             ]
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kuesioner');
+        return redirect()->to('admin/kuesioner'); 
     }
-
-    public function process_update_pertanyaan()
-    {
-        $m_pertanyaan = new M_pertanyaan();
-        $id = $this->request->getPost('idPut');
-        $data = array(
-            'pertanyaan'       => $this->request->getPost('pertanyaan'),
-            'jenis_pertanyaan'       => $this->request->getPost('jenis_pertanyaan'),
-            'flag'         => $this->request->getPost('flagPertanyaan'),
-        );
-        $check = $m_pertanyaan->update(['id' => $id], $data);
-
-        $alert = view(
-            'partials/notification-alert',
-            [
-                'notif_text' => 'Data Pertanyaan Berhasil Di Ubah',
-                'status' => 'success'
-            ]
-        );
-
-        session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/kuesioner');
-    }
-
     public function flag_switch()
     {
-        $m_kuesioner = new M_kuesioner();
-        $id = $this->request->getPost('idPut');
-        $data = array(
-            'flag'         => $this->request->getPost('flag'),
-        );
-        $m_kuesioner->update(['id' => $id], $data);
-        if ($data['flag'] == 1) {
-            $alert = array(
-                [
-                    'notif_text' => 'Data Kuesioner Berhasil Di Aktifkan',
-                    'status' => 'success'
-                ]
-            );
-        } else {
-            $alert = array(
-                [
-                    'notif_text' => 'Data Kuesioner Berhasil Di Non-Aktifkan',
-                    'status' => 'success'
-                ]
-            );
-        }
-        return json_encode($alert);
+		$m_kuesioner = new M_kuesioner();
+		$kuesioner_id = $this->request->getPost('kuesioner_id');
+		$kuesioner = $m_kuesioner->where('id', $kuesioner_id)->first();
+
+		if ($kuesioner['flag'] == 0) {
+			$m_kuesioner->where('id', $kuesioner_id)->set('flag', 1)->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kuesioner Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($kuesioner['flag'] == 1) {
+			$m_kuesioner->where('id', $kuesioner_id)->set('flag', 0)->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kuesioner Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
     }
 }
