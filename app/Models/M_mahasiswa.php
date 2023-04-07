@@ -26,6 +26,7 @@ class M_mahasiswa extends Model
       'namaWali',
       'kontakWali',
       'foto',
+      'statusAkademik',
       'userID'
     ];
 

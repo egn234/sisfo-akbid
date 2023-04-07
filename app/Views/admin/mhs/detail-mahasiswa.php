@@ -332,6 +332,18 @@
                                                         <label for="formFile" class="form-label">FOTO MAHASISWA</label>
                                                         <input class="form-control" type="file" name="fileUpload" id="formFile" accept="image/jpeg">
                                                     </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">STATUS AKADEMIK <span class="text-danger">*</span></label>
+                                                        <select class="form-select" name="statusAkademik" required>
+                                                            <option value="aktif" <?=($detail_mhs->statusAkademik == 'aktif')?'':'selected'?>>Aktif</option>
+                                                            <option value="cuti" <?=($detail_mhs->statusAkademik == 'cuti')?'':'selected'?>>Cuti</option>
+                                                            <option value="keluar" <?=($detail_mhs->statusAkademik == 'keluar')?'':'selected'?>>Keluar</option>
+                                                            <option value="mangkir" <?=($detail_mhs->statusAkademik == 'mangkir')?'':'selected'?>>Mangkir</option>
+                                                            <option value="lulus" <?=($detail_mhs->statusAkademik == 'lulus')?'':'selected'?>>Lulus</option>
+                                                            <option value="meninggal" <?=($detail_mhs->statusAkademik == 'meninggal')?'':'selected'?>>Meninggal</option>
+                                                            <option value="dropout" <?=($detail_mhs->statusAkademik == 'dropout')?'':'selected'?>>Dropout</option>
+                                                        </select>
+                                                    </div>
                                                     <span class="text-xs text-danger">
                                                         <i>*Tidak boleh dikosongkan</i>
                                                     </span>

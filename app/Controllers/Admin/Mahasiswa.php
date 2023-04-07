@@ -181,6 +181,7 @@ class Mahasiswa extends BaseController
 			'kontakAyah' => $kontakAyah,
 			'namaWali' => $namaWali,
 			'kontakWali' => $kontakWali,
+			'statusAkademik' => 'aktif',
 			'userType' => 'mahasiswa'
 		];
 
@@ -334,6 +335,7 @@ class Mahasiswa extends BaseController
 		$kontakAyah = $this->request->getPost('kontakAyah');
 		$namaWali = $this->request->getPost('namaWali');
 		$kontakWali = $this->request->getPost('kontakWali');
+		$statusAkademik = $this->request->getPost('statusAkademik');
 
 		$dataset_mhs = [
 			'nama' => $nama,
@@ -348,7 +350,8 @@ class Mahasiswa extends BaseController
 			'namaAyah' => $namaAyah,
 			'kontakAyah' => $kontakAyah,
 			'namaWali' => $namaWali,
-			'kontakWali' => $kontakWali
+			'kontakWali' => $kontakWali,
+			'statusAkademik' => $statusAkademik
 		];
 
 		$foto = $this->request->getFile('fileUpload');
