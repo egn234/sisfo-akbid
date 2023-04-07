@@ -8,6 +8,8 @@ use App\Models\M_user;
 use App\Models\M_kelas;
 use App\Models\M_rel_dsn_kls;
 use App\Models\M_rel_mhs_kls;
+use App\Models\M_mahasiswa;
+
 
 
 
@@ -103,7 +105,7 @@ class Kelas extends BaseController
             ->get()->getResult()[0]
             ->hitung;
 
-        if ($cek_kelas != 0) {    
+        if ($cek_kelas != 0) {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -165,11 +167,11 @@ class Kelas extends BaseController
 
         $cek_kelas = $m_kelas->select('COUNT(id) AS hitung')
             ->where('kodeKelas', $kodeKelas)
-            ->where('id != '.$id)
+            ->where('id != ' . $id)
             ->get()->getResult()[0]
             ->hitung;
 
-        if ($cek_kelas != 0) {    
+        if ($cek_kelas != 0) {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -212,13 +214,15 @@ class Kelas extends BaseController
         );
 
         $check = $m_rel_dsn_kls->insert($data);
-        $alert = array(
+        $alert = view(
+            'partials/notification-alert',
             [
                 'notif_text' => 'Dosen wali berhasil di set',
                 'status' => 'success'
             ]
         );
-        return json_encode($alert);
+        session()->setFlashdata('notif-dosen', $alert);
+        return redirect()->back();
     }
     public function remove_dosen_wali()
     {
@@ -233,72 +237,100 @@ class Kelas extends BaseController
             ]
         );
         return json_encode($alert);
-
     }
 
     public function ploting_Kelas_Mhs()
     {
         $m_rel_mhs_kls = new M_rel_mhs_kls();
-
-        $data = array(
-            'mahasiswaID'       => $this->request->getPost('mahasiswaID'),
-            'kelasID'       => $this->request->getPost('kelasID'),
-            'flag'         => 1
-        );
-        $check = $m_rel_mhs_kls->insert($data);
-
-        $alert = array(
+        $mahasiswaId = $this->request->getPost('mahasiswaID');
+        for ($i = 0; $i < count($mahasiswaId); $i++) {
+            $data = array(
+                'mahasiswaID'       => $mahasiswaId[$i],
+                'kelasID'       => $this->request->getPost('kelasID'),
+                'flag'         => 1
+            );
+            $check = $m_rel_mhs_kls->insert($data);
+        }
+        $alert = view(
+            'partials/notification-alert',
             [
                 'notif_text' => 'Mahasiswa berhasil ditambahkan kedalam kelas',
                 'status' => 'success'
             ]
         );
-        return json_encode($alert);
+        session()->setFlashdata('notif', $alert);
+        return redirect()->back();
     }
 
     public function remove_mhs()
     {
         $m_rel_mhs_kls = new M_rel_mhs_kls();
         $id = $this->request->getPost('idDel');
-        $m_rel_mhs_kls->where('mahasiswaID', $id);
+        $m_rel_mhs_kls->whereIn('mahasiswaID', $id);
+
         $check = $m_rel_mhs_kls->delete();
-        $alert = array(
+        
+        $alert = view(
+            'partials/notification-alert',
             [
                 'notif_text' => 'Mahasiswa berhasil dihapus dari kelas',
                 'status' => 'success'
             ]
         );
-        return json_encode($alert);
+        session()->setFlashdata('notif', $alert);
+        return redirect()->back();
     }
 
     public function flag_switch()
+    {
+        $m_kelas = new M_kelas();
+        $kelas_id = $this->request->getPost('id_data');
+        $kelas = $m_kelas->where('id', $kelas_id)->first();
+        if ($kelas['flag'] == 0) {
+            $m_kelas->where('id', $kelas_id)->set('flag', '1')->update();
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Kelas diaktifkan',
+                    'status' => 'success'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+        } elseif ($kelas['flag'] == 1) {
+            $m_kelas->where('id', $kelas_id)->set('flag', '0')->update();
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Kelas dinonaktifkan',
+                    'status' => 'success'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+        }
+        return redirect()->back();
+    }
+    public function data_mhs_flag()
 	{
-		$m_kelas = new M_kelas();
-		$kelas_id = $this->request->getPost('id_data');
-		$kelas = $m_kelas->where('id', $kelas_id)->first();
-		if ($kelas['flag'] == 0) {
-			$m_kelas->where('id', $kelas_id)->set('flag', '1')->update();
-			$alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'Kelas diaktifkan',
-					'status' => 'success'
-				]
-			);
+		$m_user = new M_user();
+		$m_mahasiswa = new M_mahasiswa();
+		$account = $m_user->getAccount(session()->get('user_id'));
 
-			session()->setFlashdata('notif', $alert);
-		} elseif ($kelas['flag'] == 1) {
-			$m_kelas->where('id', $kelas_id)->set('flag', '0')->update();
-			$alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'Kelas dinonaktifkan',
-					'status' => 'success'
-				]
-			);
+		$list_mhs = $m_mahasiswa->select('tb_mahasiswa.* , rel_mhs_kls.id as idRelasiKls, tb_user.flag')
+			->join('tb_user', 'tb_user.id = tb_mahasiswa.userID', 'left')
+			->join('rel_mhs_kls', 'tb_mahasiswa.id = rel_mhs_kls.mahasiswaID', 'left')
+			->where('tb_user.flag', '1')
+			->orderBy('tb_mahasiswa.created_at', 'DESC')
+			->get()
+			->getResult();
+		$data = [
+			'title' => 'Daftar Mahasiswa',
+			'usertype' => 'Admin',
+			'duser' => $account,
+			'list_mhs' => $list_mhs
+		];
 
-			session()->setFlashdata('notif', $alert);
-		}
-		return redirect()->back();
+		return json_encode($data);
 	}
 }

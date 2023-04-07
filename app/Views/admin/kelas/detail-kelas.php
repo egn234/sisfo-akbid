@@ -33,6 +33,8 @@
                             </div> -->
                         </div>
                         <div class="card-body">
+                            <?= session()->getFlashdata('notif-dosen') ?>
+
                             <div class="row mb-2">
                                 <div class="col-lg-6">
                                     <h4 class="text-center">Kelas</h4>
@@ -86,9 +88,12 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <?= session()->getFlashdata('notif') ?>
-                                            <table id="dataTable" class="table table-bordered table-sm">
-                                                <!-- Load From ajax -->
-                                            </table>
+                                            <form id="form-remove" action="<?= base_url() ?>/admin/kelas/remove_mhs" method="POST" enctype="multipart/form-data">
+                                                <table id="dataTable" class="table table-bordered table-sm">
+                                                    <!-- Load From ajax -->
+                                                </table>
+                                                <button type="submit" class="btn btn-danger float-end">Remove</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -107,76 +112,60 @@
 
     <!-- CRUD Modal -->
     <div class="modal fade" id="pilih-Dosen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Daftar Dosen</h5>
-                    <input type="text" id="id-kelas" style="display: none;">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- <form action="<?= base_url('admin/kelas/input-process') ?>" method="POST" enctype="multipart/form-data"> -->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table id="dataTableDosen" class="table table-bordered table-responsive" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NIP</th>
-                                        <th>Nama</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+                <form action="<?= base_url() ?>/admin/kelas/add_dosen_wali" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" id="id-kelas" name="kelasID" style="display: none;">
+                                <select class="search form-control" style="width:100%;" name="dosenID" required>
+                                    <option value="">--Pilih Dosen--</option>
+                                    <!-- load from ajax -->
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
-                </div>
-                <!-- </form> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="createDataMhs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Plotting Kelas Mahasiswa</h5>
-                    <input type="text" id="id-kelas-mhs" style="display: none;">
+                    <!-- <input type="text" id="id-kelas-mhs" style="display: none;"> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- <form action="<?= base_url('admin/kelas/input-process') ?>" method="POST" enctype="multipart/form-data"> -->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table id="dataTableMhs" class="table table-bordered table-responsive" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NIM</th>
-                                        <th>Nama</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+                <form action="<?= base_url() ?>/admin/kelas/ploting_Kelas_Mhs" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" id="id-kelas-mhs" name="kelasID" style="display: none;">
+                                <label class="form-label">MAHASISWA</label>
+                                <select class="search2 form-control" style="width:100%;" name="mahasiswaID[]" multiple="multiple" required>
+                                    <!-- Load from ajax -->
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
-                </div>
-                <!-- </form> -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

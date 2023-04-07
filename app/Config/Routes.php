@@ -64,7 +64,6 @@ $routes->group('admin', static function ($routes) {
         $routes->add('update-password/(:num)', 'Admin\Mahasiswa::update_pass/$1', ['as' => 'update-pass-mahasiswa-1']);
 
         $routes->get('data_mhs', 'Admin\Mahasiswa::data_mhs');
-        $routes->get('data_mhs_flag', 'Admin\Mahasiswa::data_mhs_flag');
         $routes->get('detail/(:num)', 'Admin\Mahasiswa::detail/$1', ['as' => 'detail-mahasiswa-1']);
     });
 
@@ -127,6 +126,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('data-detail-kelas', 'Admin\Kelas::detail_data_kelas');
 
         $routes->add('switch-kelas', 'Admin\Kelas::flag_switch');
+        $routes->get('data_mhs_flag', 'Admin\Kelas::data_mhs_flag');
 
         // Dosen wali Kelas
 
@@ -175,7 +175,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('kordinator', static function ($routes) {
         $routes->get('/', 'Admin\Kordinator::index');
         $routes->get('data_kordinator', 'Admin\Kordinator::data_kordinator');
-        $routes->get('data_dosen_flag', 'Admin\Dosen::data_dosen_flag');
+        $routes->get('data_dosen_flag', 'Admin\Kordinator::data_dosen_flag');
 
         $routes->add('input-process', 'Admin\Kordinator::process_input');
 
