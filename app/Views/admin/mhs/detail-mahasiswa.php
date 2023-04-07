@@ -34,19 +34,33 @@
                                     <div class="col-12 mt-2">
                                         <table style="text-align:center" class="table">
                                             <tr>
-                                                <td><?=$detail_mhs->nim?></td>
-                                            </tr>
-                                            <tr>
                                                 <td><?=$detail_mhs->nama?></td>
                                             </tr>
                                             <tr>
-                                                <td><?=$detail_mhs->kontak?></td>
+                                                <td>NIM: <?=$detail_mhs->nim?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>No. Telp: <?=$detail_mhs->kontak?></td>
                                             </tr>
                                             <tr>
                                                 <td><?=$detail_mhs->jenisKelamin == "L"? 'Laki-laki': 'Perempuan'?></td>
                                             </tr>
                                             <tr>
                                                 <td><?=$detail_mhs->userType?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Status: 
+                                                    <?php if ($detail_mhs->statusAkademik == 'aktif') { ?><div class="badge bg-success">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'cuti'){?><div class="badge bg-secondary">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'keluar'){?><div class="badge bg-warning">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'lulus'){?><div class="badge bg-secondary">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'mangkir'){?><div class="badge bg-danger">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'meninggal'){?><div class="badge bg-secondary">
+                                                    <?php }elseif ($detail_mhs->statusAkademik == 'dropout'){?><div class="badge bg-danger">
+                                                    <?php }?>
+                                                        <?=$detail_mhs->statusAkademik?></div>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>

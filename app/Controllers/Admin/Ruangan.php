@@ -86,7 +86,7 @@ class Ruangan extends BaseController
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/ruangan');
+		return redirect()->back();
 	}
 
     public function process_delete()
@@ -110,22 +110,47 @@ class Ruangan extends BaseController
 	{
 		$m_ruangan = new M_ruangan();
 		$id = $this->request->getPost('idPut');
-		$data = array(
-			'kodeRuangan'       => $this->request->getPost('kodeRuangan'),
-			'namaRuangan'       => $this->request->getPost('namaRuangan'),
-			'deskripsi' 		=> $this->request->getPost('deskripsi'),
-		);
-		$m_ruangan->update(['id' => $id],$data);
+		
+		$kodeRuangan = strtoupper((string) $this->request->getPost('kodeRuangan'));
+		$namaRuangan = strtoupper((string) $this->request->getPost('namaRuangan'));
+		$deskripsi = $this->request->getPost('deskripsi');
+
+		$cek_kode = $m_ruangan->select('COUNT(id) AS hitung')
+			->where('kodeRuangan', $kodeRuangan)
+			->where('id != '. $id)
+			->get()->getResult()[0]
+			->hitung;
+
+		if ($cek_kode != 0) {
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Kode ruangan telah terdaftar',
+					'status' => 'warning'
+				]
+			);
+	
+			session()->setFlashdata('notif', $alert);
+			return redirect()->back();
+		}
+
+		$data = [
+			'kodeRuangan' => $kodeRuangan,
+			'namaRuangan' => $namaRuangan,
+			'deskripsi' => $deskripsi,
+		];
+		
+		$m_ruangan->set($data)->where('id', $id)->update();
 		$alert = view(
 			'partials/notification-alert',
 			[
-				'notif_text' => 'Data Mata Kuliah Berhasil Di Ubah',
+				'notif_text' => 'Ruangan berhasil diubah',
 				'status' => 'success'
 			]
 		);
 
 		session()->setFlashdata('notif', $alert);
-		return redirect()->to('admin/ruangan');
+		return redirect()->back();
 	}
 
 	public function flag_switch()

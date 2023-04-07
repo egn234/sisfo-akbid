@@ -65,8 +65,23 @@
                 data: "namaMatkul"
             },
             {
-                title: 'Deskripsi',
-                data: 'deskripsi'
+                title: 'Tingkat',
+                data: 'tingkat',
+                render: function(data, type, row, full){
+                    if (type === 'display') {
+                        let html = 'TINGKAT ' + row['tingkat']
+                        return html
+                    }
+                    return data
+                }
+            },
+            {
+                title: 'SKS',
+                data: 'sks'
+            },
+            {
+                title: 'semester',
+                data: 'semester'
             },
             {
                 title: "Aksi",

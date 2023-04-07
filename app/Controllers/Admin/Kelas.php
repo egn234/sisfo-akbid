@@ -193,7 +193,7 @@ class Kelas extends BaseController
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Kelas berhasil dibuat',
+                'notif_text' => 'Kelas berhasil diubah',
                 'status' => 'success'
             ]
         );
@@ -214,7 +214,7 @@ class Kelas extends BaseController
         $check = $m_rel_dsn_kls->insert($data);
         $alert = array(
             [
-                'notif_text' => 'Wali Dosen Berhasil DiTambahkan',
+                'notif_text' => 'Dosen wali berhasil di set',
                 'status' => 'success'
             ]
         );
@@ -228,7 +228,7 @@ class Kelas extends BaseController
         $check = $m_rel_dsn_kls->delete();
         $alert = array(
             [
-                'notif_text' => 'Wali Dosen Berhasil Diremove',
+                'notif_text' => 'Dosen wali berhasil dihapus',
                 'status' => 'success'
             ]
         );
@@ -249,7 +249,7 @@ class Kelas extends BaseController
 
         $alert = array(
             [
-                'notif_text' => 'Mahasiswa Berhasil Ditambahkan ke kelas',
+                'notif_text' => 'Mahasiswa berhasil ditambahkan kedalam kelas',
                 'status' => 'success'
             ]
         );
@@ -264,7 +264,7 @@ class Kelas extends BaseController
         $check = $m_rel_mhs_kls->delete();
         $alert = array(
             [
-                'notif_text' => 'Mahasiswa Berhasil Diremove',
+                'notif_text' => 'Mahasiswa berhasil dihapus dari kelas',
                 'status' => 'success'
             ]
         );
@@ -281,7 +281,7 @@ class Kelas extends BaseController
 			$alert = view(
 				'partials/notification-alert',
 				[
-					'notif_text' => 'Kelas Diaktifkan',
+					'notif_text' => 'Kelas diaktifkan',
 					'status' => 'success'
 				]
 			);
@@ -292,7 +292,7 @@ class Kelas extends BaseController
 			$alert = view(
 				'partials/notification-alert',
 				[
-					'notif_text' => 'Kelas Dinonaktifkan',
+					'notif_text' => 'Kelas dinonaktifkan',
 					'status' => 'success'
 				]
 			);

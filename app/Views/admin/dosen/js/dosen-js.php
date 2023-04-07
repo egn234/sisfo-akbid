@@ -47,6 +47,10 @@
                 title: 'No'
             },
             {
+                title: 'Username',
+                data: 'username'
+            },
+            {
                 title: 'NIP',
                 data: "nip"
             },

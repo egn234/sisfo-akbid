@@ -62,7 +62,7 @@
                 data: "kodeKelas"
             },
             {
-                title: 'Angkatan',
+                title: 'Angkatan Ke-',
                 data: "angkatan"
             },
             {

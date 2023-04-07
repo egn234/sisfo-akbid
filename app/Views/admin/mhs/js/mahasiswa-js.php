@@ -36,6 +36,10 @@
                 width: '5%'
             },
             {
+                title: 'Username',
+                data: "username"
+            },
+            {
                 title: 'NIM',
                 data: "nim"
             },
@@ -59,6 +63,10 @@
                     }
                     return data
                 }
+            },
+            {
+                title: 'Status Akademik',
+                data: "statusAkademik"
             },
             {
                 title: "Aksi",

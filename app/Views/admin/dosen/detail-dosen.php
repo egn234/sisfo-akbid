@@ -34,13 +34,16 @@
                                     <div class="col-12 mt-2">
                                         <table style="text-align:center" class="table">
                                             <tr>
-                                                <td><?=$detail_dosen->nip?></td>
-                                            </tr>
-                                            <tr>
                                                 <td><?=$detail_dosen->nama?></td>
                                             </tr>
                                             <tr>
-                                                <td><?=$detail_dosen->kontak?></td>
+                                                <td>NIP: <?=$detail_dosen->nip?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kode Dosen: <?=$detail_dosen->kodeDosen?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>No. Telpon: <?=$detail_dosen->kontak?></td>
                                             </tr>
                                             <tr>
                                                 <td><?=$detail_dosen->jenisKelamin == "L"? 'Laki-laki': 'Perempuan'?></td>

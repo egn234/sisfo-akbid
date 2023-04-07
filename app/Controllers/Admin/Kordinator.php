@@ -50,24 +50,44 @@ class Kordinator extends BaseController
     {
     	$m_rel_dos_matkul_koor = new M_rel_dos_matkul_koor();
 
-    	$data = array(
-    		'dosenID'       => $this->request->getPost('dosenID'),
-    		'matakuliahID'       => $this->request->getPost('matakuliahID')
+        $dosenID = $this->request->getPost('dosenID');
+        $matakuliahID = $this->request->getPost('matakuliahID');
 
-    	);
+        $cek_dupe = $m_rel_dos_matkul_koor->select('COUNT(id) AS hitung')
+            ->where('dosenID', $dosenID)
+            ->where('matakuliahID', $matakuliahID)
+            ->get()->getResult()[0]
+            ->hitung;
 
-    	$check = $m_rel_dos_matkul_koor->insert($data);
+        if ($cek_dupe != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Plottingan telah terdaftar',
+                    'status' => 'warning'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        $data = [
+            'dosenID' => $dosenID,
+            'matakuliahID' => $matakuliahID
+        ];
+
+    	$m_rel_dos_matkul_koor->insert($data);
     	$alert = view(
     		'partials/notification-alert',
     		[
-    			'notif_text' => 'Data Ruangan Berhasil DiTambahkan',
+    			'notif_text' => 'Koordinator matakuliah berhasil di set',
     			'status' => 'success'
     		]
     	);
 
     	session()->setFlashdata('notif', $alert);
-    	return redirect()->to('admin/kordinator');
-
+    	return redirect()->back();
     }
 
     public function process_delete()

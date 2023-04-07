@@ -59,17 +59,10 @@
                         let grouping = '<div class="btn-group">'
                         let alignment = '<div class="d-flex justify-content-center">'
                         let close_group = '</div>'
-                        let base_url = '<?= base_url(); ?>'
-                        let attachment_link
-                        if (row['attachment']) {
-                            attachment_link = '<img src="' + base_url + 'uploads/posts/' + row['attachment'] +'">'
-                        }else{
-                            attachment_link = ''
-                        }
                         let html
                         html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-judulPut="' + row['judul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-attachmentPut="' + row['attachment'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['judul'] + '" >Hapus</a>'
-                        return alignment + attachment_link + grouping + html + close_group + close_group
+                        return alignment + grouping + html + close_group + close_group
                     }
                     return data
                 }
