@@ -102,7 +102,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">TAHUN ANGKATAN</label>
-                            <input type="number" min="1975" max="3000" class="form-control" id="tahunPut" required>
+                            <input type="number" min="1975" max="3000" class="form-control" name="tahunAngkatan" id="tahunPut" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
