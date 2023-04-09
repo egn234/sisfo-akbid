@@ -2,6 +2,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
+
     $('.search').select2({
         dropdownParent: $('#pilih-Dosen')
     });
@@ -15,6 +16,10 @@
 
         }
     });
+
+    function checkAll(x) {
+        $('input:checkbox').not(x).prop('checked', true);
+    }
 
     function removeProcess(x) {
         $.ajax({
@@ -147,6 +152,7 @@
 
     function listDosen(x) {
         $('#id-kelas').val(<?= $idKelas ?>)
+        $('.search').empty()
         $.ajax({
             url: "<?= base_url() ?>admin/kordinator/data_dosen_flag",
             type: "get"
@@ -173,6 +179,8 @@
 
     function listMhs(x) {
         $('#id-kelas-mhs').val(<?= $idKelas ?>)
+        $('.search2').empty()
+
         $.ajax({
             url: "<?= base_url() ?>/admin/kelas/data_mhs_flag",
             type: "get"
@@ -239,7 +247,7 @@
                 },
                 {
                     width: '5%',
-                    title: "Aksi",
+                    title: '<input class="form-check-input" type="checkbox" onchange="checkAll(this)">',
                     data: "id",
                     render: function(data, type, row, full) {
                         if (type === 'display') {
