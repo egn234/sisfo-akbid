@@ -188,6 +188,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('jadwal', static function ($routes) {
         $routes->get('/', 'Admin\Jadwal::index');
         
+        $routes->add('detail/(:num)', 'Admin\Jadwal::detail_jadwal/$1');
     });
 });
 

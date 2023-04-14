@@ -56,6 +56,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Kelola Kordinator Mata Kuliah
                             </a>
+                            <a class="nav-link <?= ($title == 'Daftar Jadwal') ? 'active' : '' ?>" href="<?= url_to('admin/jadwal') ?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Kelola Jadwal
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

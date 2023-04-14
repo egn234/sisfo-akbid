@@ -15,7 +15,7 @@ class Jadwal extends BaseController
 		$account = $m_user->getAccount(session()->get('user_id'));
 
 		$data = [
-			'title' => 'Daftar Dosen',
+			'title' => 'Daftar Jadwal',
 			'usertype' => 'Admin',
 			'duser' => $account
 		];
