@@ -183,6 +183,12 @@ $routes->group('admin', static function ($routes) {
 
         $routes->add('delete-process', 'Admin\Kordinator::process_delete');
     });
+
+    //Kelola Jadwal
+    $routes->group('jadwal', static function ($routes) {
+        $routes->get('/', 'Admin\Jadwal::index');
+        
+    });
 });
 
 //GROUP MAHASISWA
