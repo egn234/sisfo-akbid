@@ -191,6 +191,9 @@ $routes->group('admin', static function ($routes) {
         $routes->add('detail/(:num)', 'Admin\Jadwal::detail_jadwal/$1');
         $routes->add('data-jadwal', 'Admin\Jadwal::data_jadwal');
 
+        $routes->post('input-process', 'Admin\Jadwal::add_proc');
+        $routes->post('edit-process', 'Admin\Jadwal::add_proc');
+
     });
 });
 

@@ -29,9 +29,7 @@ class Jadwal extends BaseController
         $m_jadwal = new M_jadwal();
         $account = $m_user->getAccount(session()->get('user_id'));
 
-        $list_jadwal = $m_jadwal->select('*')
-            ->get()
-            ->getResult();
+        $list_jadwal = $m_jadwal->getAllJadwal();
         $data = [
             'title' => 'Daftar Jadwal',
             'usertype' => 'Admin',
@@ -41,4 +39,303 @@ class Jadwal extends BaseController
 
         return json_encode($data);
 	}
+
+    public function add_proc()
+    {
+        $m_jadwal = new M_jadwal();
+
+        $periodeID = $this->request->getPost('periodeID');
+        $matakuliahID = $this->request->getPost('matakuliahID');
+        $dosenID = $this->request->getPost('dosenID');
+        $ruanganID = $this->request->getPost('ruanganID');
+        $startTime = $this->request->getPost('startTime');
+        $endTime = $this->request->getPost('endTime');
+        $day = $this->request->getPost('day');
+        $deskripsi = $this->request->getPost('deskripsi');
+
+        $notif = [];
+        $filter = true;
+
+        $cek_dosen = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('dosenID', $dosenID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+
+        $cek_matkul = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('matakuliahID', $matakuliahID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+        
+        $cek_ruangan = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('ruanganID', $ruanganID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if ($cek_dosen != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Dosen bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_dosen' => $alert];
+            $filter = false;
+        }
+
+        if ($cek_matkul != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Mata kuliah bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_matkul' => $alert];
+            $filter = false;
+        }
+
+        if ($cek_ruangan != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Ruangan bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_ruangan' => $alert];
+            $filter = false;
+        }
+
+        if ($startTime >= $endTime) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Jam awal tidak boleh lebih dari jam akhir',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_time' => $alert];
+            $filter = false;
+        }
+        
+        if ($day == "") {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'belum memilih hari',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_day' => $alert];
+            $filter = false;
+        }
+
+        if(!$filter){
+            session()->setFlashdata($notif);
+            return redirect()->back();
+        }
+
+        $dataset = [
+            'periodeID' => $periodeID,
+            'matakuliahID' => $matakuliahID,
+            'dosenID' => $dosenID,
+            'ruanganID' => $ruanganID,
+            'startTime' => $startTime,
+            'endTime' => $endTime,
+            'day' => $day,
+            'deskripsi' => $deskripsi,
+        ];
+
+        $m_jadwal->insert($dataset);
+        
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'jadwal berhasil ditambah',
+                'status' => 'success'
+            ]
+        );
+
+        $notif += ['notif', $alert];
+        session()->setFlashdata($notif);
+        return redirect()->back();
+    }
+
+    public function edit_proc($id = false)
+    {
+        $m_jadwal = new M_jadwal();
+
+        $periodeID = $this->request->getPost('periodeID');
+        $matakuliahID = $this->request->getPost('matakuliahID');
+        $dosenID = $this->request->getPost('dosenID');
+        $ruanganID = $this->request->getPost('ruanganID');
+        $startTime = $this->request->getPost('startTime');
+        $endTime = $this->request->getPost('endTime');
+        $day = $this->request->getPost('day');
+        $deskripsi = $this->request->getPost('deskripsi');
+
+        $notif = [];
+        $filter = true;
+
+        $cek_dosen = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('dosenID', $dosenID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where('id != '. $id)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+
+        $cek_matkul = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('matakuliahID', $matakuliahID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where('id != '. $id)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+        
+        $cek_ruangan = $m_jadwal->select('COUNT(id) AS hitung')
+            ->where('periodeID', $periodeID)
+            ->where('ruanganID', $ruanganID)
+            ->where('day', $day)
+            ->where('flag', 1)
+            ->where('id != '. $id)
+            ->where(
+                '("'.$startTime.'" BETWEEN startTime AND endTime
+                OR "'. $endTime . '" BETWEEN startTime AND endTime)'
+            )
+            ->get()->getResult()[0]
+            ->hitung;
+
+        if ($cek_dosen != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Dosen bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_dosen' => $alert];
+            $filter = false;
+        }
+
+        if ($cek_matkul != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Mata kuliah bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_matkul' => $alert];
+            $filter = false;
+        }
+
+        if ($cek_ruangan != 0) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Ruangan bentrok dengan jadwal lainnya',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_ruangan' => $alert];
+            $filter = false;
+        }
+
+        if ($startTime >= $endTime) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Jam awal tidak boleh lebih dari jam akhir',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_time' => $alert];
+            $filter = false;
+        }
+        
+        if ($day == "") {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'belum memilih hari',
+                    'status' => 'warning'
+                ]
+            );
+
+            $notif += ['notif_day' => $alert];
+            $filter = false;
+        }
+
+        if(!$filter){
+            session()->setFlashdata($notif);
+            return redirect()->back();
+        }
+
+        $dataset = [
+            'periodeID' => $periodeID,
+            'matakuliahID' => $matakuliahID,
+            'dosenID' => $dosenID,
+            'ruanganID' => $ruanganID,
+            'startTime' => $startTime,
+            'endTime' => $endTime,
+            'day' => $day,
+            'deskripsi' => $deskripsi,
+        ];
+
+        $m_jadwal->set($dataset)->where('id', $id)->update();
+        
+        $alert = view(
+            'partials/notification-alert',
+            [
+                'notif_text' => 'jadwal berhasil ditambah',
+                'status' => 'success'
+            ]
+        );
+
+        $notif += ['notif', $alert];
+        session()->setFlashdata($notif);
+        return redirect()->back();
+    }
 }

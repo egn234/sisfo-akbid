@@ -16,23 +16,15 @@
         $('#kontakPut').val($(x).attr('data-kontakPut'))
 
     }
-    $(document).ready(function() {
-        $('.numeric-input').keydown(function(e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
+
+    ClassicEditor
+        .create(document.querySelector('.ckeditor1'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
+        })
+        .catch(error => {
+            console.error(error);
         });
-    })
 
     // periode
     $.ajax({
@@ -144,33 +136,59 @@
                 title: 'No'
             },
             {
-                title: 'Username',
-                data: 'username'
+                title: 'Tahun Ajaran',
+                render: function(data, type, row, full) {
+                    if (type === 'display') {
+                        let tahunAjaran = row['tahunPeriode'] + ' ' + row['semester']
+                        return tahunAjaran
+                    }
+                    return data
+                }
             },
             {
-                title: 'NIP',
-                data: "nip"
+                title: 'Mata Kuliah',
+                render: function(data, type, row, full) {
+                    if (type === 'display') {
+                        let matkul = row['kodeMatkul'] + ' - ' + row['namaMatkul']
+                        return matkul
+                    }
+                    return data
+                }
             },
             {
-                title: 'Nama',
-                data: "nama"
+                title: 'Tingkat',
+                render: function(data, type, row, full) {
+                    if (type === 'display') {
+                        let tingkat = 'TINGKAT ' + row['tingkat']
+                        return tingkat
+                    }
+                    return data
+                }
             },
             {
                 title: 'Kode Dosen',
                 data: 'kodeDosen'
             },
             {
-                title: 'JK',
-                data: 'jenisKelamin',
+                title: 'Hari',
+                data: 'day'
+            },
+            {
+                title: 'Jam',
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        let html
-                        if (data == 'L') {
-                            html = "Laki-Laki"
-                        } else {
-                            html = "Perempuan"
-                        }
-                        return html
+                        let jam = row['startTime'] + ' - ' + row['endTime']
+                        return jam
+                    }
+                    return data
+                }
+            },
+            {
+                title: 'Ruangan',
+                render: function(data, type, row, full) {
+                    if (type === 'display') {
+                        let ruangan = row['kodeRuangan'] + ' - ' + row['namaRuangan']
+                        return ruangan
                     }
                     return data
                 }
@@ -231,15 +249,24 @@
             this.data(i++);
         });
     }).draw();
-    // $('#switchMahasiswa').on('show.bs.modal', function(e) {
-    //     var rowid = $(e.relatedTarget).data('id');
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '<?= base_url() ?>/admin/mahasiswa/switch-mhs',
-    //         data: 'rowid=' + rowid,
-    //         success: function(data) {
-    //             $('.fetched-data').html(data);
-    //         }
-    //     });
-    // });
+    
+    flatpickr("#time-input-from", {
+        appendTo: document.body,
+        className: "flatpickr",
+        enableTime: true,
+        noCalendar: true,
+        static: true,
+        dateFormat: "H:i", // Use 24-hour format
+        time_24hr: true // Use 24-hour format
+    });
+    
+    flatpickr("#time-input-to", {
+        appendTo: document.body,
+        className: "flatpickr",
+        enableTime: true,
+        noCalendar: true,
+        static: true,
+        dateFormat: "H:i", // Use 24-hour format
+        time_24hr: true // Use 24-hour format
+    });
 </script>
