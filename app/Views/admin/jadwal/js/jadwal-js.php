@@ -1,19 +1,31 @@
 <script>
     function switchFlag(x) {
-        $('#user_id').val($(x).attr('data-id'))
+        $('#id_data').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+    let ckEditor
+    ClassicEditor
+        .create(document.querySelector('.ckeditor2'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            height: '500px'
+        }).then(editor => {
+            ckEditor = editor
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
-        $('#namePut').val($(x).attr('data-namePut'))
-        $('#nipPut').val($(x).attr('data-nipPut'))
-        $('#nikPut').val($(x).attr('data-nikPut'))
-        $('#kodeDosenPut').val($(x).attr('data-kodeDosenPut'))
-        $('#jenisKelaminPut').val($(x).attr('data-jenisKelaminPut'))
-        $('#alamatPut').val($(x).attr('data-alamatPut'))
-        $('#emailPut').val($(x).attr('data-emailPut'))
-        $('#kontakPut').val($(x).attr('data-kontakPut'))
+        $('#periode-listPut').val($(x).attr('data-periodePut'))
+        $('#matkul-listPut').val($(x).attr('data-matkulPut'))
+        $('#dosen-listPut').val($(x).attr('data-dosenPut'))
+        $('#ruangan-listPut').val($(x).attr('data-ruanganPut'))
+        $('#dayPut').val($(x).attr('data-dayPut'))
+        $('.startTime').val($(x).attr('data-startTime'))
+        $('.endTime').val($(x).attr('data-endTime'))
+        $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
+        ckEditor.setData($(x).attr('data-deskripsiPut'))
 
     }
 
@@ -36,6 +48,12 @@
             let list = data['list_tahunajaran']
             for (let i = 0; i < list.length; i++) {
                 $('#periode-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].tahunPeriode + ' - ' + list[i].semester,
+                    })
+                );
+                $('#periode-listPut').append(
                     $('<option>', {
                         value: list[i].id,
                         text: list[i].tahunPeriode + ' - ' + list[i].semester,
@@ -65,6 +83,12 @@
                         text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].semester,
                     })
                 );
+                $('#matkul-listPut').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].semester,
+                    })
+                );
             }
         } catch (error) {
             console.log(error.message);
@@ -89,6 +113,12 @@
                         text: list[i].kodeDosen + ' - ' + list[i].nama,
                     })
                 );
+                $('#dosen-listPut').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeDosen + ' - ' + list[i].nama,
+                    })
+                );
             }
         } catch (error) {
             console.log(error.message);
@@ -108,6 +138,12 @@
             let list = data['list_ruangan']
             for (let i = 0; i < list.length; i++) {
                 $('#ruangan-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeRuangan + ' - ' + list[i].namaRuangan,
+                    })
+                );
+                $('#ruangan-listPut').append(
                     $('<option>', {
                         value: list[i].id,
                         text: list[i].kodeRuangan + ' - ' + list[i].namaRuangan,
@@ -203,11 +239,12 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'+
+                        '<a class="btn btn-sm btn-info" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="'+data+'" data-dayPut="'+row['day']+'" data-deskripsiPut="'+row['deskripsi']+'" data-ruanganPut="'+row['ruanganID']+'" data-periodePut="'+row['periodeID']+'" data-dosenPut="'+row['dosenID']+'" data-matkulPut="'+row['matakuliahID']+'" data-startTime="'+row['startTime']+'" data-endTime="'+row['endTime']+'" > Ubah </a>'
                         if (row['flag'] == 1) {
-                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
+                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' + data + '" data-name="' + row['namaMatkul'] + '" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' +data + '" data-name="' + row['namaMatkul'] + '">Aktifkan</a>'
                         }
                         let close_group = '</div></div>'
                         return alignment + open_group + html + button + close_group
