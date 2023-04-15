@@ -66,34 +66,42 @@
                                 <div class="card-body">
                                     <?php
                                     $allData = $posting_limit;
-                                    foreach ($allData as $data) {
+                                    // print_r($allData);
                                     ?>
-                                        <div class="row mt-3" style="padding-left: 40px; padding-right: auto;">
-                                            <div style="width: 96%; border: 2px solid gray; border-radius: 25px; height: 125px;">
-                                                <div class="row ">
-                                                    <div class="col-lg-2" style="padding-top: 5px; padding-left: 15px;">
-                                                        <img src="<?php echo base_url('uploads/post') . '/' . $data->attachment ?>" data-url="<?= $data->attachment ?>" width="100" height="100" alt="pic">
-                                                    </div>
-                                                    <div class="col-lg-8" style="padding-top: 30px;">
-                                                        <h5 class="text-justify"><?= $data->judul ?></h5>
-                                                        <p class="text-justify"><?= $data->deskripsi ?></p>
-                                                    </div>
-                                                    <div class="col-lg-2" style=" padding-top: 38px; padding-right: 80px;">
-                                                        <div class="btn-group float-end">
-                                                            <a href="<?= base_url('mahasiswa/posting/detail') . '/' . $data->id ?>" class="btn btn-lg btn-primary">
-                                                                Detail
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            </div>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="<?php echo base_url('uploads/posts') ?>/<?= $allData[0]->attachment ?>" style="width:75%; max-height:420px;" class="d-block w-100" alt="...">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="<?php echo base_url('uploads/posts') ?>/<?= $allData[1]->attachment ?>" style="width:75%; max-height:420px;" class="d-block w-100" alt="...">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="<?php echo base_url('uploads/posts') ?>/<?= $allData[2]->attachment ?>" style="width:75%; max-height:420px;" class="d-block w-100" alt="...">
                                                 </div>
                                             </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
                                         </div>
-                                    <?php } ?>
+
+                                        
+                                    <?php  ?>
                                 </div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                <!-- <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small stretched-link" href="<?= url_to('admin/posting') ?>">Lihat Semua</a>
                                     <div class="small "><i class="fas fa-angle-right"></i></div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

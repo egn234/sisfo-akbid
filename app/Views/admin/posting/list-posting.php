@@ -4,7 +4,7 @@
 <head>
     <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> -->
     <style>
         .ck-editor__editable_inline {
             min-height: 500px !important;
