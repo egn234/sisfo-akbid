@@ -244,6 +244,14 @@ $routes->group('dosen', static function ($routes) {
         $routes->add('update-pass', 'Dosen\Profil::update_pass', ['as' => 'update-pass-dosen']);
 
     });
+    
+    $routes->group('koordinator', static function($routes){
+
+        $routes->get('/', 'Dosen\Koordinator::index');
+
+        $routes->add('koor_data', 'Dosen\Koordinator::koor_data');
+
+    });
 });
 
 

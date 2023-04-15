@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_rel_dos_matkul_koor;
+use App\Models\M_param_nilai;
 use App\Models\M_dosen;
 use App\Models\M_matkul;
 
@@ -51,6 +52,7 @@ class Kordinator extends BaseController
     public function process_input()
     {
     	$m_rel_dos_matkul_koor = new M_rel_dos_matkul_koor();
+        $m_param_nilai = new M_param_nilai();
 
         $dosenID = $this->request->getPost('dosenID');
         $matakuliahID = $this->request->getPost('matakuliahID');
@@ -80,6 +82,24 @@ class Kordinator extends BaseController
         ];
 
     	$m_rel_dos_matkul_koor->insert($data);
+        
+        $koorID = $m_rel_dos_matkul_koor
+            ->where('dosenID', $dosenID)
+            ->where('matakuliahID', $matakuliahID)
+            ->get()->getResult()[0]
+            ->id;
+
+        $data_param = [
+            'paramKehadiran' => 5,
+            'paramUTS' => 20,
+            'paramUAS' => 25,
+            'paramTugas' => 20,
+            'paramPraktek' => 30,
+            'koorID' => $koorID
+        ];
+
+        $m_param_nilai->insert($data_param);
+
     	$alert = view(
     		'partials/notification-alert',
     		[
