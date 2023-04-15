@@ -66,7 +66,7 @@
                         <div class="mb-3">
                             <label class="form-label">TAHUN AJARAN</label>
                             <select class="form-select" name="periodeID" id="periode-list">
-                                <option value="" selected>-- Pilih Tahun Ajaran --</option>
+                                <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
                                 <!-- Load From Ajax -->
                             </select>
                         </div>

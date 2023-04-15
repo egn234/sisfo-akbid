@@ -3,6 +3,7 @@
         $('#user_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
         $('#namePut').val($(x).attr('data-namePut'))
@@ -23,8 +24,8 @@
                 (e.keyCode == 65 && e.ctrlKey === true) ||
                 // Allow: home, end, left, right
                 (e.keyCode >= 35 && e.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
+                // let it happen, don't do anything
+                return;
             }
             // Ensure that it is a number and stop the keypress
             if (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
@@ -32,6 +33,102 @@
             }
         });
     })
+
+    // periode
+    $.ajax({
+        url: "<?= base_url() ?>/admin/tahun-ajaran/data_tahunajaran",
+        type: "get"
+    }).done(function(result) {
+        try {
+            var data = jQuery.parseJSON(result);
+            let list = data['list_tahunajaran']
+            for (let i = 0; i < list.length; i++) {
+                $('#periode-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].tahunPeriode + ' - ' + list[i].semester,
+                    })
+                );
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+        // needs to implement if it fails
+    });
+
+    // matkul
+    $.ajax({
+        url: "<?= base_url() ?>/admin/matkul/data_matkul",
+        type: "get"
+    }).done(function(result) {
+        try {
+            var data = jQuery.parseJSON(result);
+            let list = data['list_matkul']
+            for (let i = 0; i < list.length; i++) {
+                $('#matkul-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].semester,
+                    })
+                );
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+        // needs to implement if it fails
+    });
+
+    // dosen
+    $.ajax({
+        url: "<?= base_url() ?>/admin/dosen/data_dosen",
+        type: "get"
+    }).done(function(result) {
+        try {
+            var data = jQuery.parseJSON(result);
+            let list = data['list_dosen']
+            for (let i = 0; i < list.length; i++) {
+                $('#dosen-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeDosen + ' - ' + list[i].nama,
+                    })
+                );
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+        // needs to implement if it fails
+    });
+
+    // ruangan
+    $.ajax({
+        url: "<?= base_url() ?>/admin/ruangan/data_ruangan",
+        type: "get"
+    }).done(function(result) {
+        try {
+            var data = jQuery.parseJSON(result);
+            let list = data['list_ruangan']
+            for (let i = 0; i < list.length; i++) {
+                $('#ruangan-list').append(
+                    $('<option>', {
+                        value: list[i].id,
+                        text: list[i].kodeRuangan + ' - ' + list[i].namaRuangan,
+                    })
+                );
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+        // needs to implement if it fails
+    });
 
     let dataTable
     // Data Table
@@ -65,13 +162,13 @@
             {
                 title: 'JK',
                 data: 'jenisKelamin',
-                render : function(data, type, row, full) {
+                render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
                         if (data == 'L') {
                             html = "Laki-Laki"
                         } else {
-                            html = "Perempuan" 
+                            html = "Perempuan"
                         }
                         return html
                     }
@@ -86,13 +183,13 @@
                         console.log(row);
                         let html
                         let alignment = '<div class="d-flex justify-content-center">'
-                        let open_group = '<div class="btn-group">' 
+                        let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
                         let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
-                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
+                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '">Aktifkan</a>'
                         }
                         let close_group = '</div></div>'
                         return alignment + open_group + html + button + close_group
