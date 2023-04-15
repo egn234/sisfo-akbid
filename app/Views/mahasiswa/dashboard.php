@@ -28,6 +28,8 @@
                                     <?php
                                     $allData = $posting_limit;
                                     // print_r($allData);
+                                    if (count($allData) == 3) {
+
                                     ?>
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-indicators">
@@ -57,7 +59,7 @@
                                     </div>
 
 
-                                    <?php  ?>
+                                    <?php } ?>
                                 </div>
                                 <!-- <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small stretched-link" href="<?= url_to('mahasiswa/posting') ?>">Lihat Semua</a>
