@@ -88,7 +88,8 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">' 
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'+
+                        '<a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateData" onclick="updateData(this)" data-idPut="'+data+'" data-namePut="'+row['nama']+'" data-nipPut="'+row['nip']+'" data-nikPut="'+row['nik']+'" data-kodeDosenPut="'+row['kodeDosen']+'" data-jenisKelaminPut="'+row['jenisKelamin']+'" data-alamatPut="'+row['alamat']+'" data-emailPut="'+row['email']+'" data-kontakPut="'+row['kontak']+'" > Ubah </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
                         } else {

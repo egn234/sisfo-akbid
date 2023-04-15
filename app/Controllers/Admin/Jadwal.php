@@ -338,4 +338,38 @@ class Jadwal extends BaseController
         session()->setFlashdata($notif);
         return redirect()->back();
     }
+
+    public function flag_switch()
+	{
+		$m_jadwal = new M_jadwal();
+		$jadwal_id = $this->request->getPost('id_data');
+		$jadwal = $m_jadwal->select('*')
+        ->where('id', $jadwal_id)
+        ->get()
+        ->getResult();
+		if ($jadwal[0]->flag == 0) {
+			$m_jadwal->where('id', $jadwal_id)->set('flag', '1')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Jadwal Diaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		} elseif ($jadwal[0]->flag == 1) {
+			$m_jadwal->where('id', $jadwal_id)->set('flag', '0')->update();
+			$alert = view(
+				'partials/notification-alert',
+				[
+					'notif_text' => 'Jadwal Dinonaktifkan',
+					'status' => 'success'
+				]
+			);
+
+			session()->setFlashdata('notif', $alert);
+		}
+		return redirect()->back();
+	}
 }

@@ -193,6 +193,8 @@ $routes->group('admin', static function ($routes) {
 
         $routes->post('input-process', 'Admin\Jadwal::add_proc');
         $routes->post('edit-process', 'Admin\Jadwal::add_proc');
+        $routes->post('switch-jadwal', 'Admin\Jadwal::flag_switch');
+
 
     });
 });
