@@ -19,3 +19,4 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="<?php echo base_url('assets') ?>/js/ckeditor.js"></script>

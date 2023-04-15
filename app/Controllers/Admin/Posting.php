@@ -62,7 +62,7 @@ class Posting extends BaseController
         $file = $this->request->getFile('fileUpload');
 
         if ($file->isValid()) {
-            $newName = $file->getRandomName() . '_'. $account->user_id;
+            $newName = $file->getRandomName();
 			$file->move(ROOTPATH . 'public/uploads/posts/', $newName);
 			$attachment = $file->getName();
 			$data += ['attachment' => $attachment];
