@@ -53,6 +53,9 @@ class Tahunajaran extends BaseController
         $semester = $this->request->getPost('semester');
         $deskripsi = $this->request->getPost('deskripsi');
 
+        $registrasi_awal = $this->request->getPost('registrasi_awal');
+        $registrasi_akhir = $this->request->getPost('registrasi_akhir');
+
         $periode = (string) $tahun1 . '/' . $tahun2;
 
         $cek_count = $m_tahunajaran->select("COUNT(id) AS hitung")
@@ -60,12 +63,25 @@ class Tahunajaran extends BaseController
             ->where('semester', $semester)
             ->get()->getResult()[0]
             ->hitung;
-
+        
         if($cek_count > 0){
             $alert = view(
                 'partials/notification-alert',
                 [
                     'notif_text' => 'Tahun Ajaran telah terdaftar',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        if ($registrasi_awal > $registrasi_akhir) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'tanggal awal tidak boleh melebihi tanggal akhir',
                     'status' => 'danger'
                 ]
             );
@@ -90,6 +106,8 @@ class Tahunajaran extends BaseController
         $data = [
             'tahunPeriode' => $periode,
             'semester' => $semester,
+            'registrasi_awal' => $registrasi_awal,
+            'registrasi_akhir' => $registrasi_akhir,
             'deskripsi' => $deskripsi
         ];
 
@@ -139,6 +157,9 @@ class Tahunajaran extends BaseController
 
         $periode = (string) $tahun1 . '/' . $tahun2;
 
+        $registrasi_awal = $this->request->getPost('registrasi_awal');
+        $registrasi_akhir = $this->request->getPost('registrasi_akhir');
+
         $cek_count = $m_tahunajaran->select("COUNT(id) AS hitung")
             ->where('tahunPeriode', $periode)
             ->where('semester', $semester)
@@ -151,6 +172,19 @@ class Tahunajaran extends BaseController
                 'partials/notification-alert',
                 [
                     'notif_text' => 'Tahun Ajaran telah terdaftar',
+                    'status' => 'danger'
+                ]
+            );
+    
+            session()->setFlashdata('notif', $alert);
+            return redirect()->back();
+        }
+
+        if ($registrasi_awal > $registrasi_akhir) {
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'tanggal awal tidak boleh melebihi tanggal akhir',
                     'status' => 'danger'
                 ]
             );
@@ -175,6 +209,8 @@ class Tahunajaran extends BaseController
         $data = [
             'tahunPeriode' => $periode,
             'semester' => $semester,
+            'registrasi_awal' => $registrasi_awal,
+            'registrasi_akhir' => $registrasi_akhir,
             'deskripsi' => $deskripsi
         ];
 

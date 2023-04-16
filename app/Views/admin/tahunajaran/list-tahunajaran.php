@@ -73,6 +73,14 @@
                             </div>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Tanggal Registrasi Awal</label>
+                            <input type="date" class="form-control" name="registrasi_awal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Registrasi Akhir</label>
+                            <input type="date" class="form-control" name="registrasi_akhir" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
                             <textarea class="form-control ckeditor1" style="height:400px" name="deskripsi"></textarea>
                         </div>
@@ -111,6 +119,14 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Registrasi Awal</label>
+                            <input type="date" class="form-control" name="registrasi_awal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Registrasi Akhir</label>
+                            <input type="date" class="form-control" name="registrasi_akhir" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>
