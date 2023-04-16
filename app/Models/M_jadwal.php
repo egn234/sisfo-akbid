@@ -42,6 +42,7 @@ class M_jadwal extends Model
           b.semester,
           c.kodeMatkul,
           c.namaMatkul,
+          c.sks,
           c.tingkat,
           d.kodeDosen,
           d.nama,
@@ -52,6 +53,62 @@ class M_jadwal extends Model
           JOIN tb_matakuliah c ON a.matakuliahID = c.id
           JOIN tb_dosen d ON a.dosenID = d.id
           JOIN tb_ruangan e ON a.ruanganID = e.id
+        ORDER BY b.tahunPeriode DESC
+      ";
+
+      return $this->db->query($sql)->getResult();
+    }
+    
+    function getJadwalRegistrasiMhs($id = false)
+    {
+      $sql = "
+        SELECT 
+          a.*,
+          b.tahunPeriode,
+          b.semester,
+          c.kodeMatkul,
+          c.namaMatkul,
+          c.sks,
+          c.tingkat,
+          d.kodeDosen,
+          d.nama,
+          e.kodeRuangan,
+          e.namaRuangan
+        FROM tb_jadwal a
+          JOIN tb_periode b ON a.periodeID = b.id
+          JOIN tb_matakuliah c ON a.matakuliahID = c.id
+          JOIN tb_dosen d ON a.dosenID = d.id
+          JOIN tb_ruangan e ON a.ruanganID = e.id
+        WHERE b.flag = 1
+          AND a.id NOT IN (SELECT jadwalID FROM rel_mhs_jad zz WHERE zz.mahasiswaID = ".$id.")
+        ORDER BY b.tahunPeriode DESC
+      ";
+
+      return $this->db->query($sql)->getResult();
+    }
+
+    function getJadwalSelectedMhs($id = false)
+    {
+      $sql = "
+        SELECT 
+          a.*,
+          b.tahunPeriode,
+          b.semester,
+          c.kodeMatkul,
+          c.namaMatkul,
+          c.sks,
+          c.tingkat,
+          d.kodeDosen,
+          d.nama,
+          e.kodeRuangan,
+          e.namaRuangan
+        FROM tb_jadwal a
+          JOIN tb_periode b ON a.periodeID = b.id
+          JOIN tb_matakuliah c ON a.matakuliahID = c.id
+          JOIN tb_dosen d ON a.dosenID = d.id
+          JOIN tb_ruangan e ON a.ruanganID = e.id
+        WHERE b.flag = 1
+          AND a.id IN (SELECT jadwalID FROM rel_mhs_jad zz WHERE zz.mahasiswaID = ".$id.")
         ORDER BY b.tahunPeriode DESC
       ";
 

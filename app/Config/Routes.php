@@ -234,6 +234,22 @@ $routes->group('mahasiswa', static function ($routes) {
 
         $routes->get('data_kuesioner', 'Mahasiswa\Kuesioner::data_kuesioner');
     });
+
+    // View Registrasi
+    $routes->group('registrasi', static function ($routes) {
+        $routes->get('/', 'Mahasiswa\Registrasi::index');
+        $routes->get('ksm', 'Mahasiswa\Registrasi::ksm');
+
+        $routes->add('data-regis', 'Mahasiswa\Registrasi::data_matkul_periode');
+        $routes->add('data-jadwal', 'Mahasiswa\Registrasi::data_jadwal');
+        $routes->add('data-jadwal2', 'Mahasiswa\Registrasi::data_jadwal_selected');
+        $routes->add('regis-proc', 'Mahasiswa\Registrasi::regis_proc');
+    });
+    
+    // View Presensi
+    $routes->group('presensi', static function ($routes) {
+        $routes->get('/', 'Mahasiswa\Presensi::index');
+    });
 });
 
 //GROUP DOSEN
