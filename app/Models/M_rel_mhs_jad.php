@@ -49,5 +49,63 @@ class M_rel_mhs_jad extends Model
 
         return $this->db->query($sql)->getResult();
     }
+
+    function getAllRegisMhs($id = false)
+    {
+      $sql = "
+        SELECT 
+          a.*,
+          b.tahunPeriode,
+          b.semester,
+          c.kodeMatkul,
+          c.namaMatkul,
+          c.sks,
+          c.tingkat,
+          d.kodeDosen,
+          d.nama,
+          e.kodeRuangan,
+          e.namaRuangan,
+          f.id AS mhs_jad_id
+        FROM tb_jadwal a
+          JOIN tb_periode b ON a.periodeID = b.id
+          JOIN tb_matakuliah c ON a.matakuliahID = c.id
+          JOIN tb_dosen d ON a.dosenID = d.id
+          JOIN tb_ruangan e ON a.ruanganID = e.id
+          JOIN rel_mhs_jad f ON a.id = f.jadwalID
+        WHERE f.mahasiswaID = $id
+      ";
+      
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
+
+    function approveRegis($id = false)
+    {
+        $sql = "
+            UPDATE rel_mhs_jad a 
+                JOIN tb_jadwal b ON a.jadwalID = b.id
+                JOIN tb_periode c ON b.periodeID = c.id
+            SET status = 'approved'
+            WHERE mahasiswaID = $id
+                AND c.flag = 1;
+        ";
+
+        $db = db_connect();
+        $db->query($sql);
+    }
+
+    function resetRegis($id = false)
+    {
+        $sql = "
+            DELETE a FROM rel_mhs_jad a
+                JOIN tb_jadwal b ON a.jadwalID = b.id
+                JOIN tb_periode c ON b.periodeID = c.id
+            WHERE a.mahasiswaID = $id
+                AND c.flag = 1
+        ";
+
+        $db = db_connect();
+        $db->query($sql);
+    }
 }
 ?>

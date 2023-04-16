@@ -197,6 +197,18 @@ $routes->group('admin', static function ($routes) {
 
 
     });
+
+    //Kelola Registrasi
+    $routes->group('registrasi', static function ($routes) {
+        $routes->get('/', 'Admin\Registrasi::index');
+        $routes->get('data_kelas', 'Admin\Registrasi::data_kelas');
+
+        $routes->add('detail/(:num)', 'Admin\Registrasi::detail/$1', ['as' => 'detail-kelas-regis']);
+        $routes->add('data-mhs/(:num)', 'Admin\Registrasi::data_mhs/$1', ['as' => 'data-mhs-admin']);
+        $routes->add('data-jadwal/(:num)', 'Admin\Registrasi::data_jadwal/$1', ['as' => 'data-jadwal-admin']);
+        $routes->add('acc-regis/(:num)', 'Admin\Registrasi::acc_regis/$1', ['as' => 'admin-acc-regis']);
+        $routes->add('reset/(:num)', 'Admin\Registrasi::reset/$1', ['as' => 'admin-reset-regis']);
+    });
 });
 
 //GROUP MAHASISWA
@@ -255,19 +267,28 @@ $routes->group('mahasiswa', static function ($routes) {
 //GROUP DOSEN
 $routes->group('dosen', static function ($routes) {
     $routes->get('dashboard', 'Dosen\Dashboard::index');
-    //Profil Mahasiswa
+    
+    //Profil Dosen
     $routes->group('profil', static function ($routes) {
 
         $routes->add('update-process', 'Dosen\Profil::process_update', ['as' => 'update-profil-dosen']);
         $routes->add('update-pass', 'Dosen\Profil::update_pass', ['as' => 'update-pass-dosen']);
 
     });
-    
+
+    //Koordinator
     $routes->group('koordinator', static function($routes){
 
         $routes->get('/', 'Dosen\Koordinator::index');
 
         $routes->add('koor_data', 'Dosen\Koordinator::koor_data');
+
+    });
+
+    //Perwalian
+    $routes->group('perwalian', static function($routes){
+        
+        $routes->get('/', 'Dosen\Perwalian::index');
 
     });
 });
