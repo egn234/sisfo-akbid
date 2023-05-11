@@ -82,23 +82,11 @@ class Login extends BaseController
 
         $data = [
             [
-                'username' => 'admin001',
-                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
+                'username' => 'administrator',
+                'password' => password_hash('administrator', PASSWORD_BCRYPT, $options),
                 'flag' => '1',
                 'userType' => 'admin'
-            ],
-            [
-                'username' => 'mhs001',
-                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
-                'flag' => '1',
-                'userType' => 'mahasiswa'
-            ],
-            [
-                'username' => 'dosen001',
-                'password' => password_hash('12345678', PASSWORD_BCRYPT, $options),
-                'flag' => '1',
-                'userType' => 'dosen'
-            ],
+            ]
         ];
 
         for ($i = 0; $i < count($data); $i++) {

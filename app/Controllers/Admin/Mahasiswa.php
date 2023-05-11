@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Admin;
 
+require_once ROOTPATH.'vendor/autoload.php';
+
 use App\Controllers\BaseController;
 
 use App\Models\M_user;
@@ -437,5 +439,187 @@ class Mahasiswa extends BaseController
 		$data = ['notif' => $alert];
 		session()->setFlashdata($data);
 		return redirect()->back();
+	}
+
+	public function import_mhs()
+	{
+		$file = $this->request->getFile('file_import');
+
+		if ($file->isValid())
+		{
+			$ext = $file->guessExtension();
+			$filepath = WRITEPATH . 'uploads/' . $file->store();
+
+			if ($ext == 'csv') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			}elseif($ext == 'xls' || $ext == 'xlsx') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			}
+
+			$reader->setReadDataOnly(true);
+			$reader->setReadEmptyCells(false);
+			$spreadsheet = $reader->load($filepath);
+			$err_count = 0;
+			$baris_proc = 0;
+
+			foreach($spreadsheet->getWorksheetIterator() as $cell)
+			{
+				$m_user = new M_user();
+				$m_mahasiswa = new M_mahasiswa();
+
+				$baris = $cell->getHighestRow();
+				$kolom = $cell->getHighestColumn();
+
+				for ($i=2; $i <= $baris; $i++)
+				{
+					$options = ['cost' => 12];
+					$username = $cell->getCell('T'.$i)->getValue();
+					$nim = $cell->getCell('B'.$i)->getValue();
+					$nama = $cell->getCell('C'.$i)->getValue();
+					$jenis_kelamin = $cell->getCell('D'.$i)->getValue();
+					$nik = $cell->getCell('E'.$i)->getValue();
+					$tempat_lahir = $cell->getCell('F'.$i)->getValue();
+					$tanggal_lahir = $cell->getCell('G'.$i)->getValue();
+					$alamat = $cell->getCell('H'.$i)->getValue();
+					$email = $cell->getCell('I'.$i)->getValue();
+					$kontak = $cell->getCell('J'.$i)->getValue();
+					$namaIbu = $cell->getCell('K'.$i)->getValue();
+					$nikIbu = $cell->getCell('L'.$i)->getValue();
+					$kontakIbu = $cell->getCell('M'.$i)->getValue();
+					$namaAyah = $cell->getCell('N'.$i)->getValue();
+					$nikAyah = $cell->getCell('O'.$i)->getValue();
+					$kontakAyah = $cell->getCell('P'.$i)->getValue();
+					$namaWali = $cell->getCell('Q'.$i)->getValue();
+					$nikWali = $cell->getCell('R'.$i)->getValue();
+					$kontakWali = $cell->getCell('S'.$i)->getValue();
+
+					$cek_username = $m_user->select('COUNT(id) as hitung')
+						->where('username', $username)
+						->get()->getResult()[0]
+						->hitung;
+
+					if ($cek_username == 0) {
+						$cek_nim = $m_mahasiswa->select('COUNT(id) as hitung')
+							->where('nim', $nim)
+							->get()->getResult()[0]
+							->hitung;
+						$cek_nik = $m_mahasiswa->select('COUNT(id) as hitung')
+							->where('nik', $nik)
+							->get()->getResult()[0]
+							->hitung;
+
+						if ($cek_nik == 0 && $cek_nim == 0) {
+							$user = [
+								'username' => $username,
+								'password' => password_hash($username, PASSWORD_BCRYPT, $options),
+								'flag' => "1",
+								'userType' => 'mahasiswa'
+							];
+		
+							$m_user->insert($user);
+							$last_id = $m_user->orderBy('id', 'DESC')->get()->getResult()[0]->id;
+							
+							helper('filesystem');
+							$imgSource = FCPATH . 'assets/images/users/image.jpg';
+
+							mkdir(FCPATH . 'uploads/user/'.$username, 0777);
+							mkdir(FCPATH . 'uploads/user/'.$username.'/profil_pic', 0777);
+							
+							$imgDest = FCPATH . 'uploads/user/'.$username.'/profil_pic/image.jpg';
+							copy($imgSource, $imgDest);
+
+							$mahasiswa = [
+								'nim' => $nim,
+								'nama' => $nama,
+								'jenisKelamin' => $jenis_kelamin,
+								'nik' => $nik,
+								'tempatLahir' => $tempat_lahir,
+								'tanggalLahir' => $tanggal_lahir,
+								'alamat' => $alamat,
+								'email' => $email,
+								'kontak' => $kontak,
+								'namaIbu' => $namaIbu,
+								'nikIbu' => $nikIbu,
+								'kontakIbu' => $kontakIbu,
+								'namaAyah' => $namaAyah,
+								'nikAyah' => $nikAyah,
+								'kontakAyah' => $kontakAyah,
+								'namaWali' => $namaWali,
+								'nikWali' => $nikWali,
+								'kontakWali' => $kontakWali,
+								'foto' => 'image.jpg',
+								'statusAkademik' => 'aktif',
+								'userID' => $last_id
+							];
+
+							$m_mahasiswa->insert($mahasiswa);
+						}else{
+							$err_count++;
+						}
+					}else{
+						$err_count++;
+					}
+					$baris_proc++;
+				}
+			}
+			$total_count = $baris_proc - $err_count;
+
+			if ($err_count > 0 && $total_count != 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor beberapa data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'warning'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+			elseif ($err_count == $baris_proc) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Gagal mengimpor data user ('.($total_count).' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'danger'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];	
+			}
+			elseif ($err_count == 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'success'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+				
+			unlink($filepath);
+			session()->setFlashdata($data_session);
+			return redirect()->back();
+			
+		}else {
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Upload gagal',
+				 	'status' => 'danger'
+				]
+			);
+			
+			$dataset = ['notif' => $alert];
+			session()->setFlashdata($dataset);
+			return redirect()->back();
+		}
 	}
 }

@@ -60,6 +60,7 @@ $routes->group('admin', static function ($routes) {
         // $routes->add('switch-mhs-confirm/(:num)', 'Admin\Mahasiswa::flag_switch/$1', ['as' => 'admin-switch-mhs']);
         $routes->add('switch-mhs', 'Admin\Mahasiswa::flag_switch');
         $routes->add('input-process', 'Admin\Mahasiswa::process_input');
+        $routes->add('import-mhs', 'Admin\Mahasiswa::import_mhs');
         $routes->add('update-process/(:num)', 'Admin\Mahasiswa::process_update/$1', ['as' => 'update-mahasiswa-1']);
         $routes->add('update-password/(:num)', 'Admin\Mahasiswa::update_pass/$1', ['as' => 'update-pass-mahasiswa-1']);
 
