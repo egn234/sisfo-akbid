@@ -74,6 +74,7 @@ $routes->group('admin', static function ($routes) {
         $routes->get('data_dosen', 'Admin\Dosen::data_dosen');
         $routes->get('detail/(:num)', 'Admin\Dosen::detail/$1', ['as' => 'detail-dosen-1']);
 
+        $routes->add('import-dosen', 'Admin\Dosen::import_dosen');
         $routes->add('update-password/(:num)', 'Admin\Dosen::update_pass/$1', ['as' => 'update-pass-dosen-1']);
         $routes->add('switch-dosen', 'Admin\Dosen::flag_switch');
         $routes->add('update-process/(:num)', 'Admin\Dosen::process_update/$1', ['as' => 'update-dosen-1']);
