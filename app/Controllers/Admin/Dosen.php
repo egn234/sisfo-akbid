@@ -379,4 +379,168 @@ class Dosen extends BaseController
 		// print_r($data);
 		return view('admin/dosen/detail-dosen', $data);
 	}
+
+	public function import_dosen()
+	{
+		$file = $this->request->getFile('file_import');
+
+		if ($file->isValid())
+		{
+			$ext = $file->guessExtension();
+			$filepath = WRITEPATH . 'uploads/' . $file->store();
+
+			if ($ext == 'csv') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			}elseif($ext == 'xls' || $ext == 'xlsx') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			}
+
+			$reader->setReadDataOnly(true);
+			$reader->setReadEmptyCells(false);
+			$spreadsheet = $reader->load($filepath);
+			$err_count = 0;
+			$baris_proc = 0;
+			foreach($spreadsheet->getWorksheetIterator() as $cell)
+			{
+				$m_user = new M_user();
+				$m_dosen = new M_dosen();
+
+				$baris = $cell->getHighestRow();
+				$kolom = $cell->getHighestColumn();
+
+				for ($i=2; $i <= $baris; $i++)
+				{
+
+					$options = ['cost' => 12];
+					$username = $cell->getCell('J'.$i)->getValue();
+					$nip = $cell->getCell('C'.$i)->getValue();
+					$nama = $cell->getCell('D'.$i)->getValue();
+					$jenis_kelamin = $cell->getCell('E'.$i)->getValue();
+					$nik = $cell->getCell('F'.$i)->getValue();
+					$alamat = $cell->getCell('G'.$i)->getValue();
+					$email = $cell->getCell('H'.$i)->getValue();
+					$kontak = $cell->getCell('I'.$i)->getValue();
+					$kodeDosen = $cell->getCell('B'.$i)->getValue();
+
+					
+
+					$cek_username = $m_user->select('COUNT(id) as hitung')
+						->where('username', $username)
+						->get()->getResult()[0]
+						->hitung;
+
+					if ($cek_username == 0) {
+
+						$cek_nip = $m_dosen->select('COUNT(id) as hitung')
+							->where('nip', $nip)
+							->get()->getResult()[0]
+							->hitung;
+						$cek_nik = $m_dosen->select('COUNT(id) as hitung')
+							->where('nik', $nik)
+							->get()->getResult()[0]
+							->hitung;
+
+						if ($cek_nik == 0 && $cek_nip == 0) {
+							$user = [
+								'username' => $username,
+								'password' => password_hash($username, PASSWORD_BCRYPT, $options),
+								'flag' => "1",
+								'userType' => 'dosen'
+							];
+		
+							$m_user->insert($user);
+							$last_id = $m_user->orderBy('id', 'DESC')->get()->getResult()[0]->id;
+							
+							helper('filesystem');
+							$imgSource = FCPATH . 'assets/images/users/image.jpg';
+
+							mkdir(FCPATH . 'uploads/user/'.$username, 0777);
+							mkdir(FCPATH . 'uploads/user/'.$username.'/profil_pic', 0777);
+							
+							$imgDest = FCPATH . 'uploads/user/'.$username.'/profil_pic/image.jpg';
+							copy($imgSource, $imgDest);
+
+							$dosen = [
+								'nip' => $nip,
+								'nama' => $nama,
+								'jenisKelamin' => $jenis_kelamin,
+								'nik' => $nik,
+								'alamat' => $alamat,
+								'email' => $email,
+								'kontak' => $kontak,
+								'foto' => 'image.jpg',
+								'kodeDosen'=> $kodeDosen,
+								'userID' => $last_id
+							];
+
+							$m_dosen->insert($dosen);
+						}else{
+							$err_count++;
+						}
+					}else{
+						$err_count++;
+					}
+					$baris_proc++;
+				}
+			}
+			$total_count = $baris_proc - $err_count;
+
+			if ($err_count > 0 && $total_count != 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor beberapa data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'warning'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+			elseif ($err_count == $baris_proc) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Gagal mengimpor data user ('.($total_count).' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'danger'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];	
+			}
+			elseif ($err_count == 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'success'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+				
+			unlink($filepath);
+			session()->setFlashdata($data_session);
+			return redirect()->back();
+			
+		}else {
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Upload gagal',
+				 	'status' => 'danger'
+				]
+			);
+			
+			$dataset = ['notif' => $alert];
+			session()->setFlashdata($dataset);
+			return redirect()->back();
+		}
+	}
 }
