@@ -59,7 +59,7 @@
             {
                 title: 'Tahun Periode',
                 data: "tahunPeriode",
-                width: '10%'
+                width: '12%'
             },
             {
                 title: 'Semester',
@@ -78,11 +78,11 @@
                     if (type === 'display') {
                         let html
                         if (data == 1) {
-                            html = '<span class="badge rounded-pill bg-success">Aktif</span>'
+                            html = '<span class="badge bg-success">Aktif</span>'
                         } else {
-                            html = '<span class="badge rounded-pill bg-danger">Non-Aktif</span>'
+                            html = '<span class="badge bg-danger">Non-Aktif</span>'
                         }
-                        return html
+                        return '<div class="text-center">' + html + '</div>'
                     }
                     return data
                 }

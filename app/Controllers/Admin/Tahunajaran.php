@@ -113,9 +113,14 @@ class Tahunajaran extends BaseController
 
         try {
             $m_tahunajaran->insert($data);
+
+            $periode_id = $m_tahunajaran->select('id')->where($data)->get()->getResult()[0]->id;
+            $m_tahunajaran->set('flag', 0)->where('id != '.$periode_id)->update();
+
         } catch (\Throwable $th) {
             throw $th;
         }
+
         $alert = view(
             'partials/notification-alert',
             [
