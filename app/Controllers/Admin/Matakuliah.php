@@ -321,7 +321,7 @@ class Matakuliah extends BaseController
 				$alert = view(
 					'partials/notification-alert', 
 					[
-						'notif_text' => 'Berhasil mengimpor beberapa data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+						'notif_text' => 'Berhasil mengimpor beberapa data matakuliah ('.$total_count.' berhasil, '.$err_count.' gagal)',
 					 	'status' => 'warning'
 					]
 				);
@@ -334,7 +334,7 @@ class Matakuliah extends BaseController
 				$alert = view(
 					'partials/notification-alert', 
 					[
-						'notif_text' => 'Gagal mengimpor data user ('.($total_count).' berhasil, '.$err_count.' gagal)',
+						'notif_text' => 'Gagal mengimpor data matakuliah ('.($total_count).' berhasil, '.$err_count.' gagal)',
 					 	'status' => 'danger'
 					]
 				);
@@ -347,7 +347,7 @@ class Matakuliah extends BaseController
 				$alert = view(
 					'partials/notification-alert', 
 					[
-						'notif_text' => 'Berhasil mengimpor data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+						'notif_text' => 'Berhasil mengimpor data matakuliah ('.$total_count.' berhasil, '.$err_count.' gagal)',
 					 	'status' => 'success'
 					]
 				);
