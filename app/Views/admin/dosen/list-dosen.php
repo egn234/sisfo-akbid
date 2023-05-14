@@ -25,13 +25,16 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Daftar Dosen
-                            <div class="btn-group float-end">
+                            <div class="float-end">
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
-                                    Tambah Dosen
+                                    Tambah dosen
                                 </button>
-                                <button data-bs-toggle="modal" data-bs-target="#importDosen" class="btn btn-sm btn-success">
-                                    Import data Dosen
-                                </button>
+                                <div class="btn-group">
+                                    <button data-bs-toggle="modal" data-bs-target="#importDosen" class="btn btn-sm btn-success">
+                                        Import data dosen
+                                    </button>
+                                    <a href="<?= base_url() ?>assets/template/dosen.xlsx" class="btn btn-sm btn-outline-success">Unduh Template Excel</a>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">

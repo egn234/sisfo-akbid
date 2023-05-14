@@ -25,13 +25,16 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Daftar Mahasiswa
-                            <div class="btn-group float-end">
+                            <div class="float-end">
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
                                     Tambah mahasiswa
                                 </button>
-                                <button data-bs-toggle="modal" data-bs-target="#importMahasiswa" class="btn btn-sm btn-success">
-                                    Import data mahasiswa
-                                </button>
+                                <div class="btn-group">
+                                    <button data-bs-toggle="modal" data-bs-target="#importMahasiswa" class="btn btn-sm btn-success">
+                                        Import data mahasiswa
+                                    </button>
+                                    <a href="<?= base_url() ?>assets/template/mahasiswa.xlsx" class="btn btn-sm btn-outline-success">Unduh Template Excel</a>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
