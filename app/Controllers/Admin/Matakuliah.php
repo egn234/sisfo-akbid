@@ -253,66 +253,126 @@ class Matakuliah extends BaseController
 		return redirect()->back();
 	}
 
-	// // example xls
-	// public function export()
-	// {
-	// 	$m_matkul = new M_matkul();
-	// 	$list_matkul = $m_matkul->select('*')
-	// 		->get()
-	// 		->getResult();
+	public function import_matkul()
+	{
+		$file = $this->request->getFile('file_import');
 
-	// 	$spreadsheet = new Spreadsheet();
+		if ($file->isValid())
+		{
+			$ext = $file->guessExtension();
+			$filepath = WRITEPATH . 'uploads/' . $file->store();
 
-	// 	$spreadsheet->setActiveSheetIndex(0)
-	// 		->setCellValue('A1', 'Nama')
-	// 		->setCellValue('B1', 'Email')
-	// 		->setCellValue('C1', 'Tanggal dibuat');
+			if ($ext == 'csv') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			}elseif($ext == 'xls' || $ext == 'xlsx') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			}
 
-	// 	$column = 2;
+			$reader->setReadDataOnly(true);
+			$reader->setReadEmptyCells(false);
+			$spreadsheet = $reader->load($filepath);
+			$err_count = 0;
+			$baris_proc = 0;
 
-	// 	// foreach ($list_matkul as $user) {
-	// 	// 	$spreadsheet->setActiveSheetIndex(0)
-	// 	// 		->setCellValue('A' . $column, $user['name'])
-	// 	// 		->setCellValue('B' . $column, $user['email'])
-	// 	// 		->setCellValue('C' . $column, $user['created_at']);
+			foreach($spreadsheet->getWorksheetIterator() as $cell)
+			{
+				$m_matkul = new M_matkul();
 
-	// 	// 	$column++;
-	// 	// }
+				$baris = $cell->getHighestRow();
+				$kolom = $cell->getHighestColumn();
 
-	// 	$writer = new Xlsx($spreadsheet);
-	// 	$filename = date('Y-m-d-His') . '-Data-User';
+				for ($i=2; $i <= $baris; $i++)
+				{
+					$kodeMatkul = $cell->getCell('B'.$i)->getValue();
+					$namaMatkul = $cell->getCell('C'.$i)->getValue();
+					$deskripsi = $cell->getCell('D'.$i)->getValue();
+					$tingkat = $cell->getCell('E'.$i)->getValue();
+					$semester = $cell->getCell('F'.$i)->getValue();
+					$sks = $cell->getCell('G'.$i)->getValue();
 
-	// 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	// 	header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
-	// 	header('Cache-Control: max-age=0');
+					$cek_kodematkul = $m_matkul->select('COUNT(id) as hitung')
+						->where('kodeMatkul', $kodeMatkul)
+						->get()->getResult()[0]
+						->hitung;
 
-	// 	$writer->save('php://output');
-	// }
+					if ($cek_kodematkul == 0) {
 
-	// // example pdf
-	// public function generate()
-    // {
-	// 	$m_matkul = new M_matkul();
-	// 	$data['list_matkul'] = $m_matkul->select('*')
-	// 		->get()
-	// 		->getResult();
+						$matkul = [
+							'kodeMatkul' => $kodeMatkul,
+							'namaMatkul' => $namaMatkul,
+							'deskripsi' => $deskripsi,
+							'tingkat' => $tingkat,
+							'semester' => $semester,
+							'sks' => $sks,
+							'flag' => 1
+						];
+
+						$m_matkul->insert($matkul);
+
+					}else{
+						$err_count++;
+					}
+					$baris_proc++;
+				}
+			}
+			$total_count = $baris_proc - $err_count;
+
+			if ($err_count > 0 && $total_count != 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor beberapa data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'warning'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+			elseif ($err_count == $baris_proc) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Gagal mengimpor data user ('.($total_count).' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'danger'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];	
+			}
+			elseif ($err_count == 0) {
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => 'Berhasil mengimpor data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
+					 	'status' => 'success'
+					]
+				);
+				
+				$data_session = [
+					'notif' => $alert
+				];
+			}
+				
+			unlink($filepath);
+			session()->setFlashdata($data_session);
+			return redirect()->back();
 			
-    //     $filename = date('y-m-d-H-i-s'). '-test-pdf';
-
-    //     // instantiate and use the dompdf class
-    //     $dompdf = new Dompdf();
-
-    //     // load HTML content
-    //     $dompdf->loadHtml(view('admin/test_pdf', $data));
-
-    //     // (optional) setup the paper size and orientation
-    //     $dompdf->setPaper('A4', 'landscape');
-
-    //     // render html as PDF
-    //     $dompdf->render();
-
-    //     // output the generated pdf
-    //     $dompdf->stream($filename);
-    // }
-
+		}else {
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Upload gagal',
+				 	'status' => 'danger'
+				]
+			);
+			
+			$dataset = ['notif' => $alert];
+			session()->setFlashdata($dataset);
+			return redirect()->back();
+		}
+	}
 }

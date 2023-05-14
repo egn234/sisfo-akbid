@@ -85,6 +85,8 @@ $routes->group('admin', static function ($routes) {
     $routes->group('matkul', static function ($routes) {
         $routes->get('/', 'Admin\Matakuliah::index');
         $routes->get('data_matkul', 'Admin\Matakuliah::data_matkul');
+        
+        $routes->add('import-matkul', 'Admin\Matakuliah::import_matkul');
         $routes->add('input-process', 'Admin\Matakuliah::process_input');
         $routes->add('update-process', 'Admin\Matakuliah::process_update');
         $routes->add('delete-process', 'Admin\Matakuliah::process_delete');
