@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class M_param_nilai extends Model
 {
-    protected $table      = 'M_param_nilai';
+    protected $table      = 'tb_param_nilai';
     protected $primaryKey = 'id';
     
     protected $allowedFields = [

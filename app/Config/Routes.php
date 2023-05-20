@@ -101,6 +101,8 @@ $routes->group('admin', static function ($routes) {
     $routes->group('ruangan', static function ($routes) {
         $routes->get('/', 'Admin\Ruangan::index');
         $routes->get('data_ruangan', 'Admin\Ruangan::data_ruangan');
+
+        $routes->add('import-ruangan', 'Admin\Ruangan::import_ruangan');
         $routes->add('input-process', 'Admin\Ruangan::process_input');
         $routes->add('update-process', 'Admin\Ruangan::process_update');
         $routes->add('delete-process', 'Admin\Ruangan::process_delete');
@@ -180,6 +182,7 @@ $routes->group('admin', static function ($routes) {
         $routes->get('/', 'Admin\Kordinator::index');
         $routes->get('data_kordinator', 'Admin\Kordinator::data_kordinator');
         $routes->get('data_dosen_flag', 'Admin\Kordinator::data_dosen_flag');
+        $routes->get('data_matkul_flag', 'Admin\Kordinator::data_matkul_flag');
 
         $routes->add('input-process', 'Admin\Kordinator::process_input');
 

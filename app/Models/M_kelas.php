@@ -62,5 +62,18 @@ class M_kelas extends Model
     $db = db_connect();
     return $db->query($sql)->getResult();
   }
+
+  function getMhsKelas()
+  {
+    $sql = "
+      SELECT * FROM tb_mahasiswa a
+        WHERE a.statusAkademik = 'aktif'
+            AND a.id NOT IN (SELECT id FROM rel_mhs_kls b WHERE a.id = b.id)
+        ORDER BY a.created_at DESC
+    ";
+
+    $db = db_connect();
+    return $db->query($sql)->getResult();
+  }
 }
 ?>
