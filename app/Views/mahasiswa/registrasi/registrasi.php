@@ -26,20 +26,20 @@
                             <i class="fas fa-table me-1"></i>
                             Daftar Matakuliah yang dipilih
                             <div class="btn-group float-end">
-                                <button type="button" id="check-schedule" class="btn btn-primary <?=($cekRegis != 0)?'d-none':''?>">
+                                <button type="button" onclick="cekJadwal(this)" data-bs-toggle="modal" data-bs-target="#cekJadwal" class="btn btn-primary <?= ($cekRegis != 0) ? 'd-none' : '' ?>">
                                     Cek Jadwal
                                 </button>
                             </div>
                         </div>
 
-                        <?php if ($cekMasaRegis == 0) {?>
+                        <?php if ($cekMasaRegis == 0) { ?>
                             <div class="card-body">
                                 <div class="d-block w-100">
                                     ANDA BELUM BERADA DI MASA REGISTRASI
                                 </div>
                             </div>
-                        <?php }else{?>    
-                            <div class="card-body <?=($cekRegis != 0)?'d-none':''?>">
+                        <?php } else { ?>
+                            <div class="card-body <?= ($cekRegis != 0) ? 'd-none' : '' ?>">
                                 <?= session()->getFlashdata('notif') ?>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -78,20 +78,22 @@
                                     </div>
                                 </div>
                                 Total SKS yang diambil: <span id="total-sks"></span><br><br>
-                                <a class="btn btn-success btn-sm"data-bs-toggle="modal" data-bs-target="#reqRegis">Ajukan Persetujuan Dosen Wali</a>
+                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#reqRegis">Ajukan Persetujuan Dosen Wali</a>
                             </div>
-                            <div class="card-body <?=($cekRegis == 0)?'d-none':''?>">
+                            <div class="card-body <?= ($cekRegis == 0) ? 'd-none' : '' ?>">
                                 <div class="d-block w-100">
                                     SUDAH MENGAJUKAN REGISTRASI, SILAHKAN CEK STATUS PADA MENU CETAK KSM
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php } ?>
                     </div>
                 </div>
+                
             </main>
             <?= $this->include('partials/footer') ?>
         </div>
     </div>
+
 
     <!-- CRUD Modal -->
     <div id="reqRegis" class="modal fade" tabindex="-1">
@@ -107,6 +109,23 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" id="add-selected" class="btn btn-primary">Ajukan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cekJadwal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cek Jadwal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="timetable"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -142,13 +161,14 @@
                 </div>
             </div>
         </div>
-    </div>    
+
+    </div>
 
     <?= $this->include('mahasiswa/partials/partial-footer') ?>
 
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
     <!-- Datatable with ajax load -->
-    <?= $this->include('mahasiswa/registrasi/js/regis-js')?>
+    <?= $this->include('mahasiswa/registrasi/js/regis-js') ?>
 
 </body>
 
