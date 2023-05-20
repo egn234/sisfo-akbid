@@ -17,7 +17,6 @@ class registrasi extends BaseController
     {
         $m_user = new M_user();
         $m_mahasiswa = new M_mahasiswa();
-        $m_rel_mhs_jad = new M_rel_mhs_jad();
         $m_tahunajaran = new M_tahunajaran();
 
         $account = $m_user->getAccount(session()->get('user_id'));
@@ -25,12 +24,11 @@ class registrasi extends BaseController
             ->get()->getResult()[0]
             ->id;
 
-        $cekRegis = $m_rel_mhs_jad->select('COUNT(id) AS hitung')
-            ->where('mahasiswaID', $mahasiswaID)
-            ->get()->getResult()[0]
-            ->hitung;
-        
+        $periode_id = $m_tahunajaran->where('flag', 1)->get()->getResult()[0]->id;
+
+        $cekRegis = $m_tahunajaran->cekRegis($periode_id, $mahasiswaID)[0]->hitung;
         $cekMasaRegis = $m_tahunajaran->cekMasaRegis()[0]->hitung;
+
         $data = [
             'title' => 'Registrasi Mata Kuliah',
             'usertype' => session()->get('userType'),
@@ -107,13 +105,18 @@ class registrasi extends BaseController
     public function regis_proc()
     {
         if ($this->request->isAJAX()) {
+
             $m_rel_mhs_jad = new M_rel_mhs_jad();
             $m_mahasiswa = new M_mahasiswa();
 
             $mahasiswaID = $m_mahasiswa->where('userID', session()->get('user_id'))
                 ->get()->getResult()[0]
                 ->id;
+
             $selectedData = $this->request->getPost('selectedData');
+
+            $m_rel_mhs_jad->where('mahasiswaID', $mahasiswaID)->delete();
+
             foreach($selectedData as $row){
                 $dataset = [
                     'status' => 'waiting',
@@ -121,11 +124,39 @@ class registrasi extends BaseController
                     'mahasiswaID' => $mahasiswaID,
                     'jadwalID' => $row['id']
                 ];
-                $m_rel_mhs_jad->where('mahasiswaID', $mahasiswaID)->delete();
                 $m_rel_mhs_jad->insert($dataset);
             }
         }
         return redirect()->back();
+    }
+
+    public function ksm()
+    {
+        $m_user = new M_user();
+        $m_mahasiswa = new M_mahasiswa();
+        $m_tahunajaran = new M_tahunajaran();
+
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $periodeID = $m_tahunajaran->where('flag', 1)->get()->getResult()[0]->id;
+        $mahasiswaID = $m_mahasiswa->where('userID', session()->get('user_id'))
+            ->get()->getResult()[0]
+            ->id;
+
+        $m_rel_mhs_jad = new M_rel_mhs_jad();
+        $list_matkul = $m_rel_mhs_jad->getKSM($periodeID, $mahasiswaID);
+            
+        $cekMasaRegis = $m_tahunajaran->cekMasaRegis()[0]->hitung;
+
+        $data = [
+            'title' => 'Registrasi Mata Kuliah',
+            'usertype' => session()->get('userType'),
+            'duser' => $account,
+            'cekMasaRegis' => $cekMasaRegis,
+            'list_matkul' => $list_matkul
+        ];
+
+        return view('mahasiswa/registrasi/cetak_ksm', $data);
+
     }
     
 }

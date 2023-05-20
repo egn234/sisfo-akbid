@@ -35,4 +35,15 @@ class M_tahunajaran extends Model
       return $db->query($sql)->getResult();
     }
 
+    public function cekRegis($periode_id = false, $mahasiswaID = false)
+    {
+      $sql = "SELECT COUNT(a.id) as hitung FROM rel_mhs_jad a 
+        JOIN tb_jadwal b ON a.jadwalID = b.id
+        WHERE b.periodeID = $periode_id
+        AND a.mahasiswaID = $mahasiswaID";
+
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
+
 }

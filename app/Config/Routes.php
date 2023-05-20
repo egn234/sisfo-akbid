@@ -221,6 +221,7 @@ $routes->group('admin', static function ($routes) {
 //GROUP MAHASISWA
 $routes->group('mahasiswa', static function ($routes) {
     $routes->get('dashboard', 'Mahasiswa\Dashboard::index');
+    
     //Profil Mahasiswa
     $routes->group('profil', static function ($routes) {
 
@@ -228,6 +229,7 @@ $routes->group('mahasiswa', static function ($routes) {
         $routes->add('update-pass', 'Mahasiswa\Profil::update_pass', ['as' => 'update-pass-mhs']);
 
     });
+
     // View posting
     $routes->group('posting', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Posting::index');

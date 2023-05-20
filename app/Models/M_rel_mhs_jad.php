@@ -107,5 +107,29 @@ class M_rel_mhs_jad extends Model
         $db = db_connect();
         $db->query($sql);
     }
+
+    function getKSM($periodeID, $mahasiswaID)
+    {
+      $sql = "
+        SELECT 
+          a.status AS status_perwalian,
+          b.startTime, b.endTime, b.day,
+          c.kodeMatkul, c.namaMatkul, c.tingkat, c.sks,
+          d.tahunPeriode, d.semester,
+          e.kodeRuangan, e.namaRuangan,
+          f.kodeDosen, f.nama
+        FROM rel_mhs_jad a
+          JOIN tb_jadwal b ON a.jadwalID = b.id
+          JOIN tb_matakuliah c ON b.matakuliahID = c.id
+          JOIN tb_periode d ON b.periodeID = d.id
+          JOIN tb_ruangan e ON b.ruanganID = e.id
+          JOIN tb_dosen f ON b.dosenID = f.id
+        WHERE d.id = $periodeID
+        AND a.mahasiswaID = $mahasiswaID
+        ";
+
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
 }
 ?>
