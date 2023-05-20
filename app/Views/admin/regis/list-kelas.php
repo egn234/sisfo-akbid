@@ -21,7 +21,7 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
-
+                    
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
