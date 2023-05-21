@@ -87,8 +87,14 @@
         $('#available-items tbody').on('click', '.add', function() {
             const data = availableTable.row($(this).parents('tr')).data();
             dataArr.push(data)
+            var filteredData = availableTable
+                .rows()
+                .indexes()
+                .filter(function(value, index) {
+                    return availableTable.row(value).data().kodeMatkul == data.kodeMatkul;
+                });
             selectedTable.row.add(data).draw();
-            availableTable.row($(this).parents('tr')).remove().draw();
+            availableTable.rows(filteredData).remove().draw();
             calculateTotal();
         });
 
