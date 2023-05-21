@@ -76,7 +76,7 @@
                                             <div class="badge bg-success">Telah Disetujui</div>
                                         <?php }?>
                                         <div class="btn-group float-end">
-                                            <a class="btn btn-primary <?=($list_matkul[array_key_last($list_matkul)]->status_perwalian == 'approved')?'':'disabled'?>" >
+                                            <a href="<?=base_url()?>mahasiswa/registrasi/print-ksm" target="_blank" class="btn btn-primary <?=($list_matkul[array_key_last($list_matkul)]->status_perwalian == 'approved')?'':'disabled'?>" >
                                                 Cetak KSM
                                             </a>
                                         </div>

@@ -260,6 +260,7 @@ $routes->group('mahasiswa', static function ($routes) {
     $routes->group('registrasi', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Registrasi::index');
         $routes->get('ksm', 'Mahasiswa\Registrasi::ksm');
+        $routes->get('print-ksm', 'Mahasiswa\Registrasi::print_ksm');
 
         $routes->add('data-regis', 'Mahasiswa\Registrasi::data_matkul_periode');
         $routes->add('data-jadwal', 'Mahasiswa\Registrasi::data_jadwal');

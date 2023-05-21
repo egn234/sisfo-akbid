@@ -148,7 +148,7 @@ class registrasi extends BaseController
         $cekMasaRegis = $m_tahunajaran->cekMasaRegis()[0]->hitung;
 
         $data = [
-            'title' => 'Registrasi Mata Kuliah',
+            'title' => 'Cetak KSM',
             'usertype' => session()->get('userType'),
             'duser' => $account,
             'cekMasaRegis' => $cekMasaRegis,
@@ -157,6 +157,30 @@ class registrasi extends BaseController
 
         return view('mahasiswa/registrasi/cetak_ksm', $data);
 
+    }
+
+    public function print_ksm()
+    {
+        $m_rel_mhs_jad = new M_rel_mhs_jad();
+        $m_mahasiswa = new M_mahasiswa();
+        $m_user = new M_user();
+        $m_tahunajaran = new M_tahunajaran();
+
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $periodeID = $m_tahunajaran->where('flag', 1)->get()->getResult()[0]->id;
+        $mahasiswaID = $m_mahasiswa->where('userID', session()->get('user_id'))
+            ->get()->getResult()[0]
+            ->id;
+
+        $detail_mahasiswa = $m_mahasiswa->where('id', $mahasiswaID)->get()->getResult()[0];
+        $list_matkul = $m_rel_mhs_jad->getKSM($periodeID, $mahasiswaID);
+
+        $data = [
+            'detail_mhs' => $detail_mahasiswa,
+            'list_matkul' => $list_matkul
+        ];
+
+        return view('mahasiswa/partials/print-ksm', $data);
     }
     
 }

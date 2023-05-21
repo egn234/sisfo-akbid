@@ -12,7 +12,7 @@
                                 Registrasi
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?= ($title == 'Registrasi Mata Kuliah' || $title == 'Jadwal' || $title == 'Nilai' || $title == 'Kuesioner') ? 'show' : '' ?>" id="registrasiMK" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?= ($title == 'Registrasi Mata Kuliah' || $title == 'Jadwal' || $title == 'Cetak KSM') ? 'show' : '' ?>" id="registrasiMK" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link <?= ($title == 'Registrasi Mata Kuliah') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/registrasi') ?>">Registrasi Mata Kuliah</a>
                                     <a class="nav-link <?= ($title == 'Cetak KSM') ? 'active' : '' ?>" href="<?= url_to('mahasiswa/registrasi/ksm') ?>">Cetak KSM</a>
