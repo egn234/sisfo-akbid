@@ -33,7 +33,7 @@
                         </div>
                         <div class="card-body">
                             <?= session()->getFlashdata('notif') ?>
-                            <table id="dataTable" class="table table-bordered table-sm">
+                            <table id="dataTable" class="table table-bordered">
                                 <!-- Load From ajax -->
                             </table>
                         </div>

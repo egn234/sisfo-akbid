@@ -237,6 +237,8 @@ $routes->group('mahasiswa', static function ($routes) {
     // View jadwal
     $routes->group('jadwal', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Jadwal::index');
+        
+        $routes->add('data-jadwal', 'Mahasiswa\Jadwal::data_jadwal');
     });
 
     // View nilai

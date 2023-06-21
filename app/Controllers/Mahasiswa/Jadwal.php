@@ -6,6 +6,9 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_jadwal;
+use App\Models\M_mahasiswa;
+use App\Models\M_tahunajaran;
+use App\Models\M_rel_mhs_jad;
 
 class jadwal extends BaseController
 {
@@ -28,17 +31,20 @@ class jadwal extends BaseController
     public function data_jadwal()
     {
         $m_user = new M_user();
-        $m_jadwal = new M_jadwal();
-        $account = $m_user->getAccount(session()->get('user_id'));
+        $m_mahasiswa = new M_mahasiswa();
+        $m_tahunajaran = new M_tahunajaran();
 
-        $list_jadwal = $m_jadwal->select('*')
-            ->get()
-            ->getResult();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $periodeID = $m_tahunajaran->where('flag', 1)->get()->getResult()[0]->id;
+        $mahasiswaID = $m_mahasiswa->where('userID', session()->get('user_id'))
+            ->get()->getResult()[0]
+            ->id;
+
+        $m_rel_mhs_jad = new M_rel_mhs_jad();
+        $list_jadwal = $m_rel_mhs_jad->getKSM($periodeID, $mahasiswaID);
+
         $data = [
-            'title' => 'Jadwal',
-            'usertype' => session()->get('userType'),
-            'duser' => $account,
-            'list_jadwal' => $list_jadwal
+            'data' => $list_jadwal
         ];
 
         return json_encode($data);

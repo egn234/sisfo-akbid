@@ -183,7 +183,7 @@ class Jadwal extends BaseController
             ]
         );
 
-        $notif += ['notif', $alert];
+        $notif += ['notif' => $alert];
         session()->setFlashdata($notif);
         return redirect()->back();
     }
@@ -335,7 +335,7 @@ class Jadwal extends BaseController
             ]
         );
 
-        $notif += ['notif', $alert];
+        $notif += ['notif' => $alert];
         session()->setFlashdata($notif);
         return redirect()->back();
     }

@@ -47,12 +47,12 @@
                             Daftar Jadwal
                         </div>
                         <div class="card-body">
+                            <?= session()->getFlashdata('notif') ?>
                             <?= session()->getFlashdata('notif_day') ?>
                             <?= session()->getFlashdata('notif_time') ?>
                             <?= session()->getFlashdata('notif_ruangan') ?>
                             <?= session()->getFlashdata('notif_matkul') ?>
                             <?= session()->getFlashdata('notif_dosen') ?>
-                            <?= session()->getFlashdata('notif_text') ?>
 
                             <table id="dataTable" class="table table-bordered table-sm">
                                 <!-- Load From ajax -->
