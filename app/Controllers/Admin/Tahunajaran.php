@@ -147,7 +147,7 @@ class Tahunajaran extends BaseController
         );
 
         session()->setFlashdata('notif', $alert);
-        return redirect()->to('admin/tahunAjaran');
+        return redirect()->back();
     }
 
     public function process_update()

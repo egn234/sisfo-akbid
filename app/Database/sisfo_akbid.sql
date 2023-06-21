@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2023 at 04:13 AM
+-- Generation Time: Jun 10, 2023 at 10:34 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -110,7 +110,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`id`, `nik`, `nama`, `jenisKelamin`, `alamat`, `email`, `kontak`, `foto`, `created_at`, `updated_at`, `userID`) VALUES
-(1, '3407665915819326', 'John Doe', 'L', '50 Lakeview Ave,Tupper Lake, New York(NY), 12986', 'john@example.com', '(518) 359-9166', 'image.jpg', '2023-02-06 22:30:47', '2023-02-06 22:30:47', 1);
+(1, '1111111111111111', 'Administrator', 'L', 'Lorem Ipsum', 'admin@akbid.co.id', '1111111111111', 'image.jpg', '2023-05-11 09:08:00', '2023-05-11 09:08:00', 1);
 
 -- --------------------------------------------------------
 
@@ -149,14 +149,6 @@ CREATE TABLE `tb_dosen` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `userID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_dosen`
---
-
-INSERT INTO `tb_dosen` (`id`, `kodeDosen`, `nip`, `nama`, `jenisKelamin`, `nik`, `alamat`, `email`, `kontak`, `foto`, `created_at`, `updated_at`, `userID`) VALUES
-(1, 'KSZ', '28561910', 'Kristeen Suzanne', 'P', '8444274810044556', '3338 Wilson Rd, Oak Harbor, Washington(WA), 98277', 'kristeen@yahoo.com', '(360) 675-6289', 'image.jpg', '2023-02-06 22:40:05', '2023-02-06 22:40:05', 3),
-(2, 'AST', '1234567', 'Astherielle', 'P', '1234567890192834', 'Elf Forest', 'asteriel@gmail.com', '082215204919', '1680686175_4ebb685164375c0123e1.jpg', '2023-04-05 09:16:15', '2023-04-05 09:16:15', 6);
 
 -- --------------------------------------------------------
 
@@ -281,15 +273,6 @@ CREATE TABLE `tb_mahasiswa` (
   `userID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_mahasiswa`
---
-
-INSERT INTO `tb_mahasiswa` (`id`, `nim`, `nama`, `jenisKelamin`, `nik`, `tempatLahir`, `tanggalLahir`, `alamat`, `email`, `kontak`, `namaIbu`, `nikIbu`, `kontakIbu`, `namaAyah`, `nikAyah`, `kontakAyah`, `namaWali`, `nikWali`, `kontakWali`, `foto`, `statusAkademik`, `created_at`, `updated_at`, `deleted_at`, `userID`) VALUES
-(1, '35837226781', 'Kim Jaxton', 'L', '1980066446538298', 'Bandung', '1996-02-08', '24441 State 76 Hwy\r\nBlanchard, Oklahoma(OK), 73010', 'kimjax@gmail.com', '(405) 344-7110', 'Brittani Mervin', '0', '(405) 344-7110', 'Kori Daniel', '0', '(405) 344-7110', NULL, '0', NULL, 'image.jpg', 'aktif', '2023-02-06 22:43:06', '2023-02-06 22:43:06', NULL, 2),
-(2, '4862', 'Egan Kusmaya Putra', 'L', '9021667585957671', 'Bandung', '1998-11-19', 'Bumi Parahyangan Kencana', 'egn234@gmail.com', '082215204919', 'Jane Doe', '', '029747189194', 'John Doe', '', '029374758916', '', NULL, '', '1680426630_f891e133f1398344c024.jpg', NULL, '2023-04-02 09:10:30', '2023-04-02 09:10:30', NULL, 4),
-(3, '3871', 'Muhammad Amien Fadhillah', 'L', '9021667585957672', 'Banjarmasin', '2023-04-03', 'Citereup', 'fadhil@gmail.com', '12319481341', 'Jane Doe', '', '', 'John Doe', '', '123984102', 'egan kusmaya putra', NULL, '', 'image.jpg', NULL, '2023-04-03 02:59:10', '2023-04-03 04:11:11', NULL, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -360,12 +343,22 @@ CREATE TABLE `tb_periode` (
   `id` int(11) NOT NULL,
   `tahunPeriode` varchar(9) NOT NULL,
   `semester` enum('ganjil','genap','pendek') DEFAULT 'ganjil',
+  `registrasi_awal` date NOT NULL,
+  `registrasi_akhir` date NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `flag` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_periode`
+--
+
+INSERT INTO `tb_periode` (`id`, `tahunPeriode`, `semester`, `registrasi_awal`, `registrasi_akhir`, `deskripsi`, `flag`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '2023/2024', 'ganjil', '2023-05-07', '2023-05-27', '', 1, '2023-05-14 09:41:34', '2023-05-14 09:57:29', NULL),
+(2, '2023/2024', 'genap', '2023-11-14', '2023-11-27', '', 0, '2023-05-14 09:57:15', '2023-05-14 09:57:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -438,12 +431,7 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `username`, `password`, `created_at`, `updated_at`, `flag`, `userType`) VALUES
-(1, 'admin001', '$2y$12$xdn69QfrN9SIEYNummL6COvdDA/1qYfq5qtF8AwAM5dWtOApxIYlW', '2023-02-04 02:57:03', '2023-02-04 02:57:03', '1', 'admin'),
-(2, 'mhs001', '$2y$12$zIUPCkkCAdhCMeefeRMc4eIEadMV2wobVGiomMVj9gBgLnaNvZDzO', '2023-02-04 02:57:03', '2023-02-06 23:46:42', '1', 'mahasiswa'),
-(3, 'dosen001', '$2y$12$CnygMcBreSHXWSi/x4KWEuqIKjoPXfhWZ.hd9LQ2VM2VaL2PbGtqu', '2023-02-04 02:57:03', '2023-02-04 02:57:03', '1', 'dosen'),
-(4, 'egn234', '$2y$12$cCxAwosIzDSv9pTXN8SRm.Jy1fAIglPhu4Kcf1KCdXjNEordeTije', '2023-04-02 09:10:30', '2023-04-02 09:11:05', '1', 'mahasiswa'),
-(5, 'fadhil001', '$2y$12$NqBjOvTAnuvSItJI7Id8Wu/aCUQckVUp8rMr3HJWud8EkjVoI/itG', '2023-04-03 02:59:10', '2023-04-03 10:17:39', '1', 'mahasiswa'),
-(6, 'estariel001', '$2y$12$05xpn6hvwdsFRguN6MV0x.t7XcRET0fP0SsF0QjYv6T6OYWMzDXc6', '2023-04-05 09:16:15', '2023-04-05 09:16:15', '1', 'dosen');
+(1, 'administrator', '$2y$12$fUg76Gd0V5QysqhQUb1XkOoFWxenBlwEqiPBXGHzwhM/g251EOAAK', '2023-05-11 09:07:11', '2023-05-11 09:07:11', '1', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -645,7 +633,7 @@ ALTER TABLE `tb_bap`
 -- AUTO_INCREMENT for table `tb_dosen`
 --
 ALTER TABLE `tb_dosen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_jadwal`
@@ -681,7 +669,7 @@ ALTER TABLE `tb_kuesioner`
 -- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_matakuliah`
@@ -705,7 +693,7 @@ ALTER TABLE `tb_param_nilai`
 -- AUTO_INCREMENT for table `tb_periode`
 --
 ALTER TABLE `tb_periode`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_pertanyaan`
@@ -729,7 +717,7 @@ ALTER TABLE `tb_ruangan`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- Constraints for dumped tables

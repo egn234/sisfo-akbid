@@ -188,7 +188,7 @@ class Jadwal extends BaseController
         return redirect()->back();
     }
 
-    public function edit_proc($id = false)
+    public function edit_proc()
     {
         $m_jadwal = new M_jadwal();
 
@@ -200,6 +200,7 @@ class Jadwal extends BaseController
         $endTime = $this->request->getPost('endTime');
         $day = $this->request->getPost('day');
         $deskripsi = $this->request->getPost('deskripsi');
+        $id = $this->request->getPost('idPut');
 
         $notif = [];
         $filter = true;

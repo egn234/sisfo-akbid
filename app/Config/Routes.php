@@ -199,10 +199,8 @@ $routes->group('admin', static function ($routes) {
         $routes->add('data-jadwal', 'Admin\Jadwal::data_jadwal');
 
         $routes->post('input-process', 'Admin\Jadwal::add_proc');
-        $routes->post('edit-process', 'Admin\Jadwal::add_proc');
+        $routes->post('edit-process', 'Admin\Jadwal::edit_proc');
         $routes->post('switch-jadwal', 'Admin\Jadwal::flag_switch');
-
-
     });
 
     //Kelola Registrasi

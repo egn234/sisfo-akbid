@@ -49,7 +49,10 @@
                         <div class="card-body">
                             <?= session()->getFlashdata('notif_day') ?>
                             <?= session()->getFlashdata('notif_time') ?>
-                            <?= session()->getFlashdata('notif') ?>
+                            <?= session()->getFlashdata('notif_ruangan') ?>
+                            <?= session()->getFlashdata('notif_matkul') ?>
+                            <?= session()->getFlashdata('notif_dosen') ?>
+                            <?= session()->getFlashdata('notif_text') ?>
 
                             <table id="dataTable" class="table table-bordered table-sm">
                                 <!-- Load From ajax -->
@@ -147,7 +150,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Ubah Jadwal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?= base_url('admin/jadwal/input-process') ?>" class="w-100" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('admin/jadwal/edit-process') ?>" class="w-100" method="POST" enctype="multipart/form-data">
                     <input type="text" id="idPut" name="idPut" style="display: none;">
                     <div class="modal-body">
                         <div class="mb-3">

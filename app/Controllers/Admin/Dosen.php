@@ -422,8 +422,6 @@ class Dosen extends BaseController
 					$kontak = $cell->getCell('I'.$i)->getValue();
 					$kodeDosen = $cell->getCell('B'.$i)->getValue();
 
-					
-
 					$cek_username = $m_user->select('COUNT(id) as hitung')
 						->where('username', $username)
 						->get()->getResult()[0]

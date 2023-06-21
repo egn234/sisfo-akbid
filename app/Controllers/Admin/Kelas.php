@@ -243,14 +243,45 @@ class Kelas extends BaseController
     {
         $m_rel_mhs_kls = new M_rel_mhs_kls();
         $mahasiswaId = $this->request->getPost('mahasiswaID');
+
         for ($i = 0; $i < count($mahasiswaId); $i++) {
+            $cek_relasi = $m_rel_mhs_kls->select('count(id) as hitung')
+                ->where('mahasiswaID', $mahasiswaId[$i])
+                ->where('kelasID', $this->request->getPost('kelasID'))
+                ->get()->getResult()[0]->hitung;
+
+            if($cek_relasi > 0){
+                $alert = view(
+                    'partials/notification-alert',
+                    [
+                        'notif_text' => 'error',
+                        'status' => 'warning'
+                    ]
+                );
+        
+                session()->setFlashdata('notif', $alert);
+                return redirect()->back();                
+            }
+        }
+
+        for ($i = 0; $i < count($mahasiswaId); $i++) {
+
             $data = array(
                 'mahasiswaID'       => $mahasiswaId[$i],
                 'kelasID'       => $this->request->getPost('kelasID'),
                 'flag'         => 1
             );
-            $check = $m_rel_mhs_kls->insert($data);
+            
+            $cek_relasi = $m_rel_mhs_kls->select('count(id) as hitung')
+                ->where('mahasiswaID', $mahasiswaId[$i])
+                ->where('kelasID', $this->request->getPost('kelasID'))
+                ->get()->getResult()[0]->hitung;
+
+            if($cek_relasi == 0){
+                $m_rel_mhs_kls->insert($data);             
+            }
         }
+
         $alert = view(
             'partials/notification-alert',
             [
@@ -258,6 +289,7 @@ class Kelas extends BaseController
                 'status' => 'success'
             ]
         );
+
         session()->setFlashdata('notif', $alert);
         return redirect()->back();
     }
