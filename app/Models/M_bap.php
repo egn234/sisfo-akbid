@@ -21,5 +21,30 @@ class M_bap extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+
+    function getBapDosen($id = false, $jadwal_id = false)
+    {
+      $sql = "
+        SELECT 
+          a.*,
+            b.startTime, b.endTime, b.day,
+            c.kodeDosen, c.nama,
+            d.kodeMatkul, d.namaMatkul, d.tingkat, d.sks,
+            e.kodeRuangan, e.namaRuangan,
+            f.tahunPeriode, f.semester
+        FROM tb_bap a
+          JOIN tb_jadwal b ON a.jadwalID = b.id
+            JOIN tb_dosen c ON b.dosenID = c.id
+            JOIN tb_matakuliah d ON b.matakuliahID = d.id
+            JOIN tb_ruangan e ON b.ruanganID = e.id
+            JOIN tb_periode f ON b.periodeID = f.id
+        WHERE b.dosenID = $id
+          AND b.id = $jadwal_id
+          AND f.flag = 1
+      ";
+
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
 }
 ?>

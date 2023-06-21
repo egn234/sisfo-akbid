@@ -114,5 +114,26 @@ class M_jadwal extends Model
 
       return $this->db->query($sql)->getResult();
     }
+
+    function getJadwalDosen($id = false)
+    {
+      $sql = "
+        SELECT
+            a.id, a.startTime, a.endTime, a.day,
+            b.kodeDosen, b.nama,
+            c.kodeMatkul, c.namaMatkul, c.tingkat, c.sks,
+            d.kodeRuangan, d.namaRuangan,
+            e.tahunPeriode, e.semester
+        FROM tb_jadwal a
+            JOIN tb_dosen b ON a.dosenID = b.id
+            JOIN tb_matakuliah c ON a.matakuliahID = c.id
+            JOIN tb_ruangan d ON a.ruanganID = d.id
+            JOIN tb_periode e ON a.periodeID = e.id
+        WHERE a.dosenID = $id
+          AND e.flag = 1
+      ";
+
+      return $this->db->query($sql)->getResult();
+    }
 }
 ?>

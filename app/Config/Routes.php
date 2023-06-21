@@ -286,11 +286,20 @@ $routes->group('dosen', static function ($routes) {
 
     });
 
+    //BAP
+    $routes->group('bap', static function ($routes) {
+
+        $routes->add('/', 'Dosen\Bap::index');
+        $routes->add('list-bap/(:num)', 'Dosen\Bap::list_bap/$1', ['as' => 'bap-list-dosen']);
+        $routes->add('data-matkul', 'Dosen\Bap::data_matkul');
+        $routes->add('data-bap/(:num)', 'Dosen\Bap::data_bap/$1', ['as' => 'data-bap-dosen']);
+
+    });
+
     //Koordinator
     $routes->group('koordinator', static function($routes){
 
         $routes->get('/', 'Dosen\Koordinator::index');
-
         $routes->add('koor_data', 'Dosen\Koordinator::koor_data');
 
     });

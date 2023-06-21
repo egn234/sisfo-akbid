@@ -1,5 +1,4 @@
 <script>
-
     $(document).ready(function() {
         var table = $('#dataTable').DataTable({
             ajax: {
@@ -49,5 +48,4 @@
 
         table.draw();
     });
-
 </script>

@@ -7,6 +7,11 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
+                            <div class="sb-sidenav-menu-heading">Perkuliahan</div>
+                            <a class="nav-link <?= ($title == 'Kelola BAP') ? 'active' : '' ?>" href="<?= url_to('dosen/bap') ?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Kelola BAP
+                            </a>
                             <div class="sb-sidenav-menu-heading">Koordinator</div>
                             <a class="nav-link <?= ($title == 'Kelola Indeks Nilai') ? 'active' : '' ?>" href="<?= url_to('dosen/koordinator') ?>">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
