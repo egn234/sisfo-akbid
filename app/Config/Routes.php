@@ -271,6 +271,8 @@ $routes->group('mahasiswa', static function ($routes) {
     // View Presensi
     $routes->group('presensi', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Presensi::index');
+
+        $routes->get('data-presensi/(:num)', 'Mahasiswa\Presensi::data_presensi/$1', ['as' => 'data-presensi-mhs']);
     });
 });
 
@@ -289,11 +291,17 @@ $routes->group('dosen', static function ($routes) {
     //BAP
     $routes->group('bap', static function ($routes) {
 
-        $routes->add('/', 'Dosen\Bap::index');
-        $routes->add('list-bap/(:num)', 'Dosen\Bap::list_bap/$1', ['as' => 'bap-list-dosen']);
+        $routes->get('/', 'Dosen\Bap::index');
+        $routes->get('list-bap/(:num)', 'Dosen\Bap::list_bap/$1', ['as' => 'bap-list-dosen']);
+        $routes->get('detail-bap/(:num)', 'Dosen\Bap::detail_bap/$1', ['as' => 'bap-detail-dosen']);
+        
         $routes->add('data-matkul', 'Dosen\Bap::data_matkul');
+        $routes->add('status-hadir', 'Dosen\Bap::get_status_kehadiran');
         $routes->add('data-bap/(:num)', 'Dosen\Bap::data_bap/$1', ['as' => 'data-bap-dosen']);
+        $routes->add('data-mhs/(:num)', 'Dosen\Bap::data_mhs/$1', ['as' => 'data-mhs-dosen']);
 
+        $routes->post('create-bap', 'Dosen\Bap::add_bap');
+        $routes->post('simpan-absensi', 'Dosen\Bap::save_absensi');
     });
 
     //Koordinator

@@ -25,15 +25,10 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Daftar Jadwal
-                            <div class="btn-group float-end">
-                                <button class="btn btn-sm btn-primary">
-                                    CETAK KSM
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body">
                             <?= session()->getFlashdata('notif') ?>
-                            <table id="dataTable" class="table table-bordered">
+                            <table id="dataTable" class="table table-bordered w-100">
                                 <!-- Load From ajax -->
                             </table>
                         </div>
