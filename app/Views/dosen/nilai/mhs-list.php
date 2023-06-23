@@ -24,7 +24,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Detail Berita Acara Perkuliahan
+                            Detail Kelas
                         </div>
                         <div class="card-body">
                             <table id="infoBap" class="w-100">
@@ -66,25 +66,6 @@
                 </div>
             </main>
             <?= $this->include('partials/footer') ?>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="konfirAbsensi" tabindex="-1" aria-labelledby="createBapLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createBapLabel">Buat BAP Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Submit data kehadiran untuk BAP ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" form="kehadiran" id="submitBtn" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -157,7 +138,7 @@
                         "render": function(data, type, row) {
                             let html = `
                                 <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editNilai" data-id="${row.id}" data-id2="${row.matakuliahID}">
-                                    <i class="fa fa-file-alt"></i> Setujui
+                                    <i class="fa fa-file-alt"></i>
                                 </a>
                             `
                             return html;

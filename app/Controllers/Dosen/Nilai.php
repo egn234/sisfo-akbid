@@ -38,7 +38,7 @@ class Nilai extends BaseController
         $detail_matkul = $m_jadwal->getJadwalDosenNilai($id)[0];
         
         $data = [
-			'title' => 'Kelola BAP',
+			'title' => 'Kelola Nilai',
 			'usertype' => session()->get('user_type'),
 			'duser' => $account,
             'detail_matkul' => $detail_matkul
