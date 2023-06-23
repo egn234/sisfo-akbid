@@ -37,7 +37,7 @@ class M_mahasiswa extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    function getListMhsBap($id = false)
+    function getListMhsBap($id = false) : array
     {
       $sql = "
         SELECT
@@ -53,5 +53,31 @@ class M_mahasiswa extends Model
       $db = db_connect();
       return $db->query($sql)->getResult();
     }
-}
+
+    function getListMhsNilai($id = false) : array
+    {
+      $sql = "
+        SELECT 
+          a.id, a.nama, a.nim,
+          e.kodeKelas, e.angkatan, e.tahunAngkatan,
+          c.matakuliahID,
+          IFNULL((SELECT f.nilaiKehadiran FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiKehadiran,
+          IFNULL((SELECT f.nilaiTugas FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiTugas,
+          IFNULL((SELECT f.nilaiPraktek FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiPraktek,
+          IFNULL((SELECT f.nilaiUTS FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiUTS,
+          IFNULL((SELECT f.nilaiUAS FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiUAS,
+          IFNULL((SELECT f.nilaiAkhir FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS nilaiAkhir,
+          IFNULL((SELECT f.indeksNilai FROM tb_nilai_matkul f WHERE f.matakuliahID = c.matakuliahID AND f.mahasiswaID = a.id LIMIT 1), 'NA') AS indeksNilai
+        FROM tb_mahasiswa a
+          JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
+          JOIN tb_jadwal c ON b.jadwalID = c.id
+          JOIN rel_mhs_kls d ON a.id = d.mahasiswaID
+          JOIN tb_kelas e ON d.kelasID = e.id
+        WHERE c.id = $id
+      ";
+
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
+  }
 ?>

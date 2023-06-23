@@ -43,5 +43,17 @@ class M_param_nilai extends Model
         return $db->query($sql)->getResult();
     }
 
+    function getParamByMatkul($matkul_id)
+    {
+      $sql = "
+        SELECT a.* FROM tb_param_nilai a
+        JOIN rel_dos_matkul_koor b ON a.koorID = b.id
+        WHERE b.matakuliahID = $matkul_id
+      ";
+
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
+
 }
 ?>

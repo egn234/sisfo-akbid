@@ -304,6 +304,20 @@ $routes->group('dosen', static function ($routes) {
         $routes->post('simpan-absensi', 'Dosen\Bap::save_absensi');
     });
 
+    //Nilai
+    $routes->group('nilai', static function($routes){
+
+        $routes->get('/', 'Dosen\Nilai::index');
+
+        $routes->add('data-matkul', 'Dosen\Nilai::data_matkul');
+        $routes->add('list-mhs/(:num)', 'Dosen\Nilai::list_mhs/$1');
+        $routes->add('data-mhs/(:num)', 'Dosen\Nilai::data_mhs/$1');
+
+        $routes->post('edit-nilai', 'Dosen\Nilai::edit_nilai');
+        $routes->post('submit-nilai', 'Dosen\Nilai::submit_nilai');
+
+    });    
+
     //Koordinator
     $routes->group('koordinator', static function($routes){
 

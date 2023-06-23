@@ -12,6 +12,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Kelola BAP
                             </a>
+                            <a class="nav-link <?= ($title == 'Kelola Nilai') ? 'active' : '' ?>" href="<?= url_to('dosen/nilai') ?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Kelola Nilai
+                            </a>
                             <div class="sb-sidenav-menu-heading">Koordinator</div>
                             <a class="nav-link <?= ($title == 'Kelola Indeks Nilai') ? 'active' : '' ?>" href="<?= url_to('dosen/koordinator') ?>">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
