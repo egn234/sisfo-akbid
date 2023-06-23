@@ -130,7 +130,7 @@ class Nilai extends BaseController
         $nilaiUTS = $this->request->getPost('nilaiUTS');
         $nilaiUAS = $this->request->getPost('nilaiUAS');
         $nilaiKehadiran = $this->request->getPost('nilaiKehadiran');
-        $total = $this->request->getPost('total');
+        $total = number_format((float) $this->request->getPost('total'), 2, '.', '');
 
         $param_nilai = $m_param_nilai->getParamByMatkul($matkul_id)[0];
         $kehadiran = $m_kehadiran->getSinglePresensi($mhs_id, $matkul_id);
