@@ -46,6 +46,10 @@
     let dataTable
     // Data Table
     dataTable = $("#dataTable").DataTable({
+        "ajax": {
+            "url": "<?= base_url() ?>/admin/matkul/data_matkul",
+            "dataSrc": "list_matkul"
+        },
         columnDefs: [{
             searchable: true,
             orderable: false,
@@ -54,7 +58,10 @@
         }, ],
         data: [],
         columns: [{
-                title: 'No'
+                title: 'No',
+                "render": function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
             },
             {
                 title: 'Kode Mata Kuliah',
@@ -109,33 +116,33 @@
         "scrollX": true,
     });
 
-    $.ajax({
-        url: "<?= base_url() ?>/admin/matkul/data_matkul",
-        type: "get"
-    }).done(function(result) {
-        try {
-            var data = jQuery.parseJSON(result);
-            dataTable.clear().draw();
-            dataTable.rows.add(data['list_matkul']).draw();
-        } catch (error) {
-            console.log(error.message);
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(errorThrown);
-        // needs to implement if it fails
-    });
+    // $.ajax({
+    //     url: "<?= base_url() ?>/admin/matkul/data_matkul",
+    //     type: "get"
+    // }).done(function(result) {
+    //     try {
+    //         var data = jQuery.parseJSON(result);
+    //         dataTable.clear().draw();
+    //         dataTable.rows.add(data['list_matkul']).draw();
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }).fail(function(jqXHR, textStatus, errorThrown) {
+    //     console.log(errorThrown);
+    //     // needs to implement if it fails
+    // });
 
-    // Numbering Row
-    dataTable.on('order.dt search.dt', function() {
-        let i = 1;
+    // // Numbering Row
+    // dataTable.on('order.dt search.dt', function() {
+    //     let i = 1;
 
-        dataTable.cells(null, 0, {
-            search: 'applied',
-            order: 'applied'
-        }).every(function(cell) {
-            this.data(i++);
-        });
-    }).draw();
+    //     dataTable.cells(null, 0, {
+    //         search: 'applied',
+    //         order: 'applied'
+    //     }).every(function(cell) {
+    //         this.data(i++);
+    //     });
+    // }).draw();
     $('#switchMahasiswa').on('show.bs.modal', function(e) {
         var rowid = $(e.relatedTarget).data('id');
         $.ajax({

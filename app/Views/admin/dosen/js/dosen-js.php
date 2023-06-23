@@ -3,6 +3,7 @@
         $('#user_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
         $('#namePut').val($(x).attr('data-namePut'))
@@ -23,8 +24,8 @@
                 (e.keyCode == 65 && e.ctrlKey === true) ||
                 // Allow: home, end, left, right
                 (e.keyCode >= 35 && e.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
+                // let it happen, don't do anything
+                return;
             }
             // Ensure that it is a number and stop the keypress
             if (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
@@ -36,6 +37,10 @@
     let dataTable
     // Data Table
     dataTable = $("#dataTable").DataTable({
+        "ajax": {
+            "url": "<?= base_url() ?>/admin/dosen/data_dosen",
+            "dataSrc": "list_dosen"
+        },
         columnDefs: [{
             searchable: true,
             orderable: false,
@@ -44,7 +49,10 @@
         }, ],
         data: [],
         columns: [{
-                title: 'No'
+                title: 'No',
+                "render": function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
             },
             {
                 title: 'Username',
@@ -65,13 +73,13 @@
             {
                 title: 'JK',
                 data: 'jenisKelamin',
-                render : function(data, type, row, full) {
+                render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
                         if (data == 'L') {
                             html = "Laki-Laki"
                         } else {
-                            html = "Perempuan" 
+                            html = "Perempuan"
                         }
                         return html
                     }
@@ -83,17 +91,16 @@
                 data: "id",
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-                        console.log(row);
                         let html
                         let alignment = '<div class="d-flex justify-content-center">'
-                        let open_group = '<div class="btn-group">' 
+                        let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'+
-                        '<a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateData" onclick="updateData(this)" data-idPut="'+data+'" data-namePut="'+row['nama']+'" data-nipPut="'+row['nip']+'" data-nikPut="'+row['nik']+'" data-kodeDosenPut="'+row['kodeDosen']+'" data-jenisKelaminPut="'+row['jenisKelamin']+'" data-alamatPut="'+row['alamat']+'" data-emailPut="'+row['email']+'" data-kontakPut="'+row['kontak']+'" > Ubah </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>' +
+                            '<a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateData" onclick="updateData(this)" data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-nipPut="' + row['nip'] + '" data-nikPut="' + row['nik'] + '" data-kodeDosenPut="' + row['kodeDosen'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '" data-alamatPut="' + row['alamat'] + '" data-emailPut="' + row['email'] + '" data-kontakPut="' + row['kontak'] + '" > Ubah </a>'
                         if (row['flag'] == 1) {
-                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'" >Nonaktifkan</a>'
+                            html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="'+row['nama']+'">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '">Aktifkan</a>'
                         }
                         let close_group = '</div></div>'
                         return alignment + open_group + html + button + close_group
@@ -106,34 +113,33 @@
         "autoWidth": false,
         "scrollX": true,
     });
+    // $.ajax({
+    //     url: "<?= base_url() ?>/admin/dosen/data_dosen",
+    //     type: "get"
+    // }).done(function(result) {
+    //     try {
+    //         var data = jQuery.parseJSON(result);
+    //         dataTable.clear().draw();
+    //         dataTable.rows.add(data['list_dosen']).draw();
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }).fail(function(jqXHR, textStatus, errorThrown) {
+    //     console.log(errorThrown);
+    //     // needs to implement if it fails
+    // });
 
-    $.ajax({
-        url: "<?= base_url() ?>/admin/dosen/data_dosen",
-        type: "get"
-    }).done(function(result) {
-        try {
-            var data = jQuery.parseJSON(result);
-            dataTable.clear().draw();
-            dataTable.rows.add(data['list_dosen']).draw();
-        } catch (error) {
-            console.log(error.message);
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(errorThrown);
-        // needs to implement if it fails
-    });
+    // // Numbering Row
+    // dataTable.on('order.dt search.dt', function() {
+    //     let i = 1;
 
-    // Numbering Row
-    dataTable.on('order.dt search.dt', function() {
-        let i = 1;
-
-        dataTable.cells(null, 0, {
-            search: 'applied',
-            order: 'applied'
-        }).every(function(cell) {
-            this.data(i++);
-        });
-    }).draw();
+    //     dataTable.cells(null, 0, {
+    //         search: 'applied',
+    //         order: 'applied'
+    //     }).every(function(cell) {
+    //         this.data(i++);
+    //     });
+    // }).draw();
     // $('#switchMahasiswa').on('show.bs.modal', function(e) {
     //     var rowid = $(e.relatedTarget).data('id');
     //     $.ajax({
