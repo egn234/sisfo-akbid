@@ -181,17 +181,17 @@ class Nilai extends BaseController
             $m_nilai->set($data)->where('matakuliahID', $matkul_id)->where('mahasiswaID', $mhs_id)->update();
         }
 
-        // $alert = view(
-        //     'partials/notification-alert', 
-        //     [
-        //         'notif_text' => 'Nilai berhasil diset',
-        //         'status' => 'success'
-        //     ]
-        // );
+        $alert = view(
+            'partials/notification-alert', 
+            [
+                'notif_text' => 'Nilai berhasil diset',
+                'status' => 'success'
+            ]
+        );
         
-        // $notif = ['notif' => $alert];
-        // session()->setFlashdata($notif);
-        // return redirect()->back();
+        $notif = ['notif' => $alert];
+        session()->setFlashdata($notif);
+        return redirect()->back();
     }
 
 }
