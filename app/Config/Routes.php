@@ -243,9 +243,10 @@ $routes->group('mahasiswa', static function ($routes) {
 
     // View nilai
     $routes->group('nilai', static function ($routes) {
+        
         $routes->get('/', 'Mahasiswa\Nilai::index');
-        $routes->get('data_periode', 'Mahasiswa\Nilai::data_periode');
-        $routes->get('data_nilai', 'Mahasiswa\Nilai::data_nilai');
+
+        $routes->add('data-nilai', 'Mahasiswa\Nilai::data_nilai');
     });
 
     // View Kuesioner
@@ -324,6 +325,8 @@ $routes->group('dosen', static function ($routes) {
         $routes->get('/', 'Dosen\Koordinator::index');
         $routes->add('koor_data', 'Dosen\Koordinator::koor_data');
 
+        $routes->post('edit-param', 'Dosen\Koordinator::edit_param');
+        $routes->post('edit-param-proc', 'Dosen\Koordinator::edit_param_proc');
     });
 
     //Perwalian

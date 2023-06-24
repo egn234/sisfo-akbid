@@ -40,6 +40,14 @@
         </div>
     </div>
 
+    <div id="editParam" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <span id="fetch-editParam"></span>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+
     <?= $this->include('dosen/partials/partial-footer') ?>
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
     

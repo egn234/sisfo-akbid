@@ -79,14 +79,13 @@
             },
             {
                 title: "Aksi",
-                data: "idKor",
-                render: function(data, type, row, full) {
-                    if (type === 'display') {
-                        let html
-                        html = 'a'
-                        return html
-                    }
-                    return data
+                "render": function(data, type, row) {
+                    let html = `
+                        <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editParam" data-id="${row.id}">
+                            <i class="fa fa-file-alt"></i>
+                        </a>
+                    `
+                    return html;
                 }
             }
         ],
@@ -95,32 +94,15 @@
         "scrollX": true,
     });
 
-    // $.ajax({
-    //     url: "<?= base_url() ?>/dosen/koordinator/koor_data",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         console.log(data['list_matkul']);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_matkul']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
+    $('#editParam').on('show.bs.modal', function(e) {
+        var rowid = $(e.relatedTarget).data('id');
+        $.ajax({
+            type: 'POST',
+            url: '<?= url_to('dosen/koordinator/edit-param')?>',
+            data: {rowid: rowid},
+            success: function(data) {
+                $('#fetch-editParam').html(data); //menampilkan data ke dalam modal
+            }
+        });
+    });
 </script>

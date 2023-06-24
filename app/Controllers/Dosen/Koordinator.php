@@ -41,8 +41,45 @@ class Koordinator extends BaseController
         return json_encode($data);
     }
 
-    public function add_proc()
+    public function edit_param()
     {
-        # code...
+        $m_user = new M_user();
+        $m_param_nilai = new M_param_nilai();
+
+        $param_id = $this->request->getPost('rowid');
+        $parameter_nilai = $m_param_nilai->where('id', $param_id)->get()->getResult()[0];
+
+        $data = [
+            'param_nilai' => $parameter_nilai
+        ];
+
+        return view('dosen/koor/part-param-edit', $data);
+    }
+
+    public function edit_param_proc()
+    {
+        $m_param_nilai = new M_param_nilai();
+        
+        $data = [
+            'paramTugas' => $this->request->getPost('paramTugas'),
+            'paramPraktek' => $this->request->getPost('paramPraktek'),
+            'paramUTS' => $this->request->getPost('paramUTS'),
+            'paramUAS' => $this->request->getPost('paramUAS'),
+            'paramKehadiran' => $this->request->getPost('paramKehadiran')
+        ];
+
+        $m_param_nilai->set($data)->where('id', $this->request->getPost('param_id'))->update();
+
+        $alert = view(
+            'partials/notification-alert', 
+            [
+                'notif_text' => 'Parameter nilai berhasil diubah',
+                'status' => 'success'
+            ]
+        );
+        
+        $notif = ['notif' => $alert];
+        session()->setFlashdata($notif);
+        return redirect()->back();
     }
 }
