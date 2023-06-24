@@ -115,8 +115,6 @@ class registrasi extends BaseController
 
             $selectedData = $this->request->getPost('selectedData');
 
-            $m_rel_mhs_jad->where('mahasiswaID', $mahasiswaID)->delete();
-
             foreach($selectedData as $row){
                 $dataset = [
                     'status' => 'waiting',
