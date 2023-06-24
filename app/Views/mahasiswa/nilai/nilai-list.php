@@ -20,6 +20,68 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Indeks Prestasi Kumulatif
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <table class="table w-100">
+                                        <tr>
+                                            <td>IPK Keseluruhan</td>
+                                            <td>:</td>
+                                            <td><?=number_format($total_ipk['ipk'], 2, '.', '')?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SKS yang diambil</td>
+                                            <td>:</td>
+                                            <td><?=$total_ipk['sks']?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table w-100">
+                                        <tr>
+                                            <td>Total IPK saat ini</td>
+                                            <td>:</td>
+                                            <td><?=number_format($ipk_now['ipk'], 2, '.', '')?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SKS yang diambil saat ini</td>
+                                            <td>:</td>
+                                            <td><?=$ipk_now['sks']?></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" data-bs-toggle="collapse" data-bs-target="#collapseKHS" aria-expanded="false" aria-controls="collapseKHS">
+                                    <h5 class="mb-0">
+                                    Cetak Kartu Hasil Studi (KHS)
+                                    </h5>
+                                </div>
+                                <div id="collapseKHS" class="collapse">
+                                    <div class="card-body">
+                                        <table id="periodetable" class="table table-sm table-striped w-100">
+                                            <?php foreach ($list_periode as $a) {?>
+                                                <tr>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>mahasiswa/nilai/print-khs/<?=$a->id?>" target="_blank">
+                                                            <?=$a->semester.' '.$a->tahunPeriode?>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php }?>
+                                            <tr><td><a href="<?= url_to('mahasiswa/nilai/print-khs') ?>" target="_blank">Semua Semester</a></td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card mb-4">
                         <div class="card-header">

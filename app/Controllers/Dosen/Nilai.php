@@ -148,19 +148,13 @@ class Nilai extends BaseController
             'nilaiKehadiran' => $nilaiKehadiran
         ];
 
-        if($nilaiTugas && $nilaiKehadiran && $nilaiPraktek && $nilaiUTS && $nilaiUAS){
+        if($nilaiTugas && $nilaiPraktek && $nilaiUTS && $nilaiUAS){
             
-            if($total > 79){
-                $indeksNilai = 'A';
-            }elseif($total > 59){
-                $indeksNilai = 'B';
-            }elseif($total > 49){
-                $indeksNilai = 'C';
-            }elseif($total > 34){
-                $indeksNilai = 'D';
-            }elseif($total > 19){
-                $indeksNilai = 'E';
-            }
+            if($total >= 87.75){$indeksNilai = 'A';}
+            elseif($total >= 68.75){$indeksNilai = 'B';}
+            elseif($total >= 50){$indeksNilai = 'C';}
+            elseif($total >= 25){$indeksNilai = 'D';}
+            elseif($total >= 0){$indeksNilai = 'E';}
 
             $data += [
                 'nilaiAkhir' => $total,

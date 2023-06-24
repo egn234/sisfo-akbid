@@ -57,5 +57,83 @@ class M_nilai extends Model
     $db = db_connect();
     return $db->query($sql)->getResult();
   }
+
+  function getIndeksNilaiMhsNow($id)
+  {
+    $sql = "
+      SELECT
+        a.nim, a.nama,
+        e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
+        g.tahunPeriode, g.flag as status_periode,
+        IFNULL((SELECT h.nilaiUTS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiUTS,
+        IFNULL((SELECT h.nilaiUAS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiUAS,
+        IFNULL((SELECT h.nilaiPraktek FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiPraktek,
+        IFNULL((SELECT h.nilaiTugas FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiTugas,
+        IFNULL((SELECT h.nilaiKehadiran FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiKehadiran,
+        IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiAkhir,
+        IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), '-') AS indeksNilai
+      FROM tb_mahasiswa a
+        JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
+        JOIN tb_jadwal c ON b.jadwalID = c.id
+        JOIN tb_matakuliah e ON c.matakuliahID = e.id
+        JOIN tb_periode g on c.periodeID = g.id
+      WHERE a.id = $id
+      AND g.flag = 1
+    ";
+
+    $db = db_connect();
+    return $db->query($sql)->getResult();
+  }
+
+  function getAllKHS($mhs_id = false){
+    $sql = "
+      SELECT
+        id, kodeMatkul, namaMatkul, sks, tingkat, semester, tahunPeriode, nilaiAkhir, indeksNilai,
+        ROW_NUMBER() OVER (ORDER BY id) as mhs_sem
+      FROM (
+        SELECT
+          e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
+          g.tahunPeriode, g.flag as status_periode, g.id,
+          IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiAkhir,
+          IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), '-') AS indeksNilai
+        FROM tb_mahasiswa a
+          JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
+          JOIN tb_jadwal c ON b.jadwalID = c.id
+          JOIN tb_matakuliah e ON c.matakuliahID = e.id
+          JOIN tb_periode g on c.periodeID = g.id
+        WHERE a.id = $mhs_id
+        ORDER BY g.id ASC
+      ) AS subquery
+    ";
+
+    $db = db_connect();
+    return $db->query($sql)->getResult();
+  }
+
+  function getKHSPeriode($mhs_id = false, $periode_id = false){
+    $sql = "
+      SELECT
+        id, kodeMatkul, namaMatkul, sks, tingkat, semester, tahunPeriode, nilaiAkhir, indeksNilai,
+        ROW_NUMBER() OVER (ORDER BY id) as mhs_sem
+      FROM (
+        SELECT
+          e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
+          g.tahunPeriode, g.flag as status_periode, g.id,
+          IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiAkhir,
+          IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), '-') AS indeksNilai
+        FROM tb_mahasiswa a
+          JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
+          JOIN tb_jadwal c ON b.jadwalID = c.id
+          JOIN tb_matakuliah e ON c.matakuliahID = e.id
+          JOIN tb_periode g on c.periodeID = g.id
+        WHERE a.id = $mhs_id
+        ORDER BY g.id ASC
+      ) AS subquery
+      WHERE id = $periode_id
+    ";
+
+    $db = db_connect();
+    return $db->query($sql)->getResult();
+  }
 }
 ?>

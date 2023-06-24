@@ -46,4 +46,18 @@ class M_tahunajaran extends Model
       return $db->query($sql)->getResult();
     }
 
+    function getPeriodeKHS($id = false)
+    {
+      $sql = "
+        SELECT a.* FROM tb_periode a
+          JOIN tb_jadwal b ON a.id = b.periodeID
+          JOIN rel_mhs_jad c ON b.id = c.jadwalID
+        WHERE c.mahasiswaID = 97
+        GROUP BY a.id
+      ";
+      
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
+
 }

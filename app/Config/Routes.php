@@ -247,6 +247,8 @@ $routes->group('mahasiswa', static function ($routes) {
         $routes->get('/', 'Mahasiswa\Nilai::index');
 
         $routes->add('data-nilai', 'Mahasiswa\Nilai::data_nilai');
+        $routes->add('print-khs/(:num)', 'Mahasiswa\Nilai::print_khs/$1');
+        $routes->add('print-khs', 'Mahasiswa\Nilai::print_khs');
     });
 
     // View Kuesioner
