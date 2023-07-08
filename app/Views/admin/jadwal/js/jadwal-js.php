@@ -1,4 +1,43 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    $(document).ready(function() {
+        // create
+        $('#periode-list').select2({
+            dropdownParent: $('#createData')
+        })
+        $('#matkul-list').select2({
+            dropdownParent: $('#createData')
+        })
+        $('#dosen-list').select2({
+            dropdownParent: $('#createData')
+        })
+        $('#ruangan-list').select2({
+            dropdownParent: $('#createData')
+        })
+        $('#day').select2({
+            dropdownParent: $('#createData')
+        })
+
+        // update
+        $('#periode-listPut').select2({
+            dropdownParent: $('#updateData')
+        })
+        $('#matkul-listPut').select2({
+            dropdownParent: $('#updateData')
+        })
+        $('#dosen-listPut').select2({
+            dropdownParent: $('#updateData')
+        })
+        $('#ruangan-listPut').select2({
+            dropdownParent: $('#updateData')
+        })
+        $('#dayPut').select2({
+            dropdownParent: $('#updateData')
+        })
+
+    })
+
     function switchFlag(x) {
         $('#id_data').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
@@ -17,11 +56,18 @@
 
     function updateData(x) {
         $('#idPut').val($(x).attr('data-idPut'))
-        $('#periode-listPut').val($(x).attr('data-periodePut'))
-        $('#matkul-listPut').val($(x).attr('data-matkulPut'))
-        $('#dosen-listPut').val($(x).attr('data-dosenPut'))
-        $('#ruangan-listPut').val($(x).attr('data-ruanganPut'))
-        $('#dayPut').val($(x).attr('data-dayPut'))
+
+        $('#periode-listPut').val($(x).attr('data-periodePut')); // Select the option with a value of '1'
+        $('#periode-listPut').trigger('change');
+        $('#matkul-listPut').val($(x).attr('data-matkulPut')); // Select the option with a value of '1'
+        $('#matkul-listPut').trigger('change');
+        $('#dosen-listPut').val($(x).attr('data-dosenPut')); // Select the option with a value of '1'
+        $('#dosen-listPut').trigger('change');
+        $('#ruangan-listPut').val($(x).attr('data-ruanganPut')); // Select the option with a value of '1'
+        $('#ruangan-listPut').trigger('change');
+        $('#dayPut').val($(x).attr('data-dayPut')); // Select the option with a value of '1'
+        $('#dayPut').trigger('change');
+
         $('.startTime').val($(x).attr('data-startTime'))
         $('.endTime').val($(x).attr('data-endTime'))
         $('#deskripsiPut').val($(x).attr('data-deskripsiPut'))
@@ -80,13 +126,13 @@
                 $('#matkul-list').append(
                     $('<option>', {
                         value: list[i].id,
-                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].semester,
+                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].tingkat + ' - ' + list[i].semester,
                     })
                 );
                 $('#matkul-listPut').append(
                     $('<option>', {
                         value: list[i].id,
-                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].semester,
+                        text: list[i].kodeMatkul + ' - ' + list[i].namaMatkul + ' - ' + list[i].tingkat + ' - ' + list[i].semester,
                     })
                 );
             }
@@ -245,12 +291,12 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'+
-                        '<a class="btn btn-sm btn-info" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="'+data+'" data-dayPut="'+row['day']+'" data-deskripsiPut="'+row['deskripsi']+'" data-ruanganPut="'+row['ruanganID']+'" data-periodePut="'+row['periodeID']+'" data-dosenPut="'+row['dosenID']+'" data-matkulPut="'+row['matakuliahID']+'" data-startTime="'+row['startTime']+'" data-endTime="'+row['endTime']+'" > Ubah </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>' +
+                            '<a class="btn btn-sm btn-info" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-dayPut="' + row['day'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-ruanganPut="' + row['ruanganID'] + '" data-periodePut="' + row['periodeID'] + '" data-dosenPut="' + row['dosenID'] + '" data-matkulPut="' + row['matakuliahID'] + '" data-startTime="' + row['startTime'] + '" data-endTime="' + row['endTime'] + '" > Ubah </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' + data + '" data-name="' + row['namaMatkul'] + '" >Nonaktifkan</a>'
                         } else {
-                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' +data + '" data-name="' + row['namaMatkul'] + '">Aktifkan</a>'
+                            html = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' + data + '" data-name="' + row['namaMatkul'] + '">Aktifkan</a>'
                         }
                         let close_group = '</div></div>'
                         return alignment + open_group + html + button + close_group
@@ -291,7 +337,7 @@
     //         this.data(i++);
     //     });
     // }).draw();
-    
+
     flatpickr("#time-input-from", {
         appendTo: document.body,
         className: "flatpickr",
@@ -301,7 +347,7 @@
         dateFormat: "H:i", // Use 24-hour format
         time_24hr: true // Use 24-hour format
     });
-    
+
     flatpickr("#time-input-to", {
         appendTo: document.body,
         className: "flatpickr",

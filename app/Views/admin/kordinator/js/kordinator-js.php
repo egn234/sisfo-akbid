@@ -1,3 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
     function deleteData(x) {
         $('#idDel').val($(x).attr('data-idDel'))
@@ -13,6 +16,13 @@
     $(document).ready(function() {
         document.getElementsByClassName("flatpickr-basic").flatpickr({
             dateFormat: "Y-m-d"
+        })
+        $('#matkul-list').select2({
+            dropdownParent: $('#createData')
+        })
+        $('#dosen-list').select2({
+            dropdownParent: $('#createData')
+
         })
     })
 
@@ -58,7 +68,7 @@
                 render: function(data, type, row, full) {
                     if (type === 'display') {
                         let html
-                        html = '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['namaMatkul'] + ' - ' + row['namaDosen'] +'" >Hapus</a>'
+                        html = '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['namaMatkul'] + ' - ' + row['namaDosen'] + '" >Hapus</a>'
                         return html
                     }
                     return data
@@ -104,11 +114,12 @@
     }).done(function(result) {
         try {
             var data = jQuery.parseJSON(result);
+
             for (let i = 0; i < data['list_matkul'].length; i++) {
                 $('#matkul-list').append(
                     $('<option>', {
                         value: data['list_matkul'][i]['id'],
-                        text: data['list_matkul'][i]['kodeMatkul'] + ' - ' + data['list_matkul'][i]['namaMatkul'],
+                        text: data['list_matkul'][i]['kodeMatkul'] + ' - ' + data['list_matkul'][i]['namaMatkul'] + ' - ' + data['list_matkul'][i]['tingkat'] + ' - ' + data['list_matkul'][i]['semester'],
                     })
                 );
             }

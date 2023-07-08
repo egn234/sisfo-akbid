@@ -63,8 +63,8 @@ class Tahunajaran extends BaseController
             ->where('semester', $semester)
             ->get()->getResult()[0]
             ->hitung;
-        
-        if($cek_count > 0){
+
+        if ($cek_count > 0) {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -72,7 +72,7 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
@@ -85,12 +85,12 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
 
-        if($semester == ''){
+        if ($semester == '') {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -98,7 +98,7 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
@@ -115,8 +115,7 @@ class Tahunajaran extends BaseController
             $m_tahunajaran->insert($data);
 
             $periode_id = $m_tahunajaran->select('id')->where($data)->get()->getResult()[0]->id;
-            $m_tahunajaran->set('flag', 0)->where('id != '.$periode_id)->update();
-
+            $m_tahunajaran->set('flag', 0)->where('id != ' . $periode_id)->update();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -168,11 +167,11 @@ class Tahunajaran extends BaseController
         $cek_count = $m_tahunajaran->select("COUNT(id) AS hitung")
             ->where('tahunPeriode', $periode)
             ->where('semester', $semester)
-            ->where('id != '.$id)
+            ->where('id != ' . $id)
             ->get()->getResult()[0]
             ->hitung;
 
-        if($cek_count > 0){
+        if ($cek_count > 0) {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -180,7 +179,7 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
@@ -193,12 +192,12 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
 
-        if($semester == ''){
+        if ($semester == '') {
             $alert = view(
                 'partials/notification-alert',
                 [
@@ -206,7 +205,7 @@ class Tahunajaran extends BaseController
                     'status' => 'danger'
                 ]
             );
-    
+
             session()->setFlashdata('notif', $alert);
             return redirect()->back();
         }
@@ -237,33 +236,38 @@ class Tahunajaran extends BaseController
     }
 
     public function flag_switch()
-	{
-		$m_tahunajaran = new M_tahunajaran();
-		$periode_id = $this->request->getPost('id_data');
-		$periode = $m_tahunajaran->where('id', $periode_id)->first();
-		if ($periode['flag'] == 0) {
-			$m_tahunajaran->where('id', $periode_id)->set('flag', '1')->update();
-			$alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'Periode Diaktifkan',
-					'status' => 'success'
-				]
-			);
+    {
+        $m_tahunajaran = new M_tahunajaran();
+        $periode_id = $this->request->getPost('id_data');
+        $periode = $m_tahunajaran->where('id', $periode_id)->first();
+        if ($periode['flag'] == 0) {
+            $allData = $m_tahunajaran->where('flag', '1')->get()->getResult();
+            if (count($allData) != 0) {
+                $m_tahunajaran->where('id', $allData[0]->id)->set('flag', '0')->update();
+            }
 
-			session()->setFlashdata('notif', $alert);
-		} elseif ($periode['flag'] == 1) {
-			$m_tahunajaran->where('id', $periode_id)->set('flag', '0')->update();
-			$alert = view(
-				'partials/notification-alert',
-				[
-					'notif_text' => 'Periode Dinonaktifkan',
-					'status' => 'success'
-				]
-			);
+            $m_tahunajaran->where('id', $periode_id)->set('flag', '1')->update();
+            $alert = view(
+            	'partials/notification-alert',
+            	[
+            		'notif_text' => 'Periode Diaktifkan',
+            		'status' => 'success'
+            	]
+            );
 
-			session()->setFlashdata('notif', $alert);
-		}
-		return redirect()->back();
-	}
+            session()->setFlashdata('notif', $alert);
+        } elseif ($periode['flag'] == 1) {
+            $m_tahunajaran->where('id', $periode_id)->set('flag', '0')->update();
+            $alert = view(
+                'partials/notification-alert',
+                [
+                    'notif_text' => 'Periode Dinonaktifkan',
+                    'status' => 'success'
+                ]
+            );
+
+            session()->setFlashdata('notif', $alert);
+        }
+        return redirect()->back();
+    }
 }

@@ -66,6 +66,8 @@ $routes->group('admin', static function ($routes) {
 
         $routes->get('data_mhs', 'Admin\Mahasiswa::data_mhs');
         $routes->get('detail/(:num)', 'Admin\Mahasiswa::detail/$1', ['as' => 'detail-mahasiswa-1']);
+        $routes->get('data_nilai/(:num)', 'Admin\Mahasiswa::data_nilai/$1');
+
     });
 
     // Kelola Dosen
