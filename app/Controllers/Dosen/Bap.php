@@ -80,7 +80,18 @@ class Bap extends BaseController
                     'bapID' => $bap_id
                 ];
 
-                $m_kehadiran->insert($data);
+                $cek_absensi = $m_kehadiran->select("COUNT(id) AS hitung")
+                    ->where('mahasiswaID', $studentId)
+                    ->where('bapID', $bap_id)
+                    ->get()->getResult()[0]->hitung;
+
+                if($cek_absensi == 0){
+                    $m_kehadiran->insert($data);
+                }else{
+                    $m_kehadiran->set('status', $status)
+                        ->where('mahasiswaID', $studentId)
+                        ->where('bapID', $bap_id)->update();
+                }
             }
         };
 
