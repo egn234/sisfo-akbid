@@ -22,5 +22,15 @@ class M_rel_dsn_kls extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+    function getHistoriWaldos($id){
+      $sql = "
+        SELECT b.* FROM rel_dsn_kls a
+        JOIN tb_kelas b ON a.kelasID = b.id
+        WHERE a.dosenID = $id
+      ";
+      
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
 }
 ?>
