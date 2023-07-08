@@ -20,7 +20,6 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
-
                     <div class="row">
                         <div class="col-12 col-lg-3">
                             <div class="card mb-4">
@@ -275,7 +274,7 @@
     <script>
         var table = $('#dataTable').DataTable({
             ajax: {
-                url: "<?= base_url() ?>admin/mahasiswa/data_nilai/",
+                url: "<?= base_url() ?>admin/dosen/data_history/<?= $detail_dosen->id ?>",
                 dataSrc: "data",
             },
             columnDefs: [{
@@ -291,29 +290,23 @@
                     }
                 },
                 {
-                    title: "Mata Kuliah",
-                    render: function(data, type, row) {
-                        return row.kodeMatkul + " - " + row.namaMatkul;
-                    }
+                    title: "Kode Kelas",
+                    data:"kodeKelas"
                 },
                 {
-                    title: "SKS",
-                    data: "sks"
+                    title: "Angkatan",
+                    data: "angkatan"
                 },
                 {
-                    title: "Tingkat",
-                    data: "tingkat"
-                },
-                {
-                    title: "Tingkat",
-                    data: "semester"
+                    title: "Tahun Angkatan",
+                    data: "tahunAngkatan"
                 }
             ],
             responsive: true,
         });
 
         table.draw();
-    </script>Ç
+    </script>
 
 </body>
 
