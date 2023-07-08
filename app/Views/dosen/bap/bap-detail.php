@@ -32,39 +32,39 @@
                                 <tr>
                                     <td>Dosen Pengajar</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->nama?> / <?=$detail_bap->kodeDosen?></td>
+                                    <td><?= $detail_bap->nama ?> / <?= $detail_bap->kodeDosen ?></td>
                                 </tr>
                                 <tr>
                                     <td>NIP</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->nip?></td>
+                                    <td><?= $detail_bap->nip ?></td>
                                 </tr>
                                 <tr>
                                     <td>Semester / Tahun Ajaran</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->semester?> <?=$detail_bap->tahunPeriode?></td>
+                                    <td><?= $detail_bap->semester ?> <?= $detail_bap->tahunPeriode ?></td>
                                 </tr>
                                 <tr>
                                     <td>Tanggal Input</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->created_at?></td>
+                                    <td><?= $detail_bap->created_at ?></td>
                                 </tr>
                                 <tr>
                                     <td>Pertemuan</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->mingguPertemuan?></td>
+                                    <td><?= $detail_bap->mingguPertemuan ?></td>
                                 </tr>
                                 <tr>
                                     <td>Materi</td>
                                     <td>:</td>
-                                    <td><?=$detail_bap->materiPertemuan?></td>
+                                    <td><?= $detail_bap->materiPertemuan ?></td>
                                 </tr>
                             </table>
                             <div class="mt-5 mb-2">
                                 Daftar Kehadiran
                             </div>
                             <form method="post" action="<?= url_to('dosen/bap/simpan-absensi') ?>" id="kehadiran">
-                                <input name="bap_id" value="<?=$detail_bap->id?>" hidden />
+                                <input name="bap_id" value="<?= $detail_bap->id ?>" hidden />
                                 <?= session()->getFlashdata('notif') ?>
                                 <table id="dataTable" class="table table-sm table-bordered table-striped w-100">
                                     <!-- Load From ajax -->
@@ -108,17 +108,16 @@
     <!-- Datatable with ajax load -->
     <script>
         $(document).ready(function() {
-            var data_hadir = "<?= $detail_bap->data_hadir?>";
+            var data_hadir = "<?= $detail_bap->data_hadir ?>";
             var bap_id = "<?= $detail_bap->id ?>";
             var table = $('#dataTable').DataTable({
                 "ajax": {
-                    "url": "<?= base_url() ?>dosen/bap/data-mhs/<?=$detail_bap->id?>",
+                    "url": "<?= base_url() ?>dosen/bap/data-mhs/<?= $detail_bap->id ?>",
                     "dataSrc": "data"
                 },
                 "searching": false,
                 "paging": false,
-                "columns": [
-                    { 
+                "columns": [{
                         "title": "No",
                         "render": function(data, type, row, meta) {
                             return meta.row + 1;
@@ -139,12 +138,38 @@
                     {
                         "title": "kehadiran",
                         render: function(data, type, row) {
+                            let statusHadir
+                            $.ajax({
+                                url: "<?= base_url() ?>dosen/bap/status-hadir",
+                                type: "get",
+                                async: false,
+                                data: {
+                                    bap_id: bap_id,
+                                    studentId: row['id']
+                                }
+                            }).done(function(result) {
+                                try {
+                                    var data = jQuery.parseJSON(result);
+                                    statusHadir = data.status
+                                } catch (error) {
+                                    console.log(error.message);
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                                // needs to implement if it fails
+                            });
+
                             // Generate radio buttons with unique names and values
                             var radioHtml = '';
                             var statuses = ['hadir', 'izin', 'sakit', 'alfa'];
                             var i = 0;
                             statuses.forEach(function(status) {
-                                var checked = (status === 'alfa') ? 'checked' : '';
+                                var checked
+                                if (statusHadir == "Kosong") {
+                                    checked = (status === 'alfa') ? 'checked' : '';
+                                } else {
+                                    checked = (status === statusHadir) ? 'checked' : '';
+                                }
                                 radioHtml += `
                                     <input type="radio" class="btn-check" id="opt_${i}" name="status_${row.id}" value="${status}" ${checked}/>
                                     <label class="btn btn-sm btn-outline-secondary" for="opt_${i}">
@@ -157,7 +182,7 @@
                             return radioHtml;
                         }
                     },
-                    
+
                 ],
                 "scrollX": true
             });
