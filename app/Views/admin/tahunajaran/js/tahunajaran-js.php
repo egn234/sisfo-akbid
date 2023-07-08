@@ -23,6 +23,10 @@
         });
 
     function updateData(x) {
+        
+        $('#regisAwal').val($(x).attr('data-regisAwal'))
+        $('#regisAkhir').val($(x).attr('data-regisAkhir'))
+
         $('#idPut').val($(x).attr('data-idPut'))
         $('#tahunPut1').val($(x).attr('data-tahunPut1'))
         $('#tahunPut2').val($(x).attr('data-tahunPut2'))
@@ -100,7 +104,6 @@
                 width: '13%',
                 render: function(data, type, row, full) {
                     if (type === 'display') {
-
                         let html
                         let tahun1 = row['tahunPeriode'].slice(0, 4)
                         let tahun2 = row['tahunPeriode'].slice(5, 9)
@@ -108,12 +111,13 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let close_group = '</div>'
                         if (row['flag'] == 1) {
-                            htmlFlag = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchTahunAjaran" data-id="' + data + '" data-name="' + row['tahunPeriode'] + '" >Nonaktifkan</a>'
+                            htmlFlag = ''
+                            // <a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchTahunAjaran" data-id="' + data + '" data-name="' + row['tahunPeriode'] + '" >Nonaktifkan</a>
                         } else {
                             htmlFlag = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchTahunAjaran" data-id="' + data + '" data-name="' + row['tahunPeriode'] + '">Aktifkan</a>'
                         }
                         html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData"' +
-                            ' data-idPut="' + data + '" data-tahunPut1="' + tahun1 + '" data-tahunPut2="' + tahun2 + '" data-semesterPut="' + row['semester'] + '" data-deskripsiPut="' + row['deskripsi'] + '"  data-flagPut="' + row['flag'] + '" >Ubah</a>' +
+                            ' data-idPut="' + data + '" data-tahunPut1="' + tahun1 + '" data-tahunPut2="' + tahun2 + '" data-semesterPut="' + row['semester'] + '" data-deskripsiPut="' + row['deskripsi'] + '"  data-flagPut="' + row['flag'] + '" data-regisAwal="'+row['registrasi_awal']+'" data-regisAkhir="'+row['registrasi_akhir']+'" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['tahunPeriode'] + '" >Hapus</a>'
                         return alignment + grouping + html + htmlFlag + close_group + close_group
                     }
@@ -125,32 +129,4 @@
         "autoWidth": false,
         "scrollX": true,
     });
-
-    // $.ajax({
-    //     url: "<?= base_url() ?>/admin/tahun-ajaran/data_tahunajaran",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_tahunajaran']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
 </script>

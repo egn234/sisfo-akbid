@@ -55,20 +55,34 @@
                 </div>
                 <form action="<?= base_url('admin/kordinator/input-process') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">MATA KULIAH</label>
-                            <select class="form-select" name="matakuliahID" id="matkul-list">
-                                <option value="" selected>-- Pilih Mata Kuliah --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                        <div class="row ">
+                            <div class="col-12">
+                                <label class="form-label">MATA KULIAH</label>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">DOSEN</label>
-                            <select class="form-select" name="dosenID" id="dosen-list">
-                                <option value="" selected>-- Pilih Dosen --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <select class="form-control" name="matakuliahID" id="matkul-list" style="width: 100%;">
+                                    <option value="" selected>-- Pilih Mata Kuliah --</option>
+                                    <!-- Load From Ajax -->
+                                </select>
+                            </div>
                         </div>
+                        <div class="row ">
+                            <div class="col-12">
+                                <label class="form-label">DOSEN</label>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <select class="form-select" name="dosenID" id="dosen-list" style="width: 100%;">
+                                    <option value="" selected>-- Pilih Dosen --</option>
+                                    <!-- Load From Ajax -->
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

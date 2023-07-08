@@ -8,6 +8,8 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_mahasiswa;
+use App\Models\M_nilai;
+
 
 class Mahasiswa extends BaseController
 {
@@ -622,4 +624,19 @@ class Mahasiswa extends BaseController
 			return redirect()->back();
 		}
 	}
+	public function data_nilai($user_id = false)
+    {
+        $m_user = new M_user();
+        $m_mahasiswa = new M_mahasiswa();
+        $m_nilai = new M_nilai();
+        
+        $mhs_id = $m_mahasiswa->where("userID", $user_id)
+            ->get()->getResult()[0]->id;
+        
+        $data_nilai = $m_nilai->getIndeksNilaiMhs($mhs_id);
+
+        $data = ['data' => $data_nilai];
+
+        return json_encode($data);
+    }
 }

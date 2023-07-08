@@ -29,37 +29,37 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="col-12 d-flex justify-content-center align-items-center">
-                                        <img class="img-fluid" style="height:200px" src="<?=base_url()?>uploads/user/<?=$detail_mhs->username?>/profil_pic/<?=$detail_mhs->foto?>">
+                                        <img class="img-fluid" style="height:200px" src="<?= base_url() ?>uploads/user/<?= $detail_mhs->username ?>/profil_pic/<?= $detail_mhs->foto ?>">
                                     </div>
                                     <div class="col-12 mt-2">
                                         <table style="text-align:center" class="table">
                                             <tr>
-                                                <td><?=$detail_mhs->nama?></td>
+                                                <td><?= $detail_mhs->nama ?></td>
                                             </tr>
                                             <tr>
-                                                <td>NIM: <?=$detail_mhs->nim?></td>
+                                                <td>NIM: <?= $detail_mhs->nim ?></td>
                                             </tr>
                                             <tr>
-                                                <td>No. Telp: <?=$detail_mhs->kontak?></td>
+                                                <td>No. Telp: <?= $detail_mhs->kontak ?></td>
                                             </tr>
                                             <tr>
-                                                <td><?=$detail_mhs->jenisKelamin == "L"? 'Laki-laki': 'Perempuan'?></td>
+                                                <td><?= $detail_mhs->jenisKelamin == "L" ? 'Laki-laki' : 'Perempuan' ?></td>
                                             </tr>
                                             <tr>
-                                                <td><?=$detail_mhs->userType?></td>
+                                                <td><?= $detail_mhs->userType ?></td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Status: 
+                                                    Status:
                                                     <?php if ($detail_mhs->statusAkademik == 'aktif') { ?><div class="badge bg-success">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'cuti'){?><div class="badge bg-secondary">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'keluar'){?><div class="badge bg-warning">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'lulus'){?><div class="badge bg-secondary">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'mangkir'){?><div class="badge bg-danger">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'meninggal'){?><div class="badge bg-secondary">
-                                                    <?php }elseif ($detail_mhs->statusAkademik == 'dropout'){?><div class="badge bg-danger">
-                                                    <?php }?>
-                                                        <?=$detail_mhs->statusAkademik?></div>
+                                                        <?php } elseif ($detail_mhs->statusAkademik == 'cuti') { ?><div class="badge bg-secondary">
+                                                            <?php } elseif ($detail_mhs->statusAkademik == 'keluar') { ?><div class="badge bg-warning">
+                                                                <?php } elseif ($detail_mhs->statusAkademik == 'lulus') { ?><div class="badge bg-secondary">
+                                                                    <?php } elseif ($detail_mhs->statusAkademik == 'mangkir') { ?><div class="badge bg-danger">
+                                                                        <?php } elseif ($detail_mhs->statusAkademik == 'meninggal') { ?><div class="badge bg-secondary">
+                                                                            <?php } elseif ($detail_mhs->statusAkademik == 'dropout') { ?><div class="badge bg-danger">
+                                                                                <?php } ?>
+                                                                                <?= $detail_mhs->statusAkademik ?></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -71,7 +71,7 @@
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
-                                    
+
                                 </div>
                                 <div class="card-body">
                                     <?= session()->getFlashdata('notif') ?>
@@ -84,6 +84,9 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#pass_edit" type="button" role="tab" aria-controls="pass_edit" aria-selected="false">Ubah Password</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#detail" type="button" role="tab" aria-controls="detail" aria-selected="false">Detail</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
@@ -99,7 +102,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->nama?>
+                                                                <?= $detail_mhs->nama ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -114,7 +117,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->nik?>
+                                                                <?= $detail_mhs->nik ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -144,7 +147,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->email?>
+                                                                <?= $detail_mhs->email ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -159,7 +162,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->alamat?>
+                                                                <?= $detail_mhs->alamat ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -174,7 +177,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->kontak?>
+                                                                <?= $detail_mhs->kontak ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -189,7 +192,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->namaIbu?>
+                                                                <?= $detail_mhs->namaIbu ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -204,7 +207,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->kontakIbu?>
+                                                                <?= $detail_mhs->kontakIbu ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -219,7 +222,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->namaAyah?>
+                                                                <?= $detail_mhs->namaAyah ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -234,7 +237,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->kontakAyah ? $detail_mhs->kontakAyah : '-' ?>
+                                                                <?= $detail_mhs->kontakAyah ? $detail_mhs->kontakAyah : '-' ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,7 +252,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->namaWali ? $detail_mhs->namaWali : '-' ?>
+                                                                <?= $detail_mhs->namaWali ? $detail_mhs->namaWali : '-' ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -264,7 +267,7 @@
                                                         </div>
                                                         <div class="col-xl">
                                                             <div class="text-muted">
-                                                                <?=$detail_mhs->kontakWali ? $detail_mhs->kontakWali: '-' ?>
+                                                                <?= $detail_mhs->kontakWali ? $detail_mhs->kontakWali : '-' ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -277,70 +280,70 @@
                                                 <form action="<?= url_to('update-mahasiswa-1', $detail_mhs->user_id) ?>" method="POST" id="ubahProfil" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="nama" value="<?=$detail_mhs->nama?>" required>
+                                                        <input type="text" class="form-control" name="nama" value="<?= $detail_mhs->nama ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NIM <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control numeric-input" name="nim" value="<?=$detail_mhs->nim?>" id="nimNumber" disabled>
+                                                        <input type="text" class="form-control numeric-input" name="nim" value="<?= $detail_mhs->nim ?>" id="nimNumber" disabled>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NIK <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=$detail_mhs->nik?>" name="nik" disabled>
+                                                        <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?= $detail_mhs->nik ?>" name="nik" disabled>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                                                         <select class="form-select" name="jenisKelamin" required>
-                                                            <option value="L" <?=($detail_mhs->jenisKelamin == 'L')?'selected':''?>>Laki-Laki</option>
-                                                            <option value="P" <?=($detail_mhs->jenisKelamin == 'P')?'selected':''?>>Perempuan</option>
+                                                            <option value="L" <?= ($detail_mhs->jenisKelamin == 'L') ? 'selected' : '' ?>>Laki-Laki</option>
+                                                            <option value="P" <?= ($detail_mhs->jenisKelamin == 'P') ? 'selected' : '' ?>>Perempuan</option>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">TEMPAT/TANGGAL LAHIR <span class="text-danger">*</span></label>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <input type="text" class="form-control" name="tempatLahir" value="<?=$detail_mhs->tempatLahir?>" required>
+                                                                <input type="text" class="form-control" name="tempatLahir" value="<?= $detail_mhs->tempatLahir ?>" required>
                                                             </div>
                                                             <div class="col-8">
-                                                                <input type="date" class="form-control" name="tanggalLahir" value="<?=$detail_mhs->tanggalLahir?>" required>
+                                                                <input type="date" class="form-control" name="tanggalLahir" value="<?= $detail_mhs->tanggalLahir ?>" required>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="alamat" value="<?=$detail_mhs->alamat?>" required>
+                                                        <input type="text" class="form-control" name="alamat" value="<?= $detail_mhs->alamat ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">EMAIL <span class="text-danger">*</span></label>
-                                                        <input type="email" class="form-control" name="email" value="<?=$detail_mhs->email?>" required>
+                                                        <input type="email" class="form-control" name="email" value="<?= $detail_mhs->email ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">KONTAK <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control numeric-input" name="kontak" value="<?=$detail_mhs->kontak?>" required>
+                                                        <input type="text" class="form-control numeric-input" name="kontak" value="<?= $detail_mhs->kontak ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA IBU KANDUNG/ANGKAT <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="namaIbu" value="<?=$detail_mhs->namaIbu?>" required>
+                                                        <input type="text" class="form-control" name="namaIbu" value="<?= $detail_mhs->namaIbu ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">KONTAK IBU KANDUNG/ANGKAT</label>
-                                                        <input type="text" class="form-control numeric-input" name="kontakIbu" value="<?=$detail_mhs->kontakIbu?>">
+                                                        <input type="text" class="form-control numeric-input" name="kontakIbu" value="<?= $detail_mhs->kontakIbu ?>">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA AYAH KANDUNG/ANGKAT <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="namaAyah" value="<?=$detail_mhs->namaAyah?>" required>
+                                                        <input type="text" class="form-control" name="namaAyah" value="<?= $detail_mhs->namaAyah ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">KONTAK AYAH KANDUNG/ANGKAT</label>
-                                                        <input type="text" class="form-control numeric-input" name="kontakAyah" value="<?=$detail_mhs->kontakAyah?>">
+                                                        <input type="text" class="form-control numeric-input" name="kontakAyah" value="<?= $detail_mhs->kontakAyah ?>">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">NAMA WALI</label>
-                                                        <input type="text" class="form-control" name="namaWali" value="<?=$detail_mhs->namaWali?>">
+                                                        <input type="text" class="form-control" name="namaWali" value="<?= $detail_mhs->namaWali ?>">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">KONTAK WALI</label>
-                                                        <input type="text" class="form-control numeric-input" name="kontakWali" value="<?=$detail_mhs->kontakWali?>">
+                                                        <input type="text" class="form-control numeric-input" name="kontakWali" value="<?= $detail_mhs->kontakWali ?>">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">FOTO MAHASISWA</label>
@@ -349,13 +352,13 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">STATUS AKADEMIK <span class="text-danger">*</span></label>
                                                         <select class="form-select" name="statusAkademik" required>
-                                                            <option value="aktif" <?=($detail_mhs->statusAkademik == 'aktif')?'selected':''?>>Aktif</option>
-                                                            <option value="cuti" <?=($detail_mhs->statusAkademik == 'cuti')?'selected':''?>>Cuti</option>
-                                                            <option value="keluar" <?=($detail_mhs->statusAkademik == 'keluar')?'selected':''?>>Keluar</option>
-                                                            <option value="mangkir" <?=($detail_mhs->statusAkademik == 'mangkir')?'selected':''?>>Mangkir</option>
-                                                            <option value="lulus" <?=($detail_mhs->statusAkademik == 'lulus')?'selected':''?>>Lulus</option>
-                                                            <option value="meninggal" <?=($detail_mhs->statusAkademik == 'meninggal')?'selected':''?>>Meninggal</option>
-                                                            <option value="dropout" <?=($detail_mhs->statusAkademik == 'dropout')?'selected':''?>>Dropout</option>
+                                                            <option value="aktif" <?= ($detail_mhs->statusAkademik == 'aktif') ? 'selected' : '' ?>>Aktif</option>
+                                                            <option value="cuti" <?= ($detail_mhs->statusAkademik == 'cuti') ? 'selected' : '' ?>>Cuti</option>
+                                                            <option value="keluar" <?= ($detail_mhs->statusAkademik == 'keluar') ? 'selected' : '' ?>>Keluar</option>
+                                                            <option value="mangkir" <?= ($detail_mhs->statusAkademik == 'mangkir') ? 'selected' : '' ?>>Mangkir</option>
+                                                            <option value="lulus" <?= ($detail_mhs->statusAkademik == 'lulus') ? 'selected' : '' ?>>Lulus</option>
+                                                            <option value="meninggal" <?= ($detail_mhs->statusAkademik == 'meninggal') ? 'selected' : '' ?>>Meninggal</option>
+                                                            <option value="dropout" <?= ($detail_mhs->statusAkademik == 'dropout') ? 'selected' : '' ?>>Dropout</option>
                                                         </select>
                                                     </div>
                                                     <span class="text-xs text-danger">
@@ -373,7 +376,7 @@
                                                 <form action="<?= url_to('update-pass-mahasiswa-1', $detail_mhs->user_id) ?>" id="ubahPassword" method="POST">
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">USERNAME <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="username" value="<?=$detail_mhs->username?>" autocomplete="off" disabled>
+                                                        <input type="text" class="form-control" name="username" value="<?= $detail_mhs->username ?>" autocomplete="off" disabled>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">PASSWORD BARU<span class="text-danger">*</span></label>
@@ -389,6 +392,14 @@
                                                         Submit
                                                     </a>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="detail" role="tabpanel" aria-labelledby="pass-tab">
+                                            <div class="m-3">
+                                                <table id="dataTable" class="table table-bordered table-striped w-100">
+                                                    <!-- Load From ajax -->
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -418,10 +429,53 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <?= $this->include('admin/partials/partial-footer') ?>
-    
+    <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
+
+    <script>
+        var table = $('#dataTable').DataTable({
+            ajax: {
+                url: "<?= base_url() ?>admin/mahasiswa/data_nilai/<?= $detail_mhs->user_id ?>",
+                dataSrc: "data",
+            },
+            columnDefs: [{
+                searchable: true,
+                orderable: false,
+                targets: "_all",
+                defaultContent: "-",
+            }],
+            columns: [{
+                    title: "No",
+                    "render": function(data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    title: "Mata Kuliah",
+                    render: function(data, type, row) {
+                        return row.kodeMatkul + " - " + row.namaMatkul;
+                    }
+                },
+                {
+                    title:"SKS",
+                    data:"sks"
+                },
+                {
+                    title:"Tingkat",
+                    data:"tingkat"
+                },
+                {
+                    title:"Tingkat",
+                    data:"semester"
+                }
+            ],
+            responsive: true,
+        });
+
+        table.draw();
+    </script>
 </body>
 
 </html>

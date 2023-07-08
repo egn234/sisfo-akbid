@@ -122,11 +122,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tanggal Registrasi Awal</label>
-                            <input type="date" class="form-control" name="registrasi_awal" required>
+                            <input type="date" class="form-control" id="regisAwal" name="registrasi_awal" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tanggal Registrasi Akhir</label>
-                            <input type="date" class="form-control" name="registrasi_akhir" required>
+                            <input type="date" class="form-control" id="regisAkhir" name="registrasi_akhir" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">DESKRIPSI</label>

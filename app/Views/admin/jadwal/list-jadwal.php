@@ -8,8 +8,10 @@
 
     <style>
         .flatpickr {
-           z-index: 9999;
-        };
+            z-index: 9999;
+        }
+
+        ;
     </style>
 </head>
 
@@ -38,7 +40,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
+
                         </div>
                     </div>
                     <div class="card mb-4">
@@ -77,45 +79,87 @@
                 <form action="<?= base_url('admin/jadwal/input-process') ?>" class="w-100" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">TAHUN AJARAN</label>
-                            <select class="form-select" name="periodeID" id="periode-list" required>
-                                <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">TAHUN AJARAN</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="periodeID" id="periode-list" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">MATA KULIAH</label>
-                            <select class="form-select" name="matakuliahID" id="matkul-list" required>
-                                <option value="" selected hidden>-- Pilih Mata Kuliah --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">MATA KULIAH</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="matakuliahID" id="matkul-list" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Mata Kuliah --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">DOSEN</label>
-                            <select class="form-select" name="dosenID" id="dosen-list" required>
-                                <option value="" selected hidden>-- Pilih Dosen --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">DOSEN</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="dosenID" id="dosen-list" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Dosen --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">RUANGAN</label>
-                            <select class="form-select" name="ruanganID" id="ruangan-list" required>
-                                <option value="" selected hidden>-- Pilih Ruangan --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">RUANGAN</label>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="ruanganID" id="ruangan-list" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Ruangan --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">HARI</label>
-                            <select class="form-select" name="day" id="day" required>
-                                <option value="" selected hidden>-- Pilih Hari--</option>
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jumat">Jumat</option>
-                                <option value="Sabtu">Sabtu</option>
-                                <option value="Minggu">Minggu</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">HARI</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="day" id="day" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Hari--</option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jumat">Jumat</option>
+                                        <option value="Sabtu">Sabtu</option>
+                                        <option value="Minggu">Minggu</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="mb-3">
                             <div class="row">
@@ -154,45 +198,90 @@
                     <input type="text" id="idPut" name="idPut" style="display: none;">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">TAHUN AJARAN</label>
-                            <select class="form-select" name="periodeID" id="periode-listPut" required>
-                                <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">TAHUN AJARAN</label>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="periodeID" id="periode-listPut" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">MATA KULIAH</label>
-                            <select class="form-select" name="matakuliahID" id="matkul-listPut" required>
-                                <option value="" selected hidden>-- Pilih Mata Kuliah --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">MATA KULIAH</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="matakuliahID" id="matkul-listPut" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Mata Kuliah --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">DOSEN</label>
-                            <select class="form-select" name="dosenID" id="dosen-listPut" required>
-                                <option value="" selected hidden>-- Pilih Dosen --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">DOSEN</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="dosenID" id="dosen-listPut" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Dosen --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">RUANGAN</label>
-                            <select class="form-select" name="ruanganID" id="ruangan-listPut" required>
-                                <option value="" selected hidden>-- Pilih Ruangan --</option>
-                                <!-- Load From Ajax -->
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">RUANGAN</label>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="ruanganID" id="ruangan-listPut" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Ruangan --</option>
+                                        <!-- Load From Ajax -->
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">HARI</label>
-                            <select class="form-select" name="day" id="dayPut" required>
-                                <option value="" selected hidden>-- Pilih Hari--</option>
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jumat">Jumat</option>
-                                <option value="Sabtu">Sabtu</option>
-                                <option value="Minggu">Minggu</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">HARI</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select" name="day" id="dayPut" style="width: 100%;" required>
+                                        <option value="" selected hidden>-- Pilih Hari--</option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jumat">Jumat</option>
+                                        <option value="Sabtu">Sabtu</option>
+                                        <option value="Minggu">Minggu</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="mb-3">
                             <div class="row">
