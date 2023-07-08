@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_dosen;
+use App\Models\M_rel_dsn_kls;
+
 
 class Dosen extends BaseController
 {
@@ -82,6 +84,19 @@ class Dosen extends BaseController
 		];
 
 		return json_encode($data);
+	}
+
+	function data_historiWaldos($id = false){
+		$m_user = new M_user();
+
+		$m_rel_dsn_kls = new M_rel_dsn_kls();
+
+		$allData = $m_rel_dsn_kls->getHistoriWaldos($id);
+		$data = [
+			'data' => $allData
+		];
+		return json_encode($data);
+		
 	}
 
 	public function process_input()
