@@ -18,13 +18,13 @@ class Bap extends BaseController
         $m_user = new M_user();
 
         $account = $m_user->getAccount(session()->get('user_id'));
-        
+
         $data = [
-			'title' => 'Kelola BAP',
-			'usertype' => session()->get('user_type'),
-			'duser' => $account
+            'title' => 'Kelola BAP',
+            'usertype' => session()->get('user_type'),
+            'duser' => $account
         ];
-        
+
         return view('dosen/bap/matkul-list', $data);
     }
 
@@ -33,14 +33,14 @@ class Bap extends BaseController
         $m_user = new M_user();
 
         $account = $m_user->getAccount(session()->get('user_id'));
-        
+
         $data = [
-			'title' => 'Kelola BAP',
-			'usertype' => session()->get('user_type'),
-			'duser' => $account,
+            'title' => 'Kelola BAP',
+            'usertype' => session()->get('user_type'),
+            'duser' => $account,
             'jadwal_id' => $id
         ];
-        
+
         return view('dosen/bap/bap-list', $data);
     }
 
@@ -51,14 +51,14 @@ class Bap extends BaseController
 
         $account = $m_user->getAccount(session()->get('user_id'));
         $detail_bap = $m_bap->getDetailBapDosen($id)[0];
-        
+
         $data = [
-			'title' => 'Kelola BAP',
-			'usertype' => session()->get('user_type'),
-			'duser' => $account,
+            'title' => 'Kelola BAP',
+            'usertype' => session()->get('user_type'),
+            'duser' => $account,
             'detail_bap' => $detail_bap
         ];
-        
+
         return view('dosen/bap/bap-detail', $data);
     }
 
@@ -73,7 +73,7 @@ class Bap extends BaseController
             if (strpos($key, 'status_') === 0) {
                 $studentId = substr($key, strlen('status_'));
                 $status = $value;
-                
+
                 $data = [
                     'status' => $status,
                     'mahasiswaID' => $studentId,
@@ -96,13 +96,13 @@ class Bap extends BaseController
         };
 
         $alert = view(
-            'partials/notification-alert', 
+            'partials/notification-alert',
             [
                 'notif_text' => 'Kehadiran berhasil disubmit',
-                 'status' => 'success'
+                'status' => 'success'
             ]
         );
-        
+
         $notif = ['notif' => $alert];
         session()->setFlashdata($notif);
         return redirect()->back();
@@ -122,7 +122,7 @@ class Bap extends BaseController
             'data' => $list_matkul
         ];
 
-        return json_encode($data);        
+        return json_encode($data);
     }
 
     public function data_bap($jadwal_id = false)
@@ -145,7 +145,7 @@ class Bap extends BaseController
     {
         $m_mahasiswa = new M_mahasiswa();
         $list_mhs = $m_mahasiswa->getListMhsBap($id);
-        
+
         $data = [
             'data' => $list_mhs
         ];
@@ -170,13 +170,13 @@ class Bap extends BaseController
         $m_bap->insert($data);
 
         $alert = view(
-            'partials/notification-alert', 
+            'partials/notification-alert',
             [
                 'notif_text' => 'BAP berhasil dibuat',
-                 'status' => 'success'
+                'status' => 'success'
             ]
         );
-        
+
         $notif = ['notif' => $alert];
         session()->setFlashdata($notif);
         return redirect()->back();
@@ -186,16 +186,20 @@ class Bap extends BaseController
     {
         $m_kehadiran = new M_kehadiran();
 
-        $mahasiswaID = $this->request->getPost('studentId');
-        $bap_id = $this->request->getPost('bap_id');
+        $mahasiswaID = $_GET['studentId'];
+        $bap_id = $_GET['bap_id'];
 
         $status = $m_kehadiran->where('mahasiswaID', $mahasiswaID)
             ->where('bapID', $bap_id)
-            ->get()->getResult()[0]
-            ->status;
-
-        $data = ['status' => $status];
+            ->get()->getResult();
+        if (count($status) != 0) {
+            $jumlah = count($status)-1;
+            $data = ['status' => $status[$jumlah]->status];
+        }else{
+            $data = ['status' => "Kosong"];
+        }
         
+
         return json_encode($data);
 
     }

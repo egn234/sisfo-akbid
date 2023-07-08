@@ -299,7 +299,7 @@ $routes->group('dosen', static function ($routes) {
         $routes->get('detail-bap/(:num)', 'Dosen\Bap::detail_bap/$1', ['as' => 'bap-detail-dosen']);
         
         $routes->add('data-matkul', 'Dosen\Bap::data_matkul');
-        $routes->add('status-hadir', 'Dosen\Bap::get_status_kehadiran');
+        $routes->get('status-hadir', 'Dosen\Bap::get_status_kehadiran');
         $routes->add('data-bap/(:num)', 'Dosen\Bap::data_bap/$1', ['as' => 'data-bap-dosen']);
         $routes->add('data-mhs/(:num)', 'Dosen\Bap::data_mhs/$1', ['as' => 'data-mhs-dosen']);
 
