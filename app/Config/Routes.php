@@ -218,6 +218,20 @@ $routes->group('admin', static function ($routes) {
         $routes->add('acc-regis/(:num)', 'Admin\Registrasi::acc_regis/$1', ['as' => 'admin-acc-regis']);
         $routes->add('reset/(:num)', 'Admin\Registrasi::reset/$1', ['as' => 'admin-reset-regis']);
     });
+
+    //Kelola Nilai
+    $routes->group('nilai', static function ($routes) {
+        $routes->get('/', 'Admin\Nilai::index');
+        $routes->get('list-mhs/(:num)', 'Admin\Nilai::list_mhs/$1');
+        $routes->get('detail-nilai/(:num)', 'Admin\Nilai::detail_nilai/$1');
+        
+        $routes->post('submit-nilai', 'Admin\Nilai::submit_nilai');
+
+        $routes->add('edit-nilai', 'Admin\Nilai::edit_nilai');
+        $routes->add('data-kelas', 'Admin\Nilai::data_kelas');
+        $routes->add('data-mhs/(:num)', 'Admin\Nilai::data_mhs/$1');
+        $routes->add('data-nilai/(:num)', 'Admin\Nilai::data_nilai/$1');
+    });
 });
 
 //GROUP MAHASISWA

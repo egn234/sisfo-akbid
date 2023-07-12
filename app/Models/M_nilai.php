@@ -32,7 +32,8 @@ class M_nilai extends Model
   {
     $sql = "
       SELECT
-        a.nim, a.nama,
+        a.id, a.nim, a.nama,
+        c.matakuliahID,
         d.kodeDosen, d.nip, d.nama,
         e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
         f.kodeRuangan, f.namaRuangan,

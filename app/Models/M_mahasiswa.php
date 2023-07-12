@@ -79,5 +79,21 @@ class M_mahasiswa extends Model
       $db = db_connect();
       return $db->query($sql)->getResult();
     }
+
+    function getMhsKelas($id = false) 
+    {
+      $sql = "
+        SELECT 
+          a.id, a.nim, a.nama,
+          c.kodeKelas, c.angkatan, c.tahunAngkatan, c.flag
+        FROM tb_mahasiswa a
+          JOIN rel_mhs_kls b ON a.id = b.mahasiswaID
+          JOIN tb_kelas c ON c.id = b.kelasID
+        WHERE b.kelasID = $id
+      ";
+      
+      $db = db_connect();
+      return $db->query($sql)->getResult();
+    }
   }
 ?>

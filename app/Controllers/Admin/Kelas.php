@@ -224,6 +224,7 @@ class Kelas extends BaseController
         session()->setFlashdata('notif-dosen', $alert);
         return redirect()->back();
     }
+    
     public function remove_dosen_wali()
     {
         $m_rel_dsn_kls = new M_rel_dsn_kls();
@@ -343,6 +344,7 @@ class Kelas extends BaseController
         }
         return redirect()->back();
     }
+
     public function data_mhs_flag()
 	{
 		$m_user = new M_user();

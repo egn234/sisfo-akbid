@@ -43,8 +43,7 @@ class Nilai extends BaseController
     }
 
     function hitung_ipk($data_nilai) : array
-    {
-                
+    {           
         $sum_ipk = 0;
         $sum_sks = 0;
         foreach($data_nilai as $k){

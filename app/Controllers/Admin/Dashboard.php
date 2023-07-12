@@ -52,17 +52,4 @@ class Dashboard extends BaseController
         ];
         return view('admin/dashboard', $data);
     }
-
-    // public function data_mhs()
-    // {
-    //     $m_mahasiswa = new M_mahasiswa();
-    //     $list_mhs = $m_mahasiswa->select('tb_mahasiswa.*, tb_user.username AS username, tb_user.id AS user_id, flag')
-    //         ->join('tb_user', 'tb_user.id = tb_mahasiswa.userID')
-    //         ->orderBy('tb_mahasiswa.created_at', 'DESC')
-    //         ->get()
-    //         ->getResult();
-    //     $data = ['total_mhs' => count($list_mhs)];
-    // 	return json_encode($data);
-
-    // }
 }
