@@ -111,7 +111,7 @@ class Nilai extends BaseController
     {
         $m_nilai = new M_nilai();
         
-        $data_nilai = $m_nilai->getIndeksNilaiMhs($id);
+        $data_nilai = $m_nilai->getAllINM($id);
 
         $data = ['data' => $data_nilai];
 

@@ -59,6 +59,25 @@ class M_nilai extends Model
     return $db->query($sql)->getResult();
   }
 
+  function getAllINM($id = false)
+  {
+    $sql = "
+      SELECT
+        e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
+        IFNULL((SELECT h.nilaiUTS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiUTS,
+        IFNULL((SELECT h.nilaiUAS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiUAS,
+        IFNULL((SELECT h.nilaiPraktek FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiPraktek,
+        IFNULL((SELECT h.nilaiTugas FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiTugas,
+        IFNULL((SELECT h.nilaiKehadiran FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiKehadiran,
+        IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiAkhir,
+        IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), '-') AS indeksNilai
+      FROM tb_matakuliah e
+    ";
+    
+    $db = db_connect();
+    return $db->query($sql)->getResult();
+  }
+
   function getIndeksNilaiMhsNow($id)
   {
     $sql = "

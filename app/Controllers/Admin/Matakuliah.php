@@ -284,7 +284,7 @@ class Matakuliah extends BaseController
 				for ($i=2; $i <= $baris; $i++)
 				{
 					$kodeMatkul = $cell->getCell('B'.$i)->getValue();
-					$namaMatkul = $cell->getCell('C'.$i)->getValue();
+					$namaMatkul = strtoupper($cell->getCell('C'.$i)->getValue());
 					$deskripsi = $cell->getCell('D'.$i)->getValue();
 					$tingkat = $cell->getCell('E'.$i)->getValue();
 					$semester = $cell->getCell('F'.$i)->getValue();
