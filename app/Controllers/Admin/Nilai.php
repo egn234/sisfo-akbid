@@ -122,13 +122,11 @@ class Nilai extends BaseController
 	{
         $m_nilai = new M_nilai();
         $m_param_nilai = new M_param_nilai();
-        $m_kehadiran = new M_kehadiran();
 
         $mhs_id = $this->request->getPost('rowid');
         $matkul_id = $this->request->getPost('matkulId');
         
         $param_nilai = $m_param_nilai->getParamByMatkul($matkul_id)[0];
-        $kehadiran = $m_kehadiran->getSinglePresensi($mhs_id, $matkul_id);
 
         $cek_nilai = $m_nilai->select('COUNT(id) AS hitung')
             ->where('mahasiswaID', $mhs_id)
@@ -141,7 +139,6 @@ class Nilai extends BaseController
             'mhs_id' => $mhs_id,
             'matkul_id' => $matkul_id,
             'param_nilai' => $param_nilai,
-            'kehadiran' => $kehadiran,
             'flag' => $flag
         ];
         

@@ -64,6 +64,7 @@ class M_nilai extends Model
     $sql = "
       SELECT
         e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
+        e.id as matakuliahID,
         IFNULL((SELECT h.nilaiUTS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiUTS,
         IFNULL((SELECT h.nilaiUAS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiUAS,
         IFNULL((SELECT h.nilaiPraktek FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiPraktek,

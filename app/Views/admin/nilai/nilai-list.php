@@ -157,7 +157,7 @@
                         "title": "Aksi",
                         "render": function(data, type, row) {
                             let html = `
-                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editNilai" data-id="${row.id}" data-id2="${row.matakuliahID}">
+                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editNilai" data-id="${<?=$mhs_id?>}" data-id2="${row.matakuliahID}">
                                     <i class="fa fa-file-alt"></i>
                                 </a>
                             `
@@ -170,7 +170,7 @@
 
             $('#editNilai').on('show.bs.modal', function(e) {
                 var rowid = $(e.relatedTarget).data('id');
-                var matkulId = $(e.relatedTarget).data('id2')
+                var matkulId = $(e.relatedTarget).data('id2');
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>/admin/nilai/edit-nilai',
