@@ -61,7 +61,7 @@ class Nilai extends BaseController
             $sum_sks = $sum_sks + $k->sks;
         }
 
-        $ipk = $sum_ipk / $sum_sks;
+        $ipk = ($sum_ipk == 0 || $sum_sks == 0)? 0 :$sum_ipk / $sum_sks;
 
         $data = [
             'ipk' => $ipk,
