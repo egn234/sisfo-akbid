@@ -58,6 +58,7 @@ class Kuesioner extends BaseController
         $list_kuesioner = $m_kuesioner->select('tb_kuesioner.*, COUNT( tb_pertanyaan.id) AS jumlah_pertanyaan')
             ->join('tb_pertanyaan', 'tb_pertanyaan.kuesionerID = tb_kuesioner.id', 'left')
             ->where('tb_kuesioner.flag', 1)
+            ->groupBy('tb_kuesioner.id')
             ->get()
             ->getResult();
         $data = [
