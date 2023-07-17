@@ -291,7 +291,8 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>' +
+                        let button = 
+                        // '<a class="btn btn-sm btn-primary" href="' + base_url + 'admin/dosen/detail/' + row['user_id'] + '"> Detail </a>' +
                             '<a class="btn btn-sm btn-info" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-dayPut="' + row['day'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-ruanganPut="' + row['ruanganID'] + '" data-periodePut="' + row['periodeID'] + '" data-dosenPut="' + row['dosenID'] + '" data-matkulPut="' + row['matakuliahID'] + '" data-startTime="' + row['startTime'] + '" data-endTime="' + row['endTime'] + '" > Ubah </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchJadwal" data-id="' + data + '" data-name="' + row['namaMatkul'] + '" >Nonaktifkan</a>'

@@ -172,7 +172,7 @@
                 <form action="<?= base_url('admin/tahun-ajaran/switch-periode') ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="text" id="user_id" name="id_data" style="display: none;">
-                        <p>Ubah Status Data ini? <b id="nameUser"></b></p>
+                        <p>Aktifkan periode ini? <b id="nameUser"></b></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

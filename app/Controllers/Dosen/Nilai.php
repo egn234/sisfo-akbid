@@ -150,10 +150,10 @@ class Nilai extends BaseController
 
         if($nilaiTugas && $nilaiPraktek && $nilaiUTS && $nilaiUAS){
             
-            if($total >= 87.75){$indeksNilai = 'A';}
-            elseif($total >= 68.75){$indeksNilai = 'B';}
-            elseif($total >= 50){$indeksNilai = 'C';}
-            elseif($total >= 25){$indeksNilai = 'D';}
+            if($total >= 80){$indeksNilai = 'A';}
+            elseif($total >= 70){$indeksNilai = 'B';}
+            elseif($total >= 60){$indeksNilai = 'C';}
+            elseif($total >= 50){$indeksNilai = 'D';}
             elseif($total >= 0){$indeksNilai = 'E';}
 
             $data += [

@@ -80,7 +80,7 @@ class Nilai extends BaseController
         $mhs_id = $m_mahasiswa->where("userID", session()->get('user_id'))
             ->get()->getResult()[0]->id;
         
-        $data_nilai = $m_nilai->getIndeksNilaiMhs($mhs_id);
+        $data_nilai = $m_nilai->getAllINM($mhs_id);
 
         $data = ['data' => $data_nilai];
 

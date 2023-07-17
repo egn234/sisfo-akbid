@@ -68,6 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <?php if($list_matkul){?>
                                     <div class="col-md-12">
                                         Status: 
                                         <?php if ($list_matkul[0]->status_perwalian == 'waiting') {?>
@@ -81,6 +82,7 @@
                                             </a>
                                         </div>
                                     </div>
+                                    <?php }?>
                                 </div>
                             </div>
                         <?php }?>
