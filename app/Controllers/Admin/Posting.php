@@ -141,4 +141,22 @@ class Posting extends BaseController
         session()->setFlashdata('notif', $alert);
         return redirect()->to('admin/posting');
     }
+    public function detail_posting($id = false)
+    {
+        $m_user = new M_user();
+        $m_posting = new M_posting();
+        $account = $m_user->getAccount(session()->get('user_id'));
+        $list_posting = $m_posting->select('*')
+            ->where('id',$id)
+            ->get()
+            ->getResult();
+
+        $data = [
+            'title' => 'Daftar Posting',
+            'usertype' => session()->get('userType'),
+            'duser' => $account,
+            'list_posting' => $list_posting
+        ];
+        return view('admin/posting/detail-posting', $data);
+    }
 }

@@ -175,6 +175,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('posting', static function ($routes) {
         $routes->get('/', 'Admin\Posting::index');
         $routes->get('data_posting', 'Admin\Posting::data_posting');
+        $routes->get('detail/(:any)', 'Admin\Posting::detail_posting/$1');
 
         $routes->add('input-process', 'Admin\Posting::process_input');
         $routes->add('update-process', 'Admin\Posting::process_update');
