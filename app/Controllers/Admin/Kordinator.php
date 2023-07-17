@@ -34,7 +34,7 @@ class Kordinator extends BaseController
         $m_rel_dos_matkul_koor = new M_rel_dos_matkul_koor();
         $account = $m_user->getAccount(session()->get('user_id'));
 
-        $list_rel_dos_matkul_koor = $m_rel_dos_matkul_koor->select('tb_dosen.kodeDosen, tb_dosen.nama as namaDosen, tb_dosen.nip, tb_matakuliah.kodeMatkul, tb_matakuliah.namaMatkul, rel_dos_matkul_koor.id AS idKor')
+        $list_rel_dos_matkul_koor = $m_rel_dos_matkul_koor->select('tb_dosen.kodeDosen, tb_dosen.nama as namaDosen, tb_dosen.nip, tb_matakuliah.kodeMatkul, tb_matakuliah.tingkat, tb_matakuliah.namaMatkul, rel_dos_matkul_koor.id AS idKor')
             ->join('tb_dosen', 'tb_dosen.id = rel_dos_matkul_koor.dosenID', 'left')
             ->join('tb_matakuliah', 'tb_matakuliah.id = rel_dos_matkul_koor.matakuliahID', 'left')
             ->get()

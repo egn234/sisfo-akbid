@@ -24,10 +24,10 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Daftar Kordinator Mata Kuliah
+                            Daftar Koordinator Mata Kuliah
                             <div class="btn-group float-end">
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
-                                    Tambah Kordinator
+                                    Tambah Koordinator
                                 </button>
                             </div>
                         </div>

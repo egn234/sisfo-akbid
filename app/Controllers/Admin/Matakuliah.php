@@ -308,7 +308,7 @@ class Matakuliah extends BaseController
 						];
 
 						$m_matkul->insert($matkul);
-
+						
 					}else{
 						$err_count++;
 					}

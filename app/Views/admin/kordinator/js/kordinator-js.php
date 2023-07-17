@@ -55,6 +55,10 @@
                 data: "namaMatkul"
             },
             {
+                title: 'Tingkat',
+                data: "tingkat"
+            },
+            {
                 title: 'Kode Dosen',
                 data: 'kodeDosen'
             },
