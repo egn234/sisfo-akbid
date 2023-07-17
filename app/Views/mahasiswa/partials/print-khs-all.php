@@ -29,7 +29,7 @@
 
         @media print {
             @page {
-                size: landscape;
+                size: portrait;
             }
             
             hr {

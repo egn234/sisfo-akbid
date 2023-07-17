@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <img src="<?php echo base_url('uploads/post').'/'.$list_posting[0]->attachment ?>" width="400" class="img-fluid img-thumbnail rounded mx-auto d-block" alt="Responsive image">
+                                    <img src="<?php echo base_url('uploads/posts').'/'.$list_posting[0]->attachment ?>" width="400" class="img-fluid img-thumbnail rounded mx-auto d-block" alt="Responsive image">
                                 </div>
                                 <div class="col-lg-8">
                                     <h4 class="text-center"><?= $list_posting[0]->judul ?></h4>
