@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?= $this->include('mahasiswa/partials/partial-head') ?>
+    <?= $this->include('admin/partials/partial-head') ?>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/datatables/datatables.min.css" />
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
@@ -10,10 +10,10 @@
 
 <body class="sb-nav-fixed">
 
-    <?= $this->include('mahasiswa/partials/partial-topbar') ?>
+    <?= $this->include('admin/partials/partial-topbar') ?>
 
     <div id="layoutSidenav">
-        <?= $this->include('mahasiswa/partials/partial-sidebar') ?>
+        <?= $this->include('admin/partials/partial-sidebar') ?>
 
         <div id="layoutSidenav_content">
             <main>
@@ -31,13 +31,14 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4">
+                                    <?php //print_r($list_posting[0]->attachment)?>
                                     <img src="<?php echo base_url('uploads/posts').'/'.$list_posting[0]->attachment ?>" width="400" class="img-fluid img-thumbnail rounded mx-auto d-block" alt="Responsive image">
                                 </div>
                                 <div class="col-lg-8">
                                     <h4 class="text-center"><?= $list_posting[0]->judul ?></h4>
                                     <div class="form-group">
                                         <label >Deskripsi</label>
-                                        <textarea class="form-control ckeditor3" id="deskripsi" rows="12" readonly><?= $list_posting[0]->deskripsi ?></textarea>
+                                        <textarea class="form-control ckeditor1" id="deskripsi" rows="12" readonly><?= $list_posting[0]->deskripsi ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -50,11 +51,11 @@
     </div>
 
 
-    <?= $this->include('mahasiswa/partials/partial-footer') ?>
+    <?= $this->include('admin/partials/partial-footer') ?>
 
     <script type="text/javascript" src="<?= base_url() ?>/assets/datatables/datatables.min.js"></script>
     <!-- Datatable with ajax load -->
-    <?= $this->include('mahasiswa/posting/js/posting-js') ?>
+    <?= $this->include('admin/posting/js/posting-js') ?>
 </body>
 
 </html>
