@@ -131,4 +131,5 @@ nb-configuration.xml
 
 # Misc
 public/uploads/*
+public/img/*
 env
