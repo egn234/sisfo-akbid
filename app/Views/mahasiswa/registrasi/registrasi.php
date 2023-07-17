@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 Total SKS yang diambil: <span id="total-sks"></span><br><br>
-                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#reqRegis">Ajukan Persetujuan Dosen Wali</a>
+                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#reqRegis">Ajukan Persetujuan Registrasi</a>
                             </div>
                             <div class="card-body <?= ($cekRegis == 0) ? 'd-none' : '' ?>">
                                 <div class="d-block w-100">

@@ -1,8 +1,6 @@
 <script>
     let dataArr = []
     $(document).ready(function() {
-
-
         const availableTable = $('#available-items').DataTable({
             ajax: {
                 url: '<?= base_url() ?>mahasiswa/registrasi/data-jadwal',
