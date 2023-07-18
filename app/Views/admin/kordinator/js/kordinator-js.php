@@ -65,18 +65,6 @@
             {
                 title: 'Nama Dosen',
                 data: 'namaDosen'
-            },
-            {
-                title: "Aksi",
-                data: "idKor",
-                render: function(data, type, row, full) {
-                    if (type === 'display') {
-                        let html
-                        html = '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['namaMatkul'] + ' - ' + row['namaDosen'] + '" >Hapus</a>'
-                        return html
-                    }
-                    return data
-                }
             }
         ],
         "responsive": true,
