@@ -171,8 +171,8 @@
                                     checked = (status === statusHadir) ? 'checked' : '';
                                 }
                                 radioHtml += `
-                                    <input type="radio" class="btn-check" id="opt_${i}" name="status_${row.id}" value="${status}" ${checked}/>
-                                    <label class="btn btn-sm btn-outline-secondary" for="opt_${i}">
+                                    <input type="radio" class="btn-check" id="opt_${i}${row.id}" name="status_${row.id}" value="${status}" ${checked}/>
+                                    <label class="btn btn-sm btn-outline-secondary" for="opt_${i}${row.id}">
                                     ${status}
                                     </label>
                                 `;
