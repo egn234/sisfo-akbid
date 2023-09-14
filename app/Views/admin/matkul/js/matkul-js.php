@@ -27,6 +27,7 @@
         $('#sksPut').val($(x).attr('data-sks'))
         $('#tingkatPut').val($(x).attr('data-tingkat'))
         $('#semesterPut').val($(x).attr('data-semester'))
+        $('#prodiPut').val($(x).attr('data-prodiPut'))
 
         ckEditor.setData($(x).attr('data-deskripsiPut'))
 
@@ -103,7 +104,7 @@
                         } else {
                             htmlFlag = '<a class="btn btn-success btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchFlag" data-id="' + data + '" data-name="' + row['namaMatkul'] + '">Aktifkan</a>'
                         }
-                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaMatkul'] + '" data-kodePut="' + row['kodeMatkul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-sks="' + row['sks'] + '" data-tingkat="' + row['tingkat'] + '" data-semester="' + row['semester'] + '" >Ubah</a>' +
+                        html = '<a class="btn btn-primary btn-sm" onclick="updateData(this)" data-bs-toggle="modal" data-bs-target="#updateData" data-idPut="' + data + '" data-namePut="' + row['namaMatkul'] + '" data-kodePut="' + row['kodeMatkul'] + '" data-deskripsiPut="' + row['deskripsi'] + '" data-sks="' + row['sks'] + '" data-tingkat="' + row['tingkat'] + '" data-semester="' + row['semester'] + '" data-prodiPut="' + row['prodiID'] + '" >Ubah</a>' +
                             '<a class="btn btn-danger btn-sm" onclick="deleteData(this)" data-bs-toggle="modal" data-bs-target="#delData" data-idDel="' + data + '" data-nameDel="' + row['namaMatkul'] + '" >Hapus</a>'
                         return alignment + grouping + html + htmlFlag + close_group + close_group
                     }
@@ -115,34 +116,7 @@
         "autoWidth": false,
         "scrollX": true,
     });
-
-    // $.ajax({
-    //     url: "<?= base_url() ?>/admin/matkul/data_matkul",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_matkul']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
+    
     $('#switchMahasiswa').on('show.bs.modal', function(e) {
         var rowid = $(e.relatedTarget).data('id');
         $.ajax({

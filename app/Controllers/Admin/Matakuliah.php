@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 
 use App\Models\M_user;
 use App\Models\M_matkul;
+use App\Models\M_prodi;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Dompdf\Dompdf;
@@ -16,12 +17,16 @@ class Matakuliah extends BaseController
 	public function index()
 	{
 		$m_user = new M_user();
+		$m_prodi = new M_prodi();
 		$account = $m_user->getAccount(session()->get('user_id'));
+
+		$list_prodi = $m_prodi->get()->getResult();
 
 		$data = [
 			'title' => 'Daftar Mata Kuliah',
 			'usertype' => 'Admin',
-			'duser' => $account
+			'duser' => $account,
+			'list_prodi' => $list_prodi
 		];
 
 		return view('admin/matkul/list-matkul', $data);
@@ -57,6 +62,7 @@ class Matakuliah extends BaseController
 		$tingkat = $this->request->getPost('tingkat');
 		$semester = $this->request->getPost('semester');
 		$sks = $this->request->getPost('sks');
+		$prodi = $this->request->getPost('prodi');
 
 		$cek_kode = $m_matkul->select('COUNT(id) AS hitung')
 			->where('kodeMatkul', $kodeMatkul)
@@ -108,7 +114,8 @@ class Matakuliah extends BaseController
 			'deskripsi' => $deskripsi,
 			'tingkat' => $tingkat,
 			'semester' => $semester,
-			'sks' => $sks
+			'sks' => $sks,
+			'prodiID' => $prodi
 		];
 
 		$m_matkul->insert($data);
@@ -153,6 +160,7 @@ class Matakuliah extends BaseController
 		$tingkat = $this->request->getPost('tingkat');
 		$semester = $this->request->getPost('semester');
 		$sks = $this->request->getPost('sks');
+		$prodi = $this->request->getPost('prodi');
 
 		$cek_kode = $m_matkul->select('COUNT(id) AS hitung')
 			->where('kodeMatkul', $kodeMatkul)
@@ -205,7 +213,8 @@ class Matakuliah extends BaseController
 			'deskripsi' => $deskripsi,
 			'tingkat' => $tingkat,
 			'semester' => $semester,
-			'sks' => $sks
+			'sks' => $sks,
+			'prodiID' => $prodi
 		];
 
 		$m_matkul->set($data)->where('id', $id)->update();
@@ -285,10 +294,11 @@ class Matakuliah extends BaseController
 				{
 					$kodeMatkul = $cell->getCell('B'.$i)->getValue();
 					$namaMatkul = strtoupper($cell->getCell('C'.$i)->getValue());
-					$deskripsi = $cell->getCell('D'.$i)->getValue();
-					$tingkat = $cell->getCell('E'.$i)->getValue();
-					$semester = $cell->getCell('F'.$i)->getValue();
-					$sks = $cell->getCell('G'.$i)->getValue();
+					$prodi = $cell->getCell('D'.$i)->getValue();
+					$deskripsi = $cell->getCell('E'.$i)->getValue();
+					$tingkat = $cell->getCell('F'.$i)->getValue();
+					$semester = $cell->getCell('G'.$i)->getValue();
+					$sks = $cell->getCell('H'.$i)->getValue();
 
 					$cek_kodematkul = $m_matkul->select('COUNT(id) as hitung')
 						->where('kodeMatkul', $kodeMatkul)
@@ -304,7 +314,8 @@ class Matakuliah extends BaseController
 							'tingkat' => $tingkat,
 							'semester' => $semester,
 							'sks' => $sks,
-							'flag' => 1
+							'flag' => 1,
+							'prodiID' => $prodi
 						];
 
 						$m_matkul->insert($matkul);

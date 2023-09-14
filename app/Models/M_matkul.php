@@ -16,7 +16,8 @@ class M_matkul extends Model
       'sks',
       'tingkat',
       'semester',
-      'flag'
+      'flag',
+      'prodiID'
     ];
 
     protected $returnType = 'array';

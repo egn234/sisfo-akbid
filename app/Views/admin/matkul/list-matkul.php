@@ -67,6 +67,14 @@
                             <input type="text" class="form-control" name="kodeMatkul" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label" for="prodi">PROGRAM STUDI <span class="text-danger">*</span></label>
+                            <select id="prodi" class="form-select" name="prodi" required>
+                                <?php foreach($list_prodi as $a){?>
+                                    <option value="<?=$a->id?>"><?=$a->strata.' '.$a->nama_prodi?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">NAMA MATA KULIAH</label>
                             <input type="text" class="form-control" name="namaMatkul" required>
                         </div>
@@ -121,6 +129,14 @@
                             <label class="form-label">KODE MATA KULIAH</label>
                             <input type="text" class="form-control" name="idPut" id="idPut" style="display:none;">
                             <input type="text" class="form-control" name="kodeMatkul" id="kodePut" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prodiPut">PROGRAM STUDI <span class="text-danger">*</span></label>
+                            <select id="prodiPut" class="form-select" name="prodi" required>
+                                <?php foreach($list_prodi as $a){?>
+                                    <option value="<?=$a->id?>"><?=$a->strata.' '.$a->nama_prodi?></option>
+                                <?php }?>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">NAMA MATA KULIAH</label>

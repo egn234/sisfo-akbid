@@ -27,7 +27,8 @@ class M_mahasiswa extends Model
       'kontakWali',
       'foto',
       'statusAkademik',
-      'userID'
+      'userID',
+      'prodiID'
     ];
 
     protected $returnType = 'array';

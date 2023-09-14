@@ -4,23 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_dosen extends Model
+class M_prodi extends Model
 {
-    protected $table      = 'tb_dosen';
+    protected $table      = 'tb_prodi';
     protected $primaryKey = 'id';
     
     protected $allowedFields = [
-      'kodeDosen',
-      'nip',
-      'nama',
-      'jenisKelamin',
-      'nik',
-      'alamat',
-      'email',
-      'kontak',
-      'foto',
-      'userID',
-      'prodiID'
+      'strata',
+      'nama_prodi',
+      'deskripsi',
+      'flag'
     ];
 
     protected $returnType = 'array';

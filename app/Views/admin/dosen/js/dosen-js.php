@@ -32,6 +32,32 @@
                 e.preventDefault();
             }
         });
+         
+        // Function to fetch lecturers via AJAX
+        function fetchProdi() {
+            $.ajax({
+                url: '<?= base_url()?>/admin/dosen/data_prodi', // Replace with your CI4 route
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Populate the <select> element with the received data
+                    var select = $('#prodi');
+                    select.empty(); // Clear existing options
+
+                    $.each(data, function (index, list_prodi) {
+                        select.append($('<option>', {
+                            value: list_prodi.id,
+                            text: list_prodi.strata +' '+  list_prodi.nama_prodi
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        fetchProdi();
     })
 
     let dataTable
@@ -95,8 +121,7 @@
                         let alignment = '<div class="d-flex justify-content-center">'
                         let open_group = '<div class="btn-group">'
                         let base_url = "<?= base_url() ?>"
-                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>' +
-                            '<a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateData" onclick="updateData(this)" data-idPut="' + data + '" data-namePut="' + row['nama'] + '" data-nipPut="' + row['nip'] + '" data-nikPut="' + row['nik'] + '" data-kodeDosenPut="' + row['kodeDosen'] + '" data-jenisKelaminPut="' + row['jenisKelamin'] + '" data-alamatPut="' + row['alamat'] + '" data-emailPut="' + row['email'] + '" data-kontakPut="' + row['kontak'] + '" > Ubah </a>'
+                        let button = '<a class="btn btn-sm btn-primary" href="' + base_url + '/admin/dosen/detail/' + row['user_id'] + '"> Detail </a>'
                         if (row['flag'] == 1) {
                             html = '<a class="btn btn-danger btn-sm" onclick="switchFlag(this)" data-bs-toggle="modal" data-bs-target="#switchDosen" data-id="' + row['user_id'] + '" data-name="' + row['nama'] + '" >Nonaktifkan</a>'
                         } else {
@@ -113,42 +138,4 @@
         "autoWidth": false,
         "scrollX": true,
     });
-    // $.ajax({
-    //     url: "<?= base_url() ?>/admin/dosen/data_dosen",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_dosen']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
-    // $('#switchMahasiswa').on('show.bs.modal', function(e) {
-    //     var rowid = $(e.relatedTarget).data('id');
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '<?= base_url() ?>/admin/mahasiswa/switch-mhs',
-    //         data: 'rowid=' + rowid,
-    //         success: function(data) {
-    //             $('.fetched-data').html(data);
-    //         }
-    //     });
-    // });
 </script>

@@ -175,13 +175,20 @@
                                                         <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?= $detail_dosen->nik ?>" name="nik" readonly>
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label class="form-label">KODE DOSEN <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" name="kode_dosen" value="<?= $detail_dosen->kodeDosen ?>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="prodi">PROGRAM STUDI <span class="text-danger">*</span></label>
+                                                        <select id="prodi" class="form-select" name="prodi" required></select>
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                                                         <select class="form-select" name="jenisKelamin" required>
                                                             <option value="L" <?= ($detail_dosen->jenisKelamin == 'L') ? 'selected' : '' ?>>Laki-Laki</option>
                                                             <option value="P" <?= ($detail_dosen->jenisKelamin == 'P') ? 'selected' : '' ?>>Perempuan</option>
                                                         </select>
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="alamat" value="<?= $detail_dosen->alamat ?>" required>
@@ -304,7 +311,34 @@
             ],
             responsive: true,
         });
+                
+        // Function to fetch lecturers via AJAX
+        function fetchProdi() {
+            $.ajax({
+                url: '<?= base_url()?>/admin/dosen/data_prodi', // Replace with your CI4 route
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Populate the <select> element with the received data
+                    var select = $('#prodi');
+                    select.empty(); // Clear existing options
 
+                    $.each(data, function (index, list_prodi) {
+                        select.append($('<option>', {
+                            value: list_prodi.id,
+                            text: list_prodi.strata +' '+  list_prodi.nama_prodi
+                        }));
+                    });
+                    // Set the selected option based on the student's lecturer_id
+                    select.val(<?= $detail_dosen->prodiID ?>);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        fetchProdi();
         table.draw();
     </script>
 

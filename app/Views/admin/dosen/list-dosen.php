@@ -74,6 +74,10 @@
                             <input type="text" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" name="nik" value="<?= session()->getFlashdata('nik') ?>" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label" for="prodi">PROGRAM STUDI <span class="text-danger">*</span></label>
+                            <select id="prodi" class="form-select" name="prodi" required></select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">KODE DOSEN <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" maxlength="3" name="kodeDosen" value="<?= session()->getFlashdata('kodeDosen') ?>" required>
                         </div>
@@ -113,81 +117,6 @@
                             <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" name="password2" required>
                         </div>
-                        <span class="text-xs text-danger">
-                            <i>*Tidak boleh dikosongkan</i>
-                        </span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="updateData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="<?= base_url('admin/dosen/input-process') ?>" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="idPut" id="idPut" style="display: none;">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">NAMA <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nama" id="namePut" value="<?= session()->getFlashdata('nama') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">NIP <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control numeric-input" name="nip" id="nipPut" value="<?= session()->getFlashdata('nip') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">NIK <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="nikPut" min="1000000000000000" max="9999999999999999" name="nik" value="<?= session()->getFlashdata('nik') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KODE DOSEN <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" maxlength="3" name="kodeDosen" id="kodeDosenPut" value="<?= session()->getFlashdata('kodeDosen') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
-                            <select class="form-select" name="jenisKelamin" id="jenisKelaminPut" required>
-                                <option value="" selected>--Pilih Jenis Kelamin--</option>
-                                <option value="L" <?= (session()->getFlashdata('jenisKelamin') == 'L') ? 'selected' : '' ?>>Laki-Laki</option>
-                                <option value="P" <?= (session()->getFlashdata('jenisKelamin') == 'P') ? 'selected' : '' ?>>Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="alamat" id="alamatPut" value="<?= session()->getFlashdata('alamat') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">EMAIL <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" name="email" id="emailPut" value="<?= session()->getFlashdata('email') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">KONTAK <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control numeric-input" name="kontak" id="kontakPut" value="<?= session()->getFlashdata('kontak') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">FOTO DOSEN (.jpg)</label>
-                            <input class="form-control" type="file" name="fileUpload" id="formFile" accept=" image/jpeg">
-                        </div>
-                        <!-- <div class="mb-3">
-                            <label class="form-label">USERNAME <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">PASSWORD <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" name="password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">RE-TYPE PASSWORD <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" name="password2" required>
-                        </div> -->
                         <span class="text-xs text-danger">
                             <i>*Tidak boleh dikosongkan</i>
                         </span>

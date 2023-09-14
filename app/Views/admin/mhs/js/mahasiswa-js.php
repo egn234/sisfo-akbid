@@ -3,6 +3,7 @@
         $('#user_id').val($(x).attr('data-id'))
         $('#nameUser').text($(x).attr('data-name'))
     }
+
     $(document).ready(function() {
         $('.numeric-input').keydown(function(e) {
             // Allow: backspace, delete, tab, escape, enter and .
@@ -19,6 +20,32 @@
                 e.preventDefault();
             }
         });
+        
+        // Function to fetch lecturers via AJAX
+        function fetchProdi() {
+            $.ajax({
+                url: '<?= base_url()?>/admin/mahasiswa/data_prodi', // Replace with your CI4 route
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Populate the <select> element with the received data
+                    var select = $('#prodi');
+                    select.empty(); // Clear existing options
+
+                    $.each(data, function (index, list_prodi) {
+                        select.append($('<option>', {
+                            value: list_prodi.id,
+                            text: list_prodi.strata +' '+  list_prodi.nama_prodi
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        fetchProdi();
     })
 
     let dataTable
@@ -103,31 +130,4 @@
         "scrollX": true,
     });
 
-    // $.ajax({
-    //     url: "<?= base_url() ?>/admin/mahasiswa/data_mhs",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_mhs']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
 </script>

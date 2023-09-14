@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 use App\Models\M_user;
 use App\Models\M_dosen;
 use App\Models\M_rel_dsn_kls;
+use App\Models\M_prodi;
 
 
 class Dosen extends BaseController
@@ -86,6 +87,14 @@ class Dosen extends BaseController
 		return json_encode($data);
 	}
 
+	public function data_prodi()
+	{
+		$m_prodi = new M_prodi();
+		$list_prodi = $m_prodi->get()->getResult();
+
+		return $this->response->setJSON($list_prodi);
+	}
+
 	function data_historiWaldos($id = false){
 		$m_user = new M_user();
 
@@ -107,10 +116,13 @@ class Dosen extends BaseController
 		$options = [
 			'cost' => 12
 		];
+
 		$name = $this->request->getPost('nama');
+		$name = is_string($name) ? strtoupper($name) : $name;
 		$kodeDosen = $this->request->getPost('kodeDosen');
 		$nip = $this->request->getPost('nip');
 		$nik = $this->request->getPost('nik');
+		$prodi = $this->request->getPost('prodi');
 		$jenisKelamin = $this->request->getPost('jenisKelamin');
 		$email = $this->request->getPost('email');
 		$kontak = $this->request->getPost('kontak');
@@ -124,6 +136,7 @@ class Dosen extends BaseController
 			'nip'=>$nip,
 			'kodeDosen'=>$kodeDosen,
 			'nik'=>$nik,
+			'prodiID' => $prodi,
 			'jenisKelamin'=>$jenisKelamin,
 			'email'=>$email,
 			'kontak'=>$kontak,
@@ -131,6 +144,7 @@ class Dosen extends BaseController
 			'email'=>$email,
 			'userType' => 'dosen'
 		];
+
 		$foto = $this->request->getFile('fileUpload');
 		if($jenisKelamin == ""){
 			$alert = view(
@@ -244,7 +258,6 @@ class Dosen extends BaseController
 		$dataset_mhs = ['notif' => $alert];
 		session()->setFlashdata($dataset_mhs);
 		return redirect()->back();
-		
 	}
 
 	public function update_pass($iduser = false)
@@ -308,11 +321,13 @@ class Dosen extends BaseController
 		->join('tb_dosen', 'tb_user.id = tb_dosen.userID')
 		->get()->getResult()[0];
 
-		$kodeDosen = $this->request->getPost('kodeDosen');
+		$kodeDosen = $this->request->getPost('kode_dosen');
 		$nip = $this->request->getPost('nip');
 		$nama = $this->request->getPost('nama');
+		$nama = is_string($nama) ? strtoupper($nama) : $nama;
 		$jenisKelamin = $this->request->getPost('jenisKelamin');
 		$nik = $this->request->getPost('nik');
+		$prodi = $this->request->getPost('prodi');
 		$alamat = $this->request->getPost('alamat');
 		$email = $this->request->getPost('email');
 		$kontak = $this->request->getPost('kontak');
@@ -323,10 +338,12 @@ class Dosen extends BaseController
 			'nip' => $nip,
 			'jenisKelamin' => $jenisKelamin,
 			'nik' => $nik,
+			'prodiID' => $prodi,
 			'alamat' => $alamat,
 			'email' => $email,
 			'kontak' => $kontak
 		];
+
 		$foto = $this->request->getFile('fileUpload');
 		if($jenisKelamin == ""){
 			$alert = view(
@@ -427,14 +444,16 @@ class Dosen extends BaseController
 				{
 
 					$options = ['cost' => 12];
-					$username = $cell->getCell('J'.$i)->getValue();
+					$username = $cell->getCell('K'.$i)->getValue();
 					$nip = $cell->getCell('C'.$i)->getValue();
 					$nama = $cell->getCell('D'.$i)->getValue();
+					$nama = is_string($nama) ? strtoupper($nama) : $nama;
 					$jenis_kelamin = $cell->getCell('E'.$i)->getValue();
 					$nik = $cell->getCell('F'.$i)->getValue();
-					$alamat = $cell->getCell('G'.$i)->getValue();
-					$email = $cell->getCell('H'.$i)->getValue();
-					$kontak = $cell->getCell('I'.$i)->getValue();
+					$prodi = $cell->getCell('G'.$i)->getValue();
+					$alamat = $cell->getCell('H'.$i)->getValue();
+					$email = $cell->getCell('I'.$i)->getValue();
+					$kontak = $cell->getCell('J'.$i)->getValue();
 					$kodeDosen = $cell->getCell('B'.$i)->getValue();
 
 					$cek_username = $m_user->select('COUNT(id) as hitung')
@@ -483,7 +502,8 @@ class Dosen extends BaseController
 								'kontak' => $kontak,
 								'foto' => 'image.jpg',
 								'kodeDosen'=> $kodeDosen,
-								'userID' => $last_id
+								'userID' => $last_id,
+								'prodiID' => $prodi
 							];
 
 							$m_dosen->insert($dosen);

@@ -65,6 +65,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('update-password/(:num)', 'Admin\Mahasiswa::update_pass/$1', ['as' => 'update-pass-mahasiswa-1']);
 
         $routes->get('data_mhs', 'Admin\Mahasiswa::data_mhs');
+        $routes->get('data_prodi', 'Admin\Mahasiswa::data_prodi');
         $routes->get('detail/(:num)', 'Admin\Mahasiswa::detail/$1', ['as' => 'detail-mahasiswa-1']);
         $routes->get('data_nilai/(:num)', 'Admin\Mahasiswa::data_nilai/$1');
 
@@ -74,6 +75,7 @@ $routes->group('admin', static function ($routes) {
     $routes->group('dosen', static function ($routes) {
         $routes->get('/', 'Admin\Dosen::index');
         $routes->get('data_dosen', 'Admin\Dosen::data_dosen');
+        $routes->get('data_prodi', 'Admin\Dosen::data_prodi');
         $routes->get('data_history/(:num)', 'Admin\Dosen::data_historiWaldos/$1');
         $routes->get('detail/(:num)', 'Admin\Dosen::detail/$1', ['as' => 'detail-dosen-1']);
 

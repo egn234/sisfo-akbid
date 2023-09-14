@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'      => '',
         'hostname' => 'localhost',
         'username' => 'root',
-        'password' => '',
+        'password' => 'mysql234',
         'database' => 'sisfo_akbid',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',

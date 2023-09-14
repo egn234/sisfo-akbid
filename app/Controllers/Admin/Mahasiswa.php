@@ -9,6 +9,7 @@ use App\Controllers\BaseController;
 use App\Models\M_user;
 use App\Models\M_mahasiswa;
 use App\Models\M_nilai;
+use App\Models\M_prodi;
 
 
 class Mahasiswa extends BaseController
@@ -86,6 +87,14 @@ class Mahasiswa extends BaseController
 		return json_encode($data);
 	}
 
+	public function data_prodi()
+	{
+		$m_prodi = new M_prodi();
+		$list_prodi = $m_prodi->get()->getResult();
+
+		return $this->response->setJSON($list_prodi);
+	}
+
 	public function data_mhs_flag()
 	{
 		$m_user = new M_user();
@@ -151,8 +160,10 @@ class Mahasiswa extends BaseController
 		];
 
 		$nama = $this->request->getPost('nama');
+		$nama = is_string($nama) ? strtoupper($nama) : $nama;
 		$nim = $this->request->getPost('nim');
 		$nik = $this->request->getPost('nik');
+		$prodi = $this->request->getPost('prodi');
 		$jenisKelamin = $this->request->getPost('jenisKelamin');
 		$tempatLahir = $this->request->getPost('tempatLahir');
 		$tanggalLahir = $this->request->getPost('tanggalLahir');
@@ -186,7 +197,8 @@ class Mahasiswa extends BaseController
 			'namaWali' => $namaWali,
 			'kontakWali' => $kontakWali,
 			'statusAkademik' => 'aktif',
-			'userType' => 'mahasiswa'
+			'userType' => 'mahasiswa',
+			'prodiID' => $prodi
 		];
 
 		$foto = $this->request->getFile('fileUpload');
@@ -196,6 +208,20 @@ class Mahasiswa extends BaseController
 				'partials/notification-alert', 
 				[
 					'notif_text' => 'Pilih Jenis Kelamin terlebih dahulu',
+				 	'status' => 'warning'
+				]
+			);
+			
+			$dataset_mhs += ['notif' => $alert];
+			session()->setFlashdata($dataset_mhs);
+			return redirect()->back();
+		}
+		
+		if($prodi == ""){
+			$alert = view(
+				'partials/notification-alert', 
+				[
+					'notif_text' => 'Pilih Prodi terlebih dahulu',
 				 	'status' => 'warning'
 				]
 			);
@@ -327,6 +353,8 @@ class Mahasiswa extends BaseController
 		->get()->getResult()[0];
 
 		$nama = $this->request->getPost('nama');
+		$nama = is_string($nama) ? strtoupper($nama) : $nama;
+		$prodi = $this->request->getPost('prodi');
 		$jenisKelamin = $this->request->getPost('jenisKelamin');
 		$tempatLahir = $this->request->getPost('tempatLahir');
 		$tanggalLahir = $this->request->getPost('tanggalLahir');
@@ -343,6 +371,7 @@ class Mahasiswa extends BaseController
 
 		$dataset_mhs = [
 			'nama' => $nama,
+			'prodiID' => $prodi,
 			'jenisKelamin' => $jenisKelamin,
 			'tempatLahir' => $tempatLahir,
 			'tanggalLahir' => $tanggalLahir,
@@ -475,25 +504,27 @@ class Mahasiswa extends BaseController
 				for ($i=2; $i <= $baris; $i++)
 				{
 					$options = ['cost' => 12];
-					$username = $cell->getCell('T'.$i)->getValue();
+					$username = $cell->getCell('U'.$i)->getValue();
 					$nim = $cell->getCell('B'.$i)->getValue();
 					$nama = $cell->getCell('C'.$i)->getValue();
+					$nama = is_string($nama) ? strtoupper($nama) : $nama;
 					$jenis_kelamin = $cell->getCell('D'.$i)->getValue();
 					$nik = $cell->getCell('E'.$i)->getValue();
-					$tempat_lahir = $cell->getCell('F'.$i)->getValue();
-					$tanggal_lahir = $cell->getCell('G'.$i)->getValue();
-					$alamat = $cell->getCell('H'.$i)->getValue();
-					$email = $cell->getCell('I'.$i)->getValue();
-					$kontak = $cell->getCell('J'.$i)->getValue();
-					$namaIbu = $cell->getCell('K'.$i)->getValue();
-					$nikIbu = $cell->getCell('L'.$i)->getValue();
-					$kontakIbu = $cell->getCell('M'.$i)->getValue();
-					$namaAyah = $cell->getCell('N'.$i)->getValue();
-					$nikAyah = $cell->getCell('O'.$i)->getValue();
-					$kontakAyah = $cell->getCell('P'.$i)->getValue();
-					$namaWali = $cell->getCell('Q'.$i)->getValue();
-					$nikWali = $cell->getCell('R'.$i)->getValue();
-					$kontakWali = $cell->getCell('S'.$i)->getValue();
+					$prodi = $cell->getCell('F'.$i)->getValue();
+					$tempat_lahir = $cell->getCell('G'.$i)->getValue();
+					$tanggal_lahir = $cell->getCell('H'.$i)->getValue();
+					$alamat = $cell->getCell('I'.$i)->getValue();
+					$email = $cell->getCell('J'.$i)->getValue();
+					$kontak = $cell->getCell('K'.$i)->getValue();
+					$namaIbu = $cell->getCell('L'.$i)->getValue();
+					$nikIbu = $cell->getCell('M'.$i)->getValue();
+					$kontakIbu = $cell->getCell('N'.$i)->getValue();
+					$namaAyah = $cell->getCell('O'.$i)->getValue();
+					$nikAyah = $cell->getCell('P'.$i)->getValue();
+					$kontakAyah = $cell->getCell('Q'.$i)->getValue();
+					$namaWali = $cell->getCell('R'.$i)->getValue();
+					$nikWali = $cell->getCell('S'.$i)->getValue();
+					$kontakWali = $cell->getCell('T'.$i)->getValue();
 
 					$cek_username = $m_user->select('COUNT(id) as hitung')
 						->where('username', $username)
@@ -535,6 +566,7 @@ class Mahasiswa extends BaseController
 								'nama' => $nama,
 								'jenisKelamin' => $jenis_kelamin,
 								'nik' => $nik,
+								'prodiID' => $prodi,
 								'tempatLahir' => $tempat_lahir,
 								'tanggalLahir' => $tanggal_lahir,
 								'alamat' => $alamat,
@@ -624,6 +656,7 @@ class Mahasiswa extends BaseController
 			return redirect()->back();
 		}
 	}
+
 	public function data_nilai($user_id = false)
     {
         $m_user = new M_user();

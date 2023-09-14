@@ -73,6 +73,10 @@
                             <input type="number" class="form-control" id="nik" min="1000000000000000" max="9999999999999999" value="<?=session()->getFlashdata('nik')?>" name="nik" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label" for="prodi">PROGRAM STUDI <span class="text-danger">*</span></label>
+                            <select id="prodi" class="form-select" name="prodi" required></select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">JENIS KELAMIN <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenisKelamin" required>
                                 <option value="L" <?=(session()->getFlashdata('JenisKelamin') == 'L')?'selected':''?>>Laki-Laki</option>
@@ -90,7 +94,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">ALAMAT <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="alamat" value="<?=session()->getFlashdata('alamat')?>" required>
