@@ -90,7 +90,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="pb-1">
+                                                    <div class="row">
+                                                        <div class="col-xl-2">
+                                                            <div>
+                                                                Program Studi:
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl">
+                                                            <div class="text-muted">
+                                                                <?=$detail_dosen->strata .' '.$detail_dosen->nama_prodi?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="py-1">
                                                     <div class="row">
                                                         <div class="col-xl-2">
