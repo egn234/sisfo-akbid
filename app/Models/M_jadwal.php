@@ -59,7 +59,7 @@ class M_jadwal extends Model
       return $this->db->query($sql)->getResult();
     }
     
-    function getJadwalRegistrasiMhs($id = false)
+    function getJadwalRegistrasiMhs($id = false, $prodiID)
     {
       $sql = "
         SELECT 
@@ -80,6 +80,7 @@ class M_jadwal extends Model
           JOIN tb_dosen d ON a.dosenID = d.id
           JOIN tb_ruangan e ON a.ruanganID = e.id
         WHERE b.flag = 1
+          AND c.prodiID = ".$prodiID."
           AND a.id NOT IN (SELECT jadwalID FROM rel_mhs_jad zz WHERE zz.mahasiswaID = ".$id.")
         ORDER BY b.tahunPeriode DESC
       ";

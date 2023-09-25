@@ -28,7 +28,7 @@ class M_rel_mhs_jad extends Model
       $this->db = db_connect();
     }
 
-    function getJadwalMhs($id = false)
+    function getJadwalMhs($id = false, $prodiID)
     {
         $sql = "
             SELECT 
@@ -45,6 +45,7 @@ class M_rel_mhs_jad extends Model
                 JOIN tb_matakuliah f ON c.matakuliahID = f.id
             WHERE b.userID = ". $id ."
                 AND d.flag = 1
+                AND f.prodiID = ". $prodiID. "
         ";
 
         return $this->db->query($sql)->getResult();

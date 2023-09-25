@@ -126,6 +126,15 @@ $routes->group('admin', static function ($routes) {
         $routes->add('switch-periode', 'Admin\Tahunajaran::flag_switch');
     });
 
+    $routes->group('prodi', static function ($routes) {
+        $routes->get('/', 'Admin\Prodi::index');
+        $routes->get('data-prodi', 'Admin\Prodi::data_prodi');
+        $routes->add('input-process', 'Admin\Prodi::process_input');
+        $routes->add('update-process', 'Admin\Prodi::process_update');
+        $routes->add('delete-process', 'Admin\Prodi::process_delete');
+        $routes->add('switch-periode', 'Admin\Prodi::flag_switch');
+    });
+
     // Kelola Kelas
     $routes->group('kelas', static function ($routes) {
         $routes->get('/', 'Admin\Kelas::index');

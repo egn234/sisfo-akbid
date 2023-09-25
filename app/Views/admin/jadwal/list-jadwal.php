@@ -79,19 +79,11 @@
                 <form action="<?= base_url('admin/jadwal/input-process') ?>" class="w-100" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <label class="form-label">TAHUN AJARAN</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <select class="form-select" name="periodeID" id="periode-list" style="width: 100%;" required>
-                                        <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
-                                        <!-- Load From Ajax -->
-                                    </select>
-                                </div>
-                            </div>
+                            <label class="form-label">TAHUN AJARAN</label>
+                            <select class="form-select" name="periodeID" id="periode-list" style="width: 100%;" required>
+                                <option value="" selected hidden>-- Pilih Tahun Ajaran --</option>
+                                <!-- Load From Ajax -->
+                            </select>
                         </div>
                         <div class="mb-3">
                             <div class="row">
@@ -201,7 +193,6 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label class="form-label">TAHUN AJARAN</label>
-
                                 </div>
                             </div>
                             <div class="row">

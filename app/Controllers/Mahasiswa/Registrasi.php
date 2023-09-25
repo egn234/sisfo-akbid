@@ -47,7 +47,7 @@ class registrasi extends BaseController
         $m_rel_mhs_jad = new M_rel_mhs_jad();
         $account = $m_user->getAccount(session()->get('user_id'));
 
-        $list_jadwal = $m_rel_mhs_jad->getJadwalMhs($account->user_id);
+        $list_jadwal = $m_rel_mhs_jad->getJadwalMhs($account->user_id, $account->prodiID);
         $data = [
             'title' => 'Jadwal',
             'usertype' => session()->get('userType'),
@@ -69,7 +69,7 @@ class registrasi extends BaseController
             ->get()->getResult()[0]
             ->id;
 
-        $list_jadwal = $m_jadwal->getJadwalRegistrasiMhs($mahasiswaID);
+        $list_jadwal = $m_jadwal->getJadwalRegistrasiMhs($mahasiswaID, $account->prodiID);
         $data = [
             'title' => 'Jadwal',
             'usertype' => session()->get('userType'),

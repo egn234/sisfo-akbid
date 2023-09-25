@@ -226,7 +226,7 @@ class Tahunajaran extends BaseController
         $alert = view(
             'partials/notification-alert',
             [
-                'notif_text' => 'Tahun Ajaran berhasil ditambahkan',
+                'notif_text' => 'Tahun Ajaran berhasil diubah',
                 'status' => 'success'
             ]
         );

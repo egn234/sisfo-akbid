@@ -47,10 +47,13 @@ class Mahasiswa extends BaseController
 				tb_user.id AS user_id, 
 				tb_user.flag AS user_flag,
 				tb_user.userType, 
-				tb_mahasiswa.*
+				tb_mahasiswa.*,
+				tb_prodi.strata,
+				tb_prodi.nama_prodi
 			')
 			->where('tb_user.id', $iduser)
 			->join('tb_mahasiswa', 'tb_user.id = tb_mahasiswa.userID')
+			->join('tb_prodi', 'tb_prodi.id = tb_mahasiswa.prodiID')
 			->get()->getResult();
 
 		$data = [

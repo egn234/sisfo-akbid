@@ -40,6 +40,9 @@
                                                 <td><?=$detail_mhs->nama?></td>
                                             </tr>
                                             <tr>
+                                                <td><?=$detail_mhs->strata.' '.$detail_mhs->nama_prodi?></td>
+                                            </tr>
+                                            <tr>
                                                 <td><?=$detail_mhs->kontak?></td>
                                             </tr>
                                             <tr>

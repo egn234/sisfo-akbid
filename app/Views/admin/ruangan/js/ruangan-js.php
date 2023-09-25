@@ -26,7 +26,6 @@
         console.log($(x).attr('data-deskripsiPut'));
         console.log(ckEditor);
         ckEditor.setData($(x).attr('data-deskripsiPut'))
-
     }
 
     ClassicEditor
@@ -37,7 +36,6 @@
         .catch(error => {
             console.error(error);
         });
-
 
     let dataTable
     // Data Table

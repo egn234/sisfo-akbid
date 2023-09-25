@@ -85,7 +85,7 @@
                         render: function(data, type, row) {
                             var hasil = 0;
                             if (row.jum_perkuliahan != 0){
-                                hasil = (row.jum_perkuliahan / row.jum_kehadiran) * 100;
+                                hasil = (row.jum_kehadiran / row.jum_perkuliahan) * 100;
                             }
                             return hasil + "%";
                         }

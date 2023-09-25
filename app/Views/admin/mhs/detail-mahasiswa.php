@@ -40,6 +40,9 @@
                                                 <td>NIM: <?= $detail_mhs->nim ?></td>
                                             </tr>
                                             <tr>
+                                                <td><?=$detail_mhs->strata.' '.$detail_mhs->nama_prodi?></td>
+                                            </tr>
+                                            <tr>
                                                 <td>No. Telp: <?= $detail_mhs->kontak ?></td>
                                             </tr>
                                             <tr>
