@@ -16,7 +16,7 @@ class Prodi extends BaseController
         $account = $m_user->getAccount(session()->get('user_id'));
 
         $data = [
-            'title'     => 'Daftar Program Studi',
+            'title'     => 'Daftar Prodi',
             'usertype'  => 'Admin',
             'duser'     => $account
         ];
@@ -33,7 +33,7 @@ class Prodi extends BaseController
 
         $list_prodi = $m_prodi->get()->getResult();
         $data = [
-            'title'     => 'Daftar Program Studi',
+            'title'     => 'Daftar Prodi',
             'list_prodi' => $list_prodi
         ];
 

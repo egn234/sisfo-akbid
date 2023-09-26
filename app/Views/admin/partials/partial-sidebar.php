@@ -24,8 +24,9 @@
                                 Kelola Perkuliahan
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?= ($title == 'Daftar Mata Kuliah' || $title == 'Kelola Nilai' || $title == 'Daftar Ruangan' || $title == 'Daftar Tahun Ajaran' || $title == 'Daftar Kelas' || $title == 'Kelola Registrasi Matkul') ? 'show' : '' ?>" id="kelolaPerkuliahan" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?= ($title == 'Daftar Prodi' || $title == 'Daftar Mata Kuliah' || $title == 'Kelola Nilai' || $title == 'Daftar Ruangan' || $title == 'Daftar Tahun Ajaran' || $title == 'Daftar Kelas' || $title == 'Kelola Registrasi Matkul') ? 'show' : '' ?>" id="kelolaPerkuliahan" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link <?= ($title == 'Daftar Prodi') ? 'active' : '' ?>" href="<?= url_to('admin/prodi') ?>">Program Studi</a>
                                     <a class="nav-link <?= ($title == 'Daftar Tahun Ajaran') ? 'active' : '' ?>" href="<?= url_to('admin/tahun-ajaran') ?>">Tahun Ajaran</a>
                                     <a class="nav-link <?= ($title == 'Daftar Mata Kuliah') ? 'active' : '' ?>" href="<?= url_to('admin/matkul') ?>">Mata Kuliah</a>
                                     <a class="nav-link <?= ($title == 'Daftar Kelas') ? 'active' : '' ?>" href="<?= url_to('admin/kelas') ?>">Kelas</a>

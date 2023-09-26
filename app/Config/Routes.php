@@ -126,6 +126,7 @@ $routes->group('admin', static function ($routes) {
         $routes->add('switch-periode', 'Admin\Tahunajaran::flag_switch');
     });
 
+    // Kelola Prodi
     $routes->group('prodi', static function ($routes) {
         $routes->get('/', 'Admin\Prodi::index');
         $routes->get('data-prodi', 'Admin\Prodi::data_prodi');
