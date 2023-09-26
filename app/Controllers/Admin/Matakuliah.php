@@ -264,6 +264,9 @@ class Matakuliah extends BaseController
 
 	public function import_matkul()
 	{
+		$m_matkul = new M_matkul();
+		$m_prodi = new M_prodi();
+		
 		$file = $this->request->getFile('file_import');
 
 		if ($file->isValid())
@@ -282,11 +285,11 @@ class Matakuliah extends BaseController
 			$spreadsheet = $reader->load($filepath);
 			$err_count = 0;
 			$baris_proc = 0;
+			
+			$nonExistentProdi = [];
 
 			foreach($spreadsheet->getWorksheetIterator() as $cell)
 			{
-				$m_matkul = new M_matkul();
-
 				$baris = $cell->getHighestRow();
 				$kolom = $cell->getHighestColumn();
 
@@ -300,12 +303,35 @@ class Matakuliah extends BaseController
 					$semester = $cell->getCell('G'.$i)->getValue();
 					$sks = $cell->getCell('H'.$i)->getValue();
 
+					// Check and process "prodi"
+					list($strata, $nama_prodi) = explode(' ', $prodi, 2);
+
+					$cek_prodi = $m_prodi->select('COUNT(id) as hitung')
+						->where('nama_prodi', $nama_prodi)
+						->where('strata', $strata)
+						->get()->getResult()[0]
+						->hitung;
+
+					if ($cek_prodi == 0) {
+						// "prodi" doesn't exist, add it to the error array
+						if (!in_array($prodi, $nonExistentProdi)) {
+							$nonExistentProdi[] = $prodi;
+						}
+						$err_count++;
+						continue; // Skip this entry
+					}
+
 					$cek_kodematkul = $m_matkul->select('COUNT(id) as hitung')
 						->where('kodeMatkul', $kodeMatkul)
 						->get()->getResult()[0]
 						->hitung;
 
 					if ($cek_kodematkul == 0) {
+						
+						$prodiID = $m_prodi->where('strata', $strata)
+							->where('nama_prodi', $nama_prodi)
+							->get()->getResult()[0]
+							->id;
 
 						$matkul = [
 							'kodeMatkul' => $kodeMatkul,
@@ -315,7 +341,7 @@ class Matakuliah extends BaseController
 							'semester' => $semester,
 							'sks' => $sks,
 							'flag' => 1,
-							'prodiID' => $prodi
+							'prodiID' => $prodiID
 						];
 
 						$m_matkul->insert($matkul);
@@ -327,6 +353,28 @@ class Matakuliah extends BaseController
 				}
 			}
 			$total_count = $baris_proc - $err_count;
+
+			if (!empty($nonExistentProdi)) {
+				// Generate an error message for nonexistent "prodi" names
+				$error_message = 'Error: The following "prodi" names do not exist in the database:<br>';
+				
+				foreach ($nonExistentProdi as $prodi) {
+					$error_message .= '- ' . $prodi . '<br>';
+				}
+	
+				// Include the list of nonexistent "prodi" names in the error message
+				$alert = view(
+					'partials/notification-alert', 
+					[
+						'notif_text' => $error_message,
+						'status' => 'danger'
+					]
+				);
+	
+				$data_session = [
+					'notif' => $alert
+				];
+			}
 
 			if ($err_count > 0 && $total_count != 0) {
 				$alert = view(
