@@ -13,3 +13,4 @@
         <script src="<?php echo base_url('assets') ?>/js/jquery/jquery.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>/favicon.ico">

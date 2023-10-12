@@ -15,3 +15,4 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <link rel="stylesheet" href="<?php echo base_url('assets') ?>/timetable/dist/styles/timetablejs.css">
         <script src="<?php echo base_url('assets') ?>/timetable/dist/scripts/timetable.js"></script>
+        <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>/favicon.ico">
