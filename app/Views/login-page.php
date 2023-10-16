@@ -33,11 +33,11 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center mt-3">
-                                        <img src="<?= base_url('') ?>/img/akbid_logo_t.png" class="img-fluid" style="width:200px">
+                                        <img src="<?= base_url('') ?>/img/ikbis_logo.png" class="img-fluid" style="width:200px">
                                     </div>
                                     <h4 class="text-center font-weight-light my-4">
                                         Sistem Informasi Akademik<br>
-                                        Annisa Jaya
+                                        Annisa
                                     </h4>
                                     <p class="text-center font-weight-light my-4" style="font-size: 20px;">
                                         Login
@@ -67,7 +67,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Akademi Kebidanan Annisa Jaya <img src="<?= base_url('') ?>/img/akbid_logo_t.png" width="25" alt=""></div>
+                        <div class="text-muted">Copyright &copy; Akademi Kebidanan Annisa Jaya <img src="<?= base_url('') ?>/img/ikbis_logo_t.png" width="25" alt=""></div>
                         <!-- <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
