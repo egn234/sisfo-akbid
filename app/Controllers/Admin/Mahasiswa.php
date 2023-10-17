@@ -17,15 +17,9 @@ class Mahasiswa extends BaseController
 	public function index()
 	{
 		$m_user = new M_user();
-		$m_mahasiswa = new M_mahasiswa();
 		// $account = $m_user->where('id', session()->get('user_id'))->first();
 		$account = $m_user->getAccount(session()->get('user_id'));
 
-		$list_mhs = $m_mahasiswa->select('tb_mahasiswa.*, tb_user.username AS username, tb_user.id AS user_id, flag')
-			->join('tb_user', 'tb_user.id = tb_mahasiswa.userID')
-			->orderBy('tb_mahasiswa.created_at', 'DESC')
-			->get()
-			->getResult();
 		$data = [
 			'title' => 'Daftar Mahasiswa',
 			'usertype' => 'Admin',
@@ -38,7 +32,6 @@ class Mahasiswa extends BaseController
 	public function detail($iduser = false)
 	{
 		$m_user = new M_user();
-		$m_mahasiswa = new M_mahasiswa();
 		$account = $m_user->getAccount(session()->get('user_id'));
 
 		$detail_mhs = $m_user->select('
@@ -71,7 +64,6 @@ class Mahasiswa extends BaseController
 	{
 		$m_user = new M_user();
 		$m_mahasiswa = new M_mahasiswa();
-		// $account = $m_user->where('id', session()->get('user_id'))->first();
 		$account = $m_user->getAccount(session()->get('user_id'));
 
 		$list_mhs = $m_mahasiswa->select('tb_mahasiswa.*, tb_user.username AS username, tb_user.id AS user_id, flag')
@@ -474,218 +466,6 @@ class Mahasiswa extends BaseController
 		return redirect()->back();
 	}
 
-	// public function import_mhs()
-	// {
-	// 	$m_user = new M_user();
-	// 	$m_mahasiswa = new M_mahasiswa();
-	// 	$m_prodi = new M_prodi();
-		
-	// 	$file = $this->request->getFile('file_import');
-
-	// 	if ($file->isValid())
-	// 	{
-	// 		$ext = $file->guessExtension();
-	// 		$filepath = WRITEPATH . 'uploads/' . $file->store();
-
-	// 		if ($ext == 'csv') {
-	// 			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-	// 		}elseif($ext == 'xls' || $ext == 'xlsx') {
-	// 			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-	// 		}
-
-	// 		$reader->setReadDataOnly(true);
-	// 		$reader->setReadEmptyCells(false);
-	// 		$spreadsheet = $reader->load($filepath);
-	// 		$err_count = 0;
-	// 		$baris_proc = 0;
-
-	// 		$nonExistentProdi = [];
-
-	// 		foreach($spreadsheet->getWorksheetIterator() as $cell)
-	// 		{
-	// 			$baris = $cell->getHighestRow();
-	// 			$kolom = $cell->getHighestColumn();
-
-	// 			for ($i=2; $i <= $baris; $i++)
-	// 			{
-	// 				$options = ['cost' => 12];
-	// 				$username = $cell->getCell('U'.$i)->getValue();
-	// 				$nik = $cell->getCell('E'.$i)->getValue();
-	// 				$nim = $cell->getCell('B'.$i)->getValue();
-					
-	// 				$cek_username = $m_user->select('COUNT(id) as hitung')
-	// 					->where('username', $username)
-	// 					->get()->getResult()[0]
-	// 					->hitung;
-
-	// 				if ($cek_username == 0) {
-	// 					$cek_nim = $m_mahasiswa->select('COUNT(id) as hitung')
-	// 						->where('nim', $nim)
-	// 						->get()->getResult()[0]
-	// 						->hitung;
-	// 					$cek_nik = $m_mahasiswa->select('COUNT(id) as hitung')
-	// 						->where('nik', $nik)
-	// 						->get()->getResult()[0]
-	// 						->hitung;
-
-	// 					if ($cek_nik == 0 && $cek_nim == 0) {
-	// 						$user = [
-	// 							'username' => $username,
-	// 							'password' => password_hash($username, PASSWORD_BCRYPT, $options),
-	// 							'flag' => "1",
-	// 							'userType' => 'mahasiswa'
-	// 						];
-
-	// 						$prodi = $cell->getCell('F'.$i)->getValue();
-
-	// 						list($strata, $nama_prodi) = explode(' ', $prodi, 2);
-
-	// 						// Check if the "prodi" exists in the database
-	// 						$cek_prodi = $m_prodi->select('COUNT(id) as hitung')
-	// 							->where('nama_prodi', $nama_prodi)
-	// 							->where('strata', $strata)
-	// 							->get()->getResult()[0]
-	// 							->hitung;
-
-	// 						if ($cek_prodi == 0) {
-
-	// 							// "prodi" doesn't exist, add it to the error array
-	// 							if (!in_array($prodi, $nonExistentProdi)) {
-	// 								$nonExistentProdi[] = $prodi;
-	// 							}
-
-	// 						} else {	
-	// 							$m_user->insert($user);
-	// 							$last_id = $m_user->orderBy('id', 'DESC')->get()->getResult()[0]->id;
-								
-	// 							helper('filesystem');
-	// 							$imgSource = FCPATH . 'assets/images/users/image.jpg';
-
-	// 							mkdir(FCPATH . 'uploads/user/'.$username, 0777);
-	// 							mkdir(FCPATH . 'uploads/user/'.$username.'/profil_pic', 0777);
-								
-	// 							$imgDest = FCPATH . 'uploads/user/'.$username.'/profil_pic/image.jpg';
-	// 							copy($imgSource, $imgDest);
-			
-	// 							$mahasiswa = [
-	// 								'nim' => $nim,
-	// 								'nama' => strtoupper((string) $cell->getCell('C'.$i)->getValue()),
-	// 								'jenisKelamin' => $cell->getCell('D'.$i)->getValue(),
-	// 								'nik' => $nik,
-	// 								'prodiID' => $prodi,
-	// 								'tempatLahir' => $cell->getCell('G'.$i)->getValue(),
-	// 								'tanggalLahir' => $cell->getCell('H'.$i)->getValue(),
-	// 								'alamat' => $cell->getCell('I'.$i)->getValue(),
-	// 								'email' => $cell->getCell('J'.$i)->getValue(),
-	// 								'kontak' => $cell->getCell('K'.$i)->getValue(),
-	// 								'namaIbu' => $cell->getCell('L'.$i)->getValue(),
-	// 								'nikIbu' => $cell->getCell('M'.$i)->getValue(),
-	// 								'kontakIbu' => $cell->getCell('N'.$i)->getValue(),
-	// 								'namaAyah' => $cell->getCell('O'.$i)->getValue(),
-	// 								'nikAyah' => $cell->getCell('P'.$i)->getValue(),
-	// 								'kontakAyah' => $cell->getCell('Q'.$i)->getValue(),
-	// 								'namaWali' => $cell->getCell('R'.$i)->getValue(),
-	// 								'nikWali' => $cell->getCell('S'.$i)->getValue(),
-	// 								'kontakWali' => $cell->getCell('T'.$i)->getValue(),
-	// 								'foto' => 'image.jpg',
-	// 								'statusAkademik' => 'aktif',
-	// 								'userID' => $last_id
-	// 							];
-
-	// 							$m_mahasiswa->insert($mahasiswa);
-	// 						}
-	// 					}else{
-	// 						$err_count++;
-	// 					}
-	// 				}else{
-	// 					$err_count++;
-	// 				}
-	// 				$baris_proc++;
-	// 			}
-	// 		}
-	// 		$total_count = $baris_proc - $err_count;
-
-	// 		if (!empty($nonExistentProdi)) {
-	// 			// Generate an error message grouped by "prodi"
-	// 			$error_message = 'Error: The following "prodi" names do not exist in the database:<br>';
-				
-	// 			foreach ($nonExistentProdi as $prodi) {
-	// 				$error_message .= '- ' . $prodi . '<br>';
-	// 			}
-			
-	// 			// Create an alert for the error
-	// 			$alert = view(
-	// 				'partials/notification-alert',
-	// 				[
-	// 					'notif_text' => $error_message,
-	// 					'status' => 'danger'
-	// 				]
-	// 			);
-			
-	// 			$data_session = [
-	// 				'notif' => $alert
-	// 			];
-	// 		}
-			
-	// 		if ($err_count > 0 && $total_count != 0) {
-	// 			$alert = view(
-	// 				'partials/notification-alert', 
-	// 				[
-	// 					'notif_text' => 'Berhasil mengimpor beberapa data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
-	// 				 	'status' => 'warning'
-	// 				]
-	// 			);
-				
-	// 			$data_session = [
-	// 				'notif' => $alert
-	// 			];
-	// 		}
-	// 		elseif ($err_count == $baris_proc) {
-	// 			$alert = view(
-	// 				'partials/notification-alert', 
-	// 				[
-	// 					'notif_text' => 'Gagal mengimpor data user ('.($total_count).' berhasil, '.$err_count.' gagal)',
-	// 				 	'status' => 'danger'
-	// 				]
-	// 			);
-				
-	// 			$data_session = [
-	// 				'notif' => $alert
-	// 			];	
-	// 		}
-	// 		elseif ($err_count == 0) {
-	// 			$alert = view(
-	// 				'partials/notification-alert', 
-	// 				[
-	// 					'notif_text' => 'Berhasil mengimpor data user ('.$total_count.' berhasil, '.$err_count.' gagal)',
-	// 				 	'status' => 'success'
-	// 				]
-	// 			);
-				
-	// 			$data_session = [
-	// 				'notif' => $alert
-	// 			];
-	// 		}
-				
-	// 		unlink($filepath);
-	// 		session()->setFlashdata($data_session);
-	// 		return redirect()->back();
-			
-	// 	}else {
-	// 		$alert = view(
-	// 			'partials/notification-alert', 
-	// 			[
-	// 				'notif_text' => 'Upload gagal',
-	// 			 	'status' => 'danger'
-	// 			]
-	// 		);
-			
-	// 		$dataset = ['notif' => $alert];
-	// 		session()->setFlashdata($dataset);
-	// 		return redirect()->back();
-	// 	}
-	// }
-
 	public function import_mhs()
 	{
 		$m_user = new M_user();
@@ -770,7 +550,7 @@ class Mahasiswa extends BaseController
 								'nik' => $nik,
 								'prodiID' => $prodiID,
 								'tempatLahir' => $cell->getCell('G'.$i)->getValue(),
-								'tanggalLahir' => $cell->getCell('H'.$i)->getValue(),
+								'tanggalLahir' => date('Y-m-d', strtotime($cell->getCell('H'.$i)->getValue())),
 								'alamat' => $cell->getCell('I'.$i)->getValue(),
 								'email' => $cell->getCell('J'.$i)->getValue(),
 								'kontak' => $cell->getCell('K'.$i)->getValue(),

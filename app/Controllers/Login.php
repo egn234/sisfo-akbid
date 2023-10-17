@@ -9,7 +9,7 @@ class Login extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'LOGIN'
+            'title' => 'SIAKAD - LOGIN'
         ];
         return view('login-page', $data);
     }
@@ -70,7 +70,7 @@ class Login extends BaseController
         $data = [
             'title' => 'LOGIN'
         ];
-        return view('login-page', $data);
+        return redirect()->to('/');
     }
 
     function testing()

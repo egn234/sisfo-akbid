@@ -151,7 +151,6 @@ $routes->group('admin', static function ($routes) {
         $routes->get('data_mhs_flag', 'Admin\Kelas::data_mhs_flag');
 
         // Dosen wali Kelas
-
         $routes->add('add_dosen_wali', 'Admin\Kelas::add_dosen_wali');
         $routes->add('remove_dosen_wali', 'Admin\Kelas::remove_dosen_wali');
 
