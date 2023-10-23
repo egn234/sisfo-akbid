@@ -73,6 +73,7 @@ class M_nilai extends Model
         IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), 0) AS nilaiAkhir,
         IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = $id), '-') AS indeksNilai
       FROM tb_matakuliah e
+      where e.prodiID = (select z.prodiID from tb_mahasiswa z where z.id = $id)
     ";
     
     $db = db_connect();
@@ -99,6 +100,7 @@ class M_nilai extends Model
         JOIN tb_matakuliah e ON c.matakuliahID = e.id
         JOIN tb_periode g on c.periodeID = g.id
       WHERE a.id = $id
+      AND e.prodiID = (select z.prodiID from tb_mahasiswa z where z.id = $id)
       AND g.flag = 1
     ";
 
