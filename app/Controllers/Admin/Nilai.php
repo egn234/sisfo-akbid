@@ -118,7 +118,7 @@ class Nilai extends BaseController
 					$prodi = $cell->getCell('D'.$i)->getValue();
 					$kodeMatkul = $cell->getCell('E'.$i)->getValue();
 					$namaMatkul = $cell->getCell('F'.$i)->getValue();
-					$sks = $cell->getCell('G'.$i)->getValue();
+					$nilai_akhir = (float) $cell->getCell('G'.$i)->getValue();
 					$indeks = $cell->getCell('H'.$i)->getValue();
 					
             		list($strata, $nama_prodi) = explode(' ', $prodi, 2);
@@ -170,6 +170,7 @@ class Nilai extends BaseController
                             'mahasiswaID' => $mahasiswaID,
                             'matakuliahID' => $matakuliahID,
                             'indeksNilai' => $indeks,
+                            'nilaiAkhir' => $nilai_akhir,
                             'nilaiKehadiran' => 0,
                             'nilaiPraktek' => 0,
                             'nilaiTugas' => 0,

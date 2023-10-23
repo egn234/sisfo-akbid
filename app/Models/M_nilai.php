@@ -32,27 +32,14 @@ class M_nilai extends Model
   {
     $sql = "
       SELECT
-        a.id, a.nim, a.nama,
-        c.matakuliahID,
-        d.kodeDosen, d.nip, d.nama,
-        e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
-        f.kodeRuangan, f.namaRuangan,
-        g.tahunPeriode, g.flag as status_periode,
-        IFNULL((SELECT h.nilaiUTS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiUTS,
-        IFNULL((SELECT h.nilaiUAS FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiUAS,
-        IFNULL((SELECT h.nilaiPraktek FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiPraktek,
-        IFNULL((SELECT h.nilaiTugas FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiTugas,
-        IFNULL((SELECT h.nilaiKehadiran FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiKehadiran,
-        IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiAkhir,
-        IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), '-') AS indeksNilai
-      FROM tb_mahasiswa a
-        JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
-        JOIN tb_jadwal c ON b.jadwalID = c.id
-        JOIN tb_dosen d ON c.dosenID = d.id
-        JOIN tb_matakuliah e ON c.matakuliahID = e.id
-        JOIN tb_ruangan f ON c.ruanganID = f.id
-        JOIN tb_periode g on c.periodeID = g.id
-      WHERE a.id = $id
+        b.id,
+        a.nim, a.nama,
+        b.nilaiAkhir, b.nilaiKehadiran, b.nilaiPraktek, b.nilaiTugas, b.nilaiUAS, b.nilaiUTS, b.indeksNilai,
+        c.kodeMatkul, c.namaMatkul, c.sks
+        FROM tb_mahasiswa a
+          JOIN tb_nilai_matkul b ON a.id = b.mahasiswaID
+          JOIN tb_matakuliah c ON b.matakuliahID = c.id
+        WHERE a.id = $id
     ";
 
     $db = db_connect();
@@ -111,21 +98,18 @@ class M_nilai extends Model
   function getAllKHS($mhs_id = false){
     $sql = "
       SELECT
-        id, kodeMatkul, namaMatkul, sks, tingkat, semester, tahunPeriode, nilaiAkhir, indeksNilai,
+        id, kodeMatkul, namaMatkul, sks, nilaiAkhir, indeksNilai,
         ROW_NUMBER() OVER (ORDER BY id) as mhs_sem
       FROM (
-        SELECT
-          e.kodeMatkul, e.namaMatkul, e.sks, e.tingkat, e.semester,
-          g.tahunPeriode, g.flag as status_periode, g.id,
-          IFNULL((SELECT h.nilaiAkhir FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), 0) AS nilaiAkhir,
-          IFNULL((SELECT h.indeksNilai FROM tb_nilai_matkul h WHERE h.matakuliahID = e.id AND h.mahasiswaID = a.id), '-') AS indeksNilai
+      SELECT
+        b.id,
+        a.nim, a.nama,
+        b.nilaiAkhir, b.nilaiKehadiran, b.nilaiPraktek, b.nilaiTugas, b.nilaiUAS, b.nilaiUTS, b.indeksNilai,
+        c.kodeMatkul, c.namaMatkul, c.sks
         FROM tb_mahasiswa a
-          JOIN rel_mhs_jad b ON a.id = b.mahasiswaID
-          JOIN tb_jadwal c ON b.jadwalID = c.id
-          JOIN tb_matakuliah e ON c.matakuliahID = e.id
-          JOIN tb_periode g on c.periodeID = g.id
+          JOIN tb_nilai_matkul b ON a.id = b.mahasiswaID
+          JOIN tb_matakuliah c ON b.matakuliahID = c.id
         WHERE a.id = $mhs_id
-        ORDER BY g.id ASC
       ) AS subquery
     ";
 

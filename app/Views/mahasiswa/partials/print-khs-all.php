@@ -88,7 +88,7 @@
         <table border="1" width="100%" class="table table-bordered table-sm" style="font-size:14px">
             <thead>
                 <tr>
-                    <th>Semester</th>
+                    <th>No.</th>
                     <th>Kode Mata Kuliah</th>
                     <th>Mata Kuliah</th>
                     <th>SKS</th>
