@@ -30,10 +30,16 @@
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
                                     Tambah Kelas
                                 </button>
+                                <button data-bs-toggle="modal" data-bs-target="#importNilai" class="btn btn-sm btn-success">
+                                    Import data nilai
+                                </button>
                             </div>
                         </div>
                         <div class="card-body">
                             <?= session()->getFlashdata('notif') ?>
+                            <?= session()->getFlashdata('notif_1') ?>
+                            <?= session()->getFlashdata('notif_2') ?>
+                            <?= session()->getFlashdata('notif_3') ?>
                             <table id="dataTable" class="table table-bordered table-sm">
                                 <!-- Load From ajax -->
                             </table>
@@ -43,6 +49,26 @@
             </main>
             <?= $this->include('partials/footer') ?>
 
+        </div>
+    </div>
+
+    <div id="importNilai" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload file</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?= base_url('admin/nilai/import-nilai') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="file" class="form-control" id="file_import" name="file_import" accept=".xlsx, .xls, .csv" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Unggah</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

@@ -239,6 +239,7 @@ $routes->group('admin', static function ($routes) {
         
         $routes->post('submit-nilai', 'Admin\Nilai::submit_nilai');
 
+        $routes->add('import-nilai', 'Admin\Nilai::import_nilai');
         $routes->add('edit-nilai', 'Admin\Nilai::edit_nilai');
         $routes->add('data-kelas', 'Admin\Nilai::data_kelas');
         $routes->add('data-mhs/(:num)', 'Admin\Nilai::data_mhs/$1');
