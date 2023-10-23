@@ -311,34 +311,6 @@
         "scrollX": true,
     });
 
-    // $.ajax({
-    //     url: "<?= base_url() ?>/admin/jadwal/data-jadwal",
-    //     type: "get"
-    // }).done(function(result) {
-    //     try {
-    //         var data = jQuery.parseJSON(result);
-    //         dataTable.clear().draw();
-    //         dataTable.rows.add(data['list_jadwal']).draw();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }).fail(function(jqXHR, textStatus, errorThrown) {
-    //     console.log(errorThrown);
-    //     // needs to implement if it fails
-    // });
-
-    // // Numbering Row
-    // dataTable.on('order.dt search.dt', function() {
-    //     let i = 1;
-
-    //     dataTable.cells(null, 0, {
-    //         search: 'applied',
-    //         order: 'applied'
-    //     }).every(function(cell) {
-    //         this.data(i++);
-    //     });
-    // }).draw();
-
     flatpickr("#time-input-from", {
         appendTo: document.body,
         className: "flatpickr",
@@ -346,7 +318,8 @@
         noCalendar: true,
         static: true,
         dateFormat: "H:i", // Use 24-hour format
-        time_24hr: true // Use 24-hour format
+        time_24hr: true, // Use 24-hour format
+        minuteIncrement: 1
     });
 
     flatpickr("#time-input-to", {
@@ -356,6 +329,7 @@
         noCalendar: true,
         static: true,
         dateFormat: "H:i", // Use 24-hour format
-        time_24hr: true // Use 24-hour format
+        time_24hr: true, // Use 24-hour format
+        minuteIncrement: 1,
     });
 </script>

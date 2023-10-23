@@ -29,24 +29,15 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
-                    <div class="card mb-3">
+                    <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Timetable
+                            Daftar Jadwal
                             <div class="btn-group float-end">
                                 <button data-bs-toggle="modal" data-bs-target="#createData" class="btn btn-sm btn-primary">
                                     Tambah Jadwal
                                 </button>
                             </div>
-                        </div>
-                        <div class="card-body">
-
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Daftar Jadwal
                         </div>
                         <div class="card-body">
                             <?= session()->getFlashdata('notif') ?>
