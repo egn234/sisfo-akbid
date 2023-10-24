@@ -49,11 +49,11 @@
         <table width="100%">
             <tr>
                 <td align="center">
-                    <img src="<?= base_url() ?>/img/akbid_logo_t.png" class="img-fluid" style="width:100px">
+                    <img src="<?= base_url() ?>/img/ikbis_logo_t.png" class="img-fluid" style="width:100px">
                 </td>
                 <td class="cell-content">
                     <i>
-                        <b>Akademi Kebidanan Annisa Jaya</b></br>
+                        <b>Institut Kesehatan Dan Bisnis Annisa</b></br>
                         Karanggan No. 30, Puspasari, Citeureup</br>
                         Bogor
                         Indonesia
