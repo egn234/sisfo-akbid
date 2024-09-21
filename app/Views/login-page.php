@@ -10,7 +10,7 @@
     <title><?= $title ?></title>
     <link href="<?= base_url() ?>/assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>favicon.ico">
 </head>
 <style>
     body {
@@ -33,7 +33,7 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center mt-3">
-                                        <img src="<?= base_url('') ?>/img/ikbis_logo.png" class="img-fluid" style="width:200px">
+                                        <img src="<?= base_url() ?>assets/images/ikbis_logo.png" class="img-fluid" style="width:200px">
                                     </div>
                                     <h4 class="text-center font-weight-light my-4">
                                         Institut Kesehatan Dan Bisnis<br> Annisa
@@ -42,7 +42,7 @@
                                         Login
                                     </p>
                                     <?= session()->getFlashdata('notif'); ?>
-                                    <form action="<?= url_to('auth-login') ?>" method="post">
+                                    <form action="<?= url_to('auth-login') ?>" id="loginForm" method="post">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputUsername" type="text" name="username" placeholder="username" />
                                             <label for="inputUsername">Username</label>
@@ -66,7 +66,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Institut Kesehatan Dan Bisnis Annisa <img src="<?= base_url('') ?>/img/ikbis_logo_t.png" width="25" alt=""></div>
+                        <div class="text-muted">Copyright &copy; Institut Kesehatan Dan Bisnis Annisa <img src="<?= base_url() ?>assets/images/ikbis_logo_t.png" width="25" alt=""></div>
                         <!-- <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
@@ -83,7 +83,7 @@
         <?php } ?>
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="<?= base_url() ?>/assets/js/scripts.js"></script>
+    <script src="<?= base_url() ?>assets/js/scripts.js"></script>
 </body>
 
 </html>
