@@ -14,7 +14,7 @@
 ![Dashboard Utama](./public/assets/images/docs/dashboard_admin.png)
 
 ## Skema Database
-Aplikasi ini menggunakan database yang dirancang secara khusus untuk memenuhi kebutuhan pengelolaan koperasi, dengan berbagai tabel yang saling berelasi untuk memastikan integritas data.
+Aplikasi ini menggunakan database yang dirancang secara khusus untuk memenuhi kebutuhan pengelolaan pembelajaran dan kurikulum, dengan berbagai tabel yang saling berelasi untuk memastikan integritas data.
 
 ![ERD](./public/assets/images/docs/ERD.png)
 
