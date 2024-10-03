@@ -15,7 +15,7 @@
 <style>
     body {
         /* background-color: red !important; */
-        background: url(img/background-akbid.jpeg) no-repeat center center fixed;
+        background: url(assets/images/background-akbid.jpeg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
